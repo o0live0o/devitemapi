@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "devitemapi", "devitemapi\devitemapi.csproj", "{ACC02CC0-3993-45E0-BA5F-B5800677C8A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACC02CC0-3993-45E0-BA5F-B5800677C8A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC02CC0-3993-45E0-BA5F-B5800677C8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC02CC0-3993-45E0-BA5F-B5800677C8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC02CC0-3993-45E0-BA5F-B5800677C8A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1793ECD0-FAA5-430A-90EA-3673BE194A93}
+	EndGlobalSection
+EndGlobal
