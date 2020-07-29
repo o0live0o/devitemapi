@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 
 namespace devitemapi.Controllers
 {
@@ -26,6 +27,8 @@ namespace devitemapi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            //ConnectionMultiplexer multiplexer =  ConnectionMultiplexer.Connect("server1:6379,server2:6379");
+
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
