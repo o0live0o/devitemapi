@@ -1,8 +1,11 @@
 ﻿using devitemapi.Common;
 using devitemapi.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,7 +22,7 @@ namespace devitemapi.Controllers.Rbac
             this.dbContext = dbContext;
         }
 
-       [HttpGet]
+        [HttpGet]
         public IActionResult Get()
         {
             return Ok(dbContext.DevUsers.AsEnumerable());
@@ -31,9 +34,18 @@ namespace devitemapi.Controllers.Rbac
             return NoContent();
         }
 
-        [HttpGet]
-        public IActionResult Detete()
+        [HttpGet("{id}")]
+        public IActionResult Detete(int id)
         {
+            var sql = "UPDATE DevUser SET Status = 2 WHERE Id = @Id";
+            SqlParameter[] parameters = new []{
+                new SqlParameter("@Id", id)
+            };
+            //dbContext.Database.ExecuteSqlCommand(sql,parameters);
+            var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(dbContext),System.Data.IsolationLevel.ReadCommitted);
+            dbContext.Database.ExecuteSqlRaw(sql,parameters);
+            transAction.Commit();
+            
             return NoContent();
         }
         
