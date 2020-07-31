@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using devitemapi.Common;
 using devitemapi.Entities;
@@ -29,6 +30,7 @@ namespace devitemapi
         {
 
             services.AddControllers();
+            services.AddScoped(Assembly.GetExecutingAssembly(), Assembly.GetExecutingAssembly());
 
             RedisClient.GetRedisClient.Init(Configuration);
 
