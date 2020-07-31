@@ -20,7 +20,7 @@ namespace devitemapi.Entities
         [RegularExpression(@"^([a-zA-Z0-9]{8,16}|[@_!#]{1})$")]
         public string Pwd { get; set; }
 
-        [RegularExpression(@"^[^\s].*[^\s].*$";)]
+        [RegularExpression(@"^[^\s].*[^\s].*$")]
         public string Address { get; set; }
 
         public string EMail { get; set; }

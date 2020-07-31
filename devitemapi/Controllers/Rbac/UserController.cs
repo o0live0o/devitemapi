@@ -25,6 +25,11 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet]
         public IActionResult Get()
         {
+            var str = RedisClient.GetRedisClient.GetString("key1");
+            if (str == null)
+            {
+                RedisClient.GetRedisClient.SetString("key1","HA");
+            }
             return Ok(dbContext.DevUsers.AsEnumerable());
         }
 

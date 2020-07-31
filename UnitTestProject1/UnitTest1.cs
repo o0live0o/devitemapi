@@ -29,9 +29,25 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod2()
         {
-            string pattern = @"^(?=\d+$)";
+            string pattern = @"^(?=(?:\d+)+7$)";
             Regex regex = new Regex(pattern);
-            Assert.AreEqual(true,regex.IsMatch("1234567"));
+            Assert.AreEqual(true,regex.IsMatch("12134a567"));
+        }
+
+        [TestMethod]
+        public void TestMethod3()
+        {
+            string pattern = @"\d{1,3}(.\d{1,3}){4}";
+            Regex regex = new Regex(pattern);
+            Assert.AreEqual(true, regex.IsMatch("192.168.2.12"));
+        }       
+        
+        [TestMethod]
+        public void TestMethod4()
+        {
+            string pattern = @"([^c]a)(\d*)(bd)";
+            Regex regex = new Regex(pattern);
+            var re = regex.Match("da12bka3434bdca4343bdca234bm");
         }
     }
 }

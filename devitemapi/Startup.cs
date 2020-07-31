@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using devitemapi.Common;
 using devitemapi.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,7 +27,10 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
+
+            RedisClient.GetRedisClient.Init(Configuration);
 
             services.AddDbContext<DevDbContext>(options=> {
                 options.UseMySql("server=localhost;userid=root;pwd=123456;port=3306;database=DevItem;");
