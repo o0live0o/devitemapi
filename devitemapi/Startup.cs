@@ -30,16 +30,21 @@ namespace devitemapi
         {
 
             services.AddControllers();
-            services.AddScoped(Assembly.GetExecutingAssembly(), Assembly.GetExecutingAssembly());
+            //services.AddScoped(Assembly.GetExecutingAssembly(), Assembly.GetExecutingAssembly());
 
-            RedisClient.GetRedisClient.Init(Configuration);
+            //RedisClient.GetRedisClient.Init(Configuration);
 
-            services.AddDbContext<DevDbContext>(options=> {
+            services.AddCusService();
+
+            services.AddDbContext<DevDbContext>(options =>
+            {
                 options.UseMySql("server=localhost;userid=root;pwd=123456;port=3306;database=DevItem;");
             });
 
-            services.AddSwaggerGen(options=> {
-                options.SwaggerDoc("v1",new Microsoft.OpenApi.Models.OpenApiInfo() { 
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
+                {
                     Title = "v1"
                 });
             });
@@ -57,7 +62,8 @@ namespace devitemapi
 
             app.UseSwagger();
 
-            app.UseSwaggerUI(options=> {
+            app.UseSwaggerUI(options =>
+            {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 

@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ServiceStack.Redis;
 using System.Text.RegularExpressions;
 
 namespace UnitTestProject1
@@ -48,6 +49,25 @@ namespace UnitTestProject1
             string pattern = @"([^c]a)(\d*)(bd)";
             Regex regex = new Regex(pattern);
             var re = regex.Match("da12bka3434bdca4343bdca234bm");
+        }
+
+        [TestMethod]
+        public void TestMothod5()
+        {
+            RedisClient redisClient = new RedisClient("127.0.0.1",6379);
+            redisClient.Set("100","10001");
+
+            var res = @"^(?!.*\s)(?!^[\u4e00-\u9fa5]+$)(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{8,16}$";
+
+            string regex = @"^$";
+
+           var s = redisClient.Get<string>("100");
+        }
+
+        [TestMethod]
+        public void TestMothod6()
+        {
+            var regex1 = @"^(?!)$";
         }
     }
 }

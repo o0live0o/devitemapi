@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Entities
 {
-    public class DevRole
+    public class DevAction
     {
         public int Id { get; set; }
 
-        public string RoleName { get; set; }
+        public string ActionName { get; set; }
 
-        public int Status { get; set; }
+        public string ActionCode { get; set; }
 
         public DateTime CreateDate { get; set; }
 

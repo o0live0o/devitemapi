@@ -1,4 +1,5 @@
 ﻿using devitemapi.Common;
+using devitemapi.Dtos;
 using devitemapi.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,35 +26,43 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet]
         public IActionResult Get()
         {
-            var str = RedisClient.GetRedisClient.GetString("key1");
-            if (str == null)
-            {
-                RedisClient.GetRedisClient.SetString("key1","HA");
-            }
-            return Ok(dbContext.DevUsers.AsEnumerable());
+            ResponseDto response = new ResponseDto();
+            response.SetData(dbContext.DevUsers.AsEnumerable());
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return NoContent();
+            ResponseDto response = new ResponseDto();
+            var result = dbContext.DevUsers.Find(id);
+
+            if (result == null)
+            {
+                response.SetFail("查询不到用户信息");
+            }
+            else
+            {
+                response.Data = result;
+            }
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public IActionResult Detete(int id)
         {
             var sql = "UPDATE DevUser SET Status = 2 WHERE Id = @Id";
-            SqlParameter[] parameters = new []{
+            SqlParameter[] parameters = new[]{
                 new SqlParameter("@Id", id)
             };
             //dbContext.Database.ExecuteSqlCommand(sql,parameters);
-            var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(dbContext),System.Data.IsolationLevel.ReadCommitted);
-            dbContext.Database.ExecuteSqlRaw(sql,parameters);
+            var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(dbContext), System.Data.IsolationLevel.ReadCommitted);
+            dbContext.Database.ExecuteSqlRaw(sql, parameters);
             transAction.Commit();
-            
             return NoContent();
         }
-        
+
         [HttpPost]
         public IActionResult Add(DevUser user)
         {
@@ -83,6 +92,32 @@ namespace devitemapi.Controllers.Rbac
 
             return Ok(response);
         }
-        
+
+        [HttpPost]
+        public IActionResult ModifyUser(DevUser user)
+        {
+            ResponseDto response = new ResponseDto();
+            using (dbContext)
+            {
+                var entity = dbContext.DevUsers.FirstOrDefault(p => user.Id.Equals(p.Id));
+                if (entity != null)
+                {
+                    entity.ModifyDate = DateTime.Now;
+                    entity.Phone = user.Phone;
+                    entity.Pwd = user.Pwd;
+                    entity.Address = user.Address;
+                    entity.EMail = user.EMail;
+                    dbContext.SaveChanges();
+                    response.SetSuccess("用户信息修改成功");
+                }
+                else
+                {
+                    response.SetFail("用户不存在");
+                  
+                }
+            }
+            return Ok(response);
+        }
+
     }
 }

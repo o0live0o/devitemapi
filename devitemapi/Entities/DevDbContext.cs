@@ -13,8 +13,16 @@ namespace devitemapi.Entities
 
         }
 
-     //   public DbSet<DevMenu> DevMenus { get; set; }
+        public virtual DbSet<DevMenu> DevMenus { get; set; }
 
-        public DbSet<DevUser> DevUsers { get; set; }
+        public virtual DbSet<DevUser> DevUsers { get; set; }
+
+        public virtual DbSet<DevRole> DevRoles { get; set; }
+
+        public virtual DbSet<DevAction> DevActions { get; set; }
+
+        public virtual DbSet<DevMenuAction> DevMenuActions { get; set; }
+
+        public virtual DbSet<DevRolePermission> DevRolePermissions { get; set; }
     }
 }

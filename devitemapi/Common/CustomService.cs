@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using devitemapi.Infrastructure.Services;
+using devitemapi.Infrastructure.Services.Interface;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +21,11 @@ namespace devitemapi.Common
                 if(type != null)
                     services.AddScoped(item, type);
             }
+        }
+
+        public static void AddCusService(this IServiceCollection services)
+        {
+            services.AddScoped<IActionService, ActionService>();
         }
     }
 }

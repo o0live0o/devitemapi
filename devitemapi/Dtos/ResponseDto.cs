@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devitemapi.Common
+namespace devitemapi.Dtos
 {
     public class ResponseDto
     {
@@ -37,6 +37,13 @@ namespace devitemapi.Common
         {
             Code = 200;
             Message = msg;
+        }
+
+        public void SetData(object o)
+        {
+            Message = "获取数据成功";
+            Code = 200;
+            Data = o;
         }
     }
 }
