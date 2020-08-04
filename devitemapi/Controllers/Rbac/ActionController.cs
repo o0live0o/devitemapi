@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using devitemapi.Dtos;
 using devitemapi.Entities;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace devitemapi.Controllers.Rbac
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ActionController : ControllerBase
     {
@@ -21,39 +22,39 @@ namespace devitemapi.Controllers.Rbac
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAction(int id)
+        public async Task<ResponseDto> Get(int id)
         {
-            return Ok(m_actionService.GetAction(id));
+            return await m_actionService.Get(id);
         }
 
         [HttpGet]
-        public IActionResult GetActions()
+        public async Task<ResponseDto> Get()
         {
-            return Ok(m_actionService.GetActions()); ;
+            return await m_actionService.Get();
         }
 
         [HttpPost]
-        public IActionResult AddAction(DevAction action)
+        public async Task<ResponseDto> Add(DevAction action)
         {
-            return Ok(m_actionService.AddAction(action));
+            return await m_actionService.Add(action);
         }
 
         [HttpGet("{id}")]
-        public IActionResult DeleteAction(int id)
+        public async Task<ResponseDto> Delete(int id)
         {
-            return Ok(m_actionService.DeleteAction(id));
+            return await m_actionService.Delete(id);
         }
 
         [HttpGet("{ids}")]
-        public IActionResult DeleteActions(string ids)
+        public async Task<ResponseDto> Delete(string ids)
         {
-            return Ok(m_actionService.DeleteActions(ids));
+            return await  m_actionService.Delete(ids);
         }
 
         [HttpPost]
-        public IActionResult ModifyAction(DevAction action)
+        public async Task<ResponseDto> Modify(DevAction action)
         {
-            return Ok(m_actionService.ModifyAction(action));
+            return await m_actionService.Modify(action);
         }
     }
 }

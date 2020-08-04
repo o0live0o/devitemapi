@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.Services.Interface
 {
-    public interface IActionService
+    public interface IMenuService
     {
-        Task<ResponseDto> Add(DevAction action);
+        Task<ResponseDto> Add(DevMenu menu);
 
         Task<ResponseDto> Delete(int id);
 
         Task<ResponseDto> Delete(string ids);
 
-        Task<ResponseDto> Modify(DevAction action);
+        Task<ResponseDto> Modify(DevMenu menu);
 
         Task<ResponseDto> Get(int id);
 

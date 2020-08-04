@@ -10,21 +10,21 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.Services
 {
-    public class ActionService : IActionService
+    public class MenuService : IMenuService
     {
         private readonly DevDbContext m_dbContext;
 
-        public ActionService(DevDbContext dbContext)
+        public MenuService(DevDbContext dbContext)
         {
             this.m_dbContext = dbContext;
         }
 
-        public Task<ResponseDto> Add(DevAction action)
+        public Task<ResponseDto> Add(DevMenu menu)
         {
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                m_dbContext.DevActions.Add(action);
+                m_dbContext.DevMenus.Add(menu);
                 m_dbContext.SaveChanges();
                 return response;
             });
@@ -35,9 +35,9 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var action = m_dbContext.DevActions.Find(id);
-                if (action != null)
-                    m_dbContext.DevActions.Remove(action);
+                var menu = m_dbContext.DevMenus.Find(id);
+                if (menu != null)
+                    m_dbContext.DevMenus.Remove(menu);
                 m_dbContext.SaveChanges();
                 return response;
             });
@@ -48,7 +48,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                string delSql = $"DELETE DevAction WHERE Id IN ({ids})";
+                string delSql = $"DELETE DevMenu WHERE Id IN ({ids})";
                 m_dbContext.Database.ExecuteSqlRaw(delSql);
                 m_dbContext.SaveChanges();
                 return response;
@@ -60,11 +60,11 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var action = m_dbContext.DevActions.Find(id);
-                if (action == null)
+                var menu = m_dbContext.DevMenus.Find(id);
+                if (menu == null)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
-                    response.SetData(action);
+                    response.SetData(menu);
                 return response;
             });
         }
@@ -74,25 +74,25 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var actions = m_dbContext.DevActions;
-                if (actions == null || actions.Count() < 1)
+                var menus = m_dbContext.DevMenus;
+                if (menus == null || menus.Count() < 1)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
-                    response.SetData(actions);
+                    response.SetData(menus);
                 return response;
             });
         }
 
-        public Task<ResponseDto> Modify(DevAction action)
+        public Task<ResponseDto> Modify(DevMenu menu)
         {
-            return Task.Run(()=>{
+            return Task.Run(() => {
                 ResponseDto response = new ResponseDto();
-
-                var entity = m_dbContext.DevActions.Find(action.Id);
+                var entity = m_dbContext.DevMenus.Find(menu.Id);
                 if (entity != null)
                 {
-                    entity.ActionCode = action.ActionCode;
-                    entity.ActionName = action.ActionName;
+                    entity.MenuName = menu.MenuName;
+                    entity.Url = menu.Url;
+                    entity.ParentId = menu.ParentId;
                     entity.ModifyDate = DateTime.Now;
                     m_dbContext.SaveChanges();
                 }

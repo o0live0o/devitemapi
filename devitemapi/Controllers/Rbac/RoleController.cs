@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using devitemapi.Common;
 using devitemapi.Dtos;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,80 +16,49 @@ namespace devitemapi.Controllers.Rbac
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class RoleController : ControllerBase
+    public class    RoleController : ControllerBase
     {
-        private readonly DevDbContext dbContext;
+        private readonly IRoleService m_roleService;
 
-        public RoleController(DevDbContext dbContext)
+        public RoleController(IRoleService roleService)
         {
-            this.dbContext = dbContext;
+            this.m_roleService = roleService;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ResponseDto> Get(int id)
+        {
+            return await m_roleService.Get(id);
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<ResponseDto> Get()
         {
-            ResponseDto response = new ResponseDto();
-            response.SetData(dbContext.DevRoles.AsEnumerable());
-            return Ok(response);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            ResponseDto response = new ResponseDto();
-            var result = dbContext.DevRoles.Find(id);
-
-            if (result == null)
-            {
-                response.SetFail("查询不到角色信息");
-            }
-            else
-            {
-                response.Data = result;
-            }
-
-            return Ok(response);
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult Detete(int id)
-        {
-            var sql = "UPDATE DevRoles SET Status = 2 WHERE Id = @Id";
-            SqlParameter[] parameters = new[]{
-                new SqlParameter("@Id", id)
-            };
-            //dbContext.Database.ExecuteSqlCommand(sql,parameters);
-            var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(dbContext), System.Data.IsolationLevel.ReadCommitted);
-            dbContext.Database.ExecuteSqlRaw(sql, parameters);
-            transAction.Commit();
-            return NoContent();
+            return await m_roleService.Get();
         }
 
         [HttpPost]
-        public IActionResult Add(DevRole role)
+        public async Task<ResponseDto> Add(DevRole role)
         {
-            ResponseDto response = new ResponseDto();
-
-            //角色重复判断
-            if (dbContext.DevRoles.FirstOrDefault(u => u.RoleName.ToLower().Equals(role.RoleName.ToLower())) != null)
-            {
-                response.SetFail("角色已存在");
-                return Ok(response);
-            }
-
-            role.Status = 1;    //默认启用
-            role.CreateDate = DateTime.Now;
-            role.ModifyDate = DateTime.Now;
-
-            dbContext.DevRoles.Add(role);
-            dbContext.SaveChanges();
-
-            return Ok(response);
+            return await m_roleService.Add(role);
         }
 
-        public IActionResult AssignPermission()
+        [HttpGet("{id}")]
+        public async Task<ResponseDto> Delete(int id)
         {
-            return NoContent();
+            return await m_roleService.Delete(id);
+        }
+
+        [HttpGet("{ids}")]
+        public async Task<ResponseDto> Delete(string ids)
+        {
+            return await m_roleService.Delete(ids);
+        }
+
+        [HttpPost]
+        public async Task<ResponseDto> Modify(DevRole role)
+        {
+            return await m_roleService.Modify(role);
         }
     }
 }
