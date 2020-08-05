@@ -27,5 +27,13 @@ namespace devitemapi.Common
         public static string ERROR_NOT_EXISTS_ROLE = "角色不存在";
         #endregion
 
+        #region Login
+        public static string ERROR_LOGIN_MISS_USERORPWD = "用户名或密码错误!";
+
+        public static string ERROR_LOGIN_NO_POWER = "用户被锁定，请联系管理员!";
+
+        public static string PASS_LOGIN = "用户登录成功";
+        #endregion
+
     }
 }

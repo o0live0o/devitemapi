@@ -11,21 +11,32 @@ namespace devitemapi.Common
 {
     public static class CustomService
     {
-        public static void AddScoped(this IServiceCollection services,Assembly @interface,Assembly @imlpement)
+        public static void AddScoped(this IServiceCollection services, Assembly @interface, Assembly @imlpement)
         {
             var @interfaces = @interface.GetTypes().Where(type => type.IsInterface);
             var @implements = imlpement.GetTypes();
             foreach (var item in @interfaces)
             {
                 var type = @implements.Where(t => item.IsAssignableFrom(t)).FirstOrDefault();
-                if(type != null)
+                if (type != null)
                     services.AddScoped(item, type);
             }
         }
 
         public static void AddCusService(this IServiceCollection services)
         {
-            services.AddScoped<IActionService, ActionService>();
+            var _interfaceNS = "devitemapi.Infrastructure.Services.Interface";
+            var _impleNS = "devitemapi.Infrastructure.Services";
+
+            var @interfaces = Assembly.GetExecutingAssembly().GetTypes().Where(type => _interfaceNS.Equals(type.Namespace) && type.IsInterface);
+            var @implements = Assembly.GetExecutingAssembly().GetTypes().Where(type => _impleNS.Equals(type.Namespace));
+
+            foreach (var item in @interfaces)
+            {
+                var type = @implements.Where(t => item.IsAssignableFrom(t)).FirstOrDefault();
+                if (type != null)
+                    services.AddScoped(item, type);
+            }
         }
     }
 }

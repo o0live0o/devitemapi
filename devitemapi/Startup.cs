@@ -30,7 +30,6 @@ namespace devitemapi
         {
 
             services.AddControllers();
-            //services.AddScoped(Assembly.GetExecutingAssembly(), Assembly.GetExecutingAssembly());
 
             //RedisClient.GetRedisClient.Init(Configuration);
 
@@ -38,7 +37,7 @@ namespace devitemapi
 
             services.AddDbContext<DevDbContext>(options =>
             {
-                options.UseMySql("server=localhost;userid=root;pwd=123456;port=3306;database=DevItem;");
+                options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
             });
 
             services.AddSwaggerGen(options =>

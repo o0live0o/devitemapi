@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.Services
 {
-    public class BaseService<T> : IBaseService<T> where T : class
+    public class BaseService<T>// : IBaseService<T> where T : class
     {
         private readonly DevDbContext _context;
 
@@ -19,7 +19,7 @@ namespace devitemapi.Infrastructure.Services
 
         public virtual T Get(Expression<Func<T, bool>> @where)
         {
-           return  _context.Set<T>().FirstOrDefault(@where);
+            return default(T); // _context.Set<T>().FirstOrDefault(@where);
         }
     }
 }
