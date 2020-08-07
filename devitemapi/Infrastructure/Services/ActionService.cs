@@ -12,11 +12,11 @@ namespace devitemapi.Infrastructure.Services
 {
     public class ActionService : IActionService
     {
-        private readonly DevDbContext m_dbContext;
+        private readonly DevDbContext _dbContext;
 
         public ActionService(DevDbContext dbContext)
         {
-            this.m_dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public Task<ResponseDto> Add(DevAction action)
@@ -24,8 +24,8 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                m_dbContext.DevActions.Add(action);
-                m_dbContext.SaveChanges();
+                _dbContext.DevActions.Add(action);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -35,10 +35,10 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var action = m_dbContext.DevActions.Find(id);
+                var action = _dbContext.DevActions.Find(id);
                 if (action != null)
-                    m_dbContext.DevActions.Remove(action);
-                m_dbContext.SaveChanges();
+                    _dbContext.DevActions.Remove(action);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -49,8 +49,8 @@ namespace devitemapi.Infrastructure.Services
             {
                 ResponseDto response = new ResponseDto();
                 string delSql = $"DELETE DevAction WHERE Id IN ({ids})";
-                m_dbContext.Database.ExecuteSqlRaw(delSql);
-                m_dbContext.SaveChanges();
+                _dbContext.Database.ExecuteSqlRaw(delSql);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -60,7 +60,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var action = m_dbContext.DevActions.Find(id);
+                var action = _dbContext.DevActions.Find(id);
                 if (action == null)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
@@ -74,7 +74,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var actions = m_dbContext.DevActions;
+                var actions = _dbContext.DevActions;
                 if (actions == null || actions.Count() < 1)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
@@ -88,13 +88,13 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(()=>{
                 ResponseDto response = new ResponseDto();
 
-                var entity = m_dbContext.DevActions.Find(action.Id);
+                var entity = _dbContext.DevActions.Find(action.Id);
                 if (entity != null)
                 {
                     entity.ActionCode = action.ActionCode;
                     entity.ActionName = action.ActionName;
                     entity.ModifyDate = DateTime.Now;
-                    m_dbContext.SaveChanges();
+                    _dbContext.SaveChanges();
                 }
                 else
                     response.SetFail(MessageTxt.ERROR_MODIFY);

@@ -14,51 +14,54 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace devitemapi.Controllers.Rbac
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class    RoleController : ControllerBase
+    /// <summary>
+    /// 角色管理
+    /// </summary>
+    //[Route("api/[controller]/[action]")]
+    //[ApiController]
+    public class    RoleController : BaseController
     {
-        private readonly IRoleService m_roleService;
+        private readonly IRoleService _roleService;
 
         public RoleController(IRoleService roleService)
         {
-            this.m_roleService = roleService;
+            this._roleService = roleService;
         }
 
         [HttpGet("{id}")]
         public async Task<ResponseDto> Get(int id)
         {
-            return await m_roleService.Get(id);
+            return await _roleService.Get(id);
         }
 
         [HttpGet]
         public async Task<ResponseDto> Get()
         {
-            return await m_roleService.Get();
+            return await _roleService.Get();
         }
 
         [HttpPost]
         public async Task<ResponseDto> Add(DevRole role)
         {
-            return await m_roleService.Add(role);
+            return await _roleService.Add(role);
         }
 
         [HttpGet("{id}")]
         public async Task<ResponseDto> Delete(int id)
         {
-            return await m_roleService.Delete(id);
+            return await _roleService.Delete(id);
         }
 
         [HttpGet("{ids}")]
-        public async Task<ResponseDto> Delete(string ids)
+        public async Task<ResponseDto> DeleteBatch(string ids)
         {
-            return await m_roleService.Delete(ids);
+            return await _roleService.Delete(ids);
         }
 
         [HttpPost]
         public async Task<ResponseDto> Modify(DevRole role)
         {
-            return await m_roleService.Modify(role);
+            return await _roleService.Modify(role);
         }
     }
 }

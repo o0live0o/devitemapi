@@ -24,5 +24,7 @@ namespace devitemapi.Entities
         public virtual DbSet<DevMenuAction> DevMenuActions { get; set; }
 
         public virtual DbSet<DevRolePermission> DevRolePermissions { get; set; }
+
+        public virtual DbSet<DevUserRole> DevUserRoles { get; set; }
     }
 }

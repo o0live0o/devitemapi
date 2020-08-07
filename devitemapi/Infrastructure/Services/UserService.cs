@@ -14,11 +14,11 @@ namespace devitemapi.Infrastructure.Services
 {
     public class UserService : IUserService
     {
-        private readonly DevDbContext m_dbContext;
+        private readonly DevDbContext _dbContext;
 
         public UserService(DevDbContext dbContext)
         {
-            this.m_dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public Task<ResponseDto> Add(DevUser user)
@@ -36,7 +36,7 @@ namespace devitemapi.Infrastructure.Services
                 }
 
                 //账号重复判断，不区分大小写
-                if (m_dbContext.DevUsers.FirstOrDefault(u => u.Account.ToLower().Equals(user.Account.ToLower())) != null)
+                if (_dbContext.DevUsers.FirstOrDefault(u => u.Account.ToLower().Equals(user.Account.ToLower())) != null)
                 {
                     response.SetFail("用户账号已存在");
                     return response;
@@ -46,8 +46,8 @@ namespace devitemapi.Infrastructure.Services
                 user.CreateDate = DateTime.Now;
                 user.ModifyDate = DateTime.Now;
 
-                m_dbContext.DevUsers.Add(user);
-                m_dbContext.SaveChanges();
+                _dbContext.DevUsers.Add(user);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -62,8 +62,8 @@ namespace devitemapi.Infrastructure.Services
                 new MySqlParameter("@Id", id)
             };
                 //dbContext.Database.ExecuteSqlCommand(sql,parameters);
-                var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(m_dbContext), System.Data.IsolationLevel.ReadCommitted);
-                m_dbContext.Database.ExecuteSqlRaw(sql, parameters);
+                var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(_dbContext), System.Data.IsolationLevel.ReadCommitted);
+                _dbContext.Database.ExecuteSqlRaw(sql, parameters);
                 transAction.Commit();
                 return response;
             });
@@ -75,8 +75,8 @@ namespace devitemapi.Infrastructure.Services
             {
                 ResponseDto response = new ResponseDto();
                 string delSql = $"DELETE devusers WHERE Id IN ({ids})";
-                m_dbContext.Database.ExecuteSqlRaw(delSql);
-                m_dbContext.SaveChanges();
+                _dbContext.Database.ExecuteSqlRaw(delSql);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -86,7 +86,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var user = m_dbContext.DevUsers.Find(id);
+                var user = _dbContext.DevUsers.Find(id);
                 if (user == null)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
@@ -100,7 +100,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var users = m_dbContext.DevUsers;
+                var users = _dbContext.DevUsers;
                 if (users == null || users.Count() < 1)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
@@ -113,9 +113,9 @@ namespace devitemapi.Infrastructure.Services
         {
             return Task.Run(()=>{
                 ResponseDto response = new ResponseDto();
-                using (m_dbContext)
+                using (_dbContext)
                 {
-                    var entity = m_dbContext.DevUsers.FirstOrDefault(p => user.Id.Equals(p.Id));
+                    var entity = _dbContext.DevUsers.FirstOrDefault(p => user.Id.Equals(p.Id));
                     if (entity != null)
                     {
                         entity.ModifyDate = DateTime.Now;
@@ -123,7 +123,7 @@ namespace devitemapi.Infrastructure.Services
                         entity.Pwd = user.Pwd;
                         entity.Address = user.Address;
                         entity.EMail = user.EMail;
-                        m_dbContext.SaveChanges();
+                        _dbContext.SaveChanges();
                         response.SetSuccess("用户信息修改成功");
                     }
                     else

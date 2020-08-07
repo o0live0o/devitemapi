@@ -10,51 +10,55 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace devitemapi.Controllers.Rbac
 {
-    [Route("api/[controller]/[Action]")]
-    [ApiController]
-    public class MenuController : ControllerBase
+
+    /// <summary>
+    /// 菜单管理
+    /// </summary>
+    //[Route("api/[controller]/[action]")]
+    //[ApiController]
+    public class MenuController : BaseController
     {
-        private readonly IMenuService m_menuService;
+        private readonly IMenuService _menuService;
 
         public MenuController(IMenuService menuService)
         {
-            this.m_menuService = menuService;
+            this._menuService = menuService;
         }
 
         [HttpGet("{id}")]
         public async Task<ResponseDto> Get(int id)
         {
-            return await m_menuService.Get(id);
+            return await _menuService.Get(id);
         }
 
         [HttpGet]
         public async Task<ResponseDto> Get()
         {
-            return await m_menuService.Get();
+            return await _menuService.Get();
         }
 
         [HttpPost]
         public async Task<ResponseDto> Add(DevMenu menu)
         {
-            return await m_menuService.Add(menu);
+            return await _menuService.Add(menu);
         }
 
         [HttpGet("{id}")]
         public async Task<ResponseDto> Delete(int id)
         {
-            return await m_menuService.Delete(id);
+            return await _menuService.Delete(id);
         }
 
         [HttpGet("{ids}")]
-        public async Task<ResponseDto> Delete(string ids)
+        public async Task<ResponseDto> DeleteBatch(string ids)
         {
-            return await m_menuService.Delete(ids);
+            return await _menuService.Delete(ids);
         }
 
         [HttpPost]
         public async Task<ResponseDto> Modify(DevMenu menu)
         {
-            return await m_menuService.Modify(menu);
+            return await _menuService.Modify(menu);
         }
     }
 }

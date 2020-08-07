@@ -16,9 +16,9 @@ namespace devitemapi.Infrastructure.Services.Interface
         /// <returns>JWT Token</returns>
         ResponseDto Login(string userName,string pwd);
 
-        ResponseDto GetMenuTreeByUser(string userId);
+        ResponseDto GetMenuTreeByUser(int userId);
 
-        ResponseDto GetPowerByUser(string userId);
+        ResponseDto GetPowerByUser(int userId);
 
     }
 }

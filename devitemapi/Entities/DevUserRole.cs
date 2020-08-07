@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Entities
 {
-    public class DevUserRole
+    public class DevUserRole : BaseEntity
     {
+        public int Useid { get; set; }
+
+        public int RoleId { get; set; }
+
     }
 }

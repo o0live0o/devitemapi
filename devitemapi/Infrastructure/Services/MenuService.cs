@@ -12,11 +12,11 @@ namespace devitemapi.Infrastructure.Services
 {
     public class MenuService : IMenuService
     {
-        private readonly DevDbContext m_dbContext;
+        private readonly DevDbContext _dbContext;
 
         public MenuService(DevDbContext dbContext)
         {
-            this.m_dbContext = dbContext;
+            this._dbContext = dbContext;
         }
 
         public Task<ResponseDto> Add(DevMenu menu)
@@ -24,8 +24,8 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                m_dbContext.DevMenus.Add(menu);
-                m_dbContext.SaveChanges();
+                _dbContext.DevMenus.Add(menu);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -35,10 +35,10 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var menu = m_dbContext.DevMenus.Find(id);
+                var menu = _dbContext.DevMenus.Find(id);
                 if (menu != null)
-                    m_dbContext.DevMenus.Remove(menu);
-                m_dbContext.SaveChanges();
+                    _dbContext.DevMenus.Remove(menu);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -49,8 +49,8 @@ namespace devitemapi.Infrastructure.Services
             {
                 ResponseDto response = new ResponseDto();
                 string delSql = $"DELETE DevMenu WHERE Id IN ({ids})";
-                m_dbContext.Database.ExecuteSqlRaw(delSql);
-                m_dbContext.SaveChanges();
+                _dbContext.Database.ExecuteSqlRaw(delSql);
+                _dbContext.SaveChanges();
                 return response;
             });
         }
@@ -60,7 +60,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var menu = m_dbContext.DevMenus.Find(id);
+                var menu = _dbContext.DevMenus.Find(id);
                 if (menu == null)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
@@ -74,7 +74,7 @@ namespace devitemapi.Infrastructure.Services
             return Task.Run(() =>
             {
                 ResponseDto response = new ResponseDto();
-                var menus = m_dbContext.DevMenus;
+                var menus = _dbContext.DevMenus;
                 if (menus == null || menus.Count() < 1)
                     response.SetFail(MessageTxt.EMPTY_SEARCH);
                 else
@@ -87,14 +87,14 @@ namespace devitemapi.Infrastructure.Services
         {
             return Task.Run(() => {
                 ResponseDto response = new ResponseDto();
-                var entity = m_dbContext.DevMenus.Find(menu.Id);
+                var entity = _dbContext.DevMenus.Find(menu.Id);
                 if (entity != null)
                 {
                     entity.MenuName = menu.MenuName;
                     entity.Url = menu.Url;
                     entity.ParentId = menu.ParentId;
                     entity.ModifyDate = DateTime.Now;
-                    m_dbContext.SaveChanges();
+                    _dbContext.SaveChanges();
                 }
                 else
                     response.SetFail(MessageTxt.ERROR_MODIFY);

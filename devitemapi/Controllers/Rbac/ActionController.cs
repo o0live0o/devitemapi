@@ -10,51 +10,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace devitemapi.Controllers.Rbac
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class ActionController : ControllerBase
+    /// <summary>
+    /// 菜单功能
+    /// </summary>
+    //[Route("api/[controller]/[action]")]
+    //[ApiController]
+    public class ActionController : BaseController
     {
-        private readonly IActionService m_actionService;
+        private readonly IActionService _actionService;
 
         public ActionController(IActionService actionService)
         {
-            this.m_actionService = actionService;
+            this._actionService = actionService;
         }
 
         [HttpGet("{id}")]
         public async Task<ResponseDto> Get(int id)
         {
-            return await m_actionService.Get(id);
+            return await _actionService.Get(id);
         }
 
         [HttpGet]
         public async Task<ResponseDto> Get()
         {
-            return await m_actionService.Get();
+            return await _actionService.Get();
         }
 
         [HttpPost]
         public async Task<ResponseDto> Add(DevAction action)
         {
-            return await m_actionService.Add(action);
+            return await _actionService.Add(action);
         }
 
         [HttpGet("{id}")]
         public async Task<ResponseDto> Delete(int id)
         {
-            return await m_actionService.Delete(id);
+            return await _actionService.Delete(id);
         }
 
         [HttpGet("{ids}")]
-        public async Task<ResponseDto> Delete(string ids)
+        public async Task<ResponseDto> DeleteBatch(string ids)
         {
-            return await  m_actionService.Delete(ids);
+            return await  _actionService.Delete(ids);
         }
 
         [HttpPost]
         public async Task<ResponseDto> Modify(DevAction action)
         {
-            return await m_actionService.Modify(action);
+            return await _actionService.Modify(action);
         }
     }
 }

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>devitemapi</name>
+    </assembly>
+    <members>
+        <member name="T:devitemapi.Controllers.Rbac.ActionController">
+            <summary>
+            菜单功能
+            </summary>
+        </member>
+        <member name="T:devitemapi.Controllers.Rbac.LoginController">
+            <summary>
+            登录授权
+            </summary>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.LoginController.Login(System.String,System.String)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="user">用户名</param>
+            <param name="pwd">密码</param>
+            <returns></returns>
+        </member>
+        <member name="T:devitemapi.Controllers.Rbac.MenuController">
+            <summary>
+            菜单管理
+            </summary>
+        </member>
+        <member name="T:devitemapi.Controllers.Rbac.RoleController">
+            <summary>
+            角色管理
+            </summary>
+        </member>
+        <member name="T:devitemapi.Controllers.Rbac.UserController">
+            <summary>
+            用户管理
+            </summary>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.Get(System.Int32)">
+            <summary>
+            获取指定Id的用户信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.Get">
+            <summary>
+            获取所有用户信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.Add(devitemapi.Entities.DevUser)">
+            <summary>
+            
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.Delete(System.Int32)">
+            <summary>
+            删除指定用户信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.DeleteBatch(System.String)">
+            <summary>
+            批量删除用户
+            </summary>
+            <param name="ids">用户Id,多个用英文 , 分隔</param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.Modify(devitemapi.Entities.DevUser)">
+            <summary>
+            修改用户
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="P:devitemapi.Dtos.ResponseDto.Code">
+            <summary>
+            响应代码
+            </summary>
+        </member>
+        <member name="P:devitemapi.Dtos.ResponseDto.Message">
+            <summary>
+            响应信息
+            </summary>
+        </member>
+        <member name="P:devitemapi.Dtos.ResponseDto.Data">
+            <summary>
+            响应数据
+            </summary>
+        </member>
+        <member name="M:devitemapi.Infrastructure.Services.Interface.ILoginService.Login(System.String,System.String)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="userName">用户名</param>
+            <param name="pwd">密码</param>
+            <returns>JWT Token</returns>
+        </member>
+    </members>
+</doc>
