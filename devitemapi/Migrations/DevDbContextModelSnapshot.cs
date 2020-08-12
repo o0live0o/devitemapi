@@ -19,9 +19,9 @@ namespace devitemapi.Migrations
 
             modelBuilder.Entity("devitemapi.Entities.DevAction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("ActionCode")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -42,9 +42,9 @@ namespace devitemapi.Migrations
 
             modelBuilder.Entity("devitemapi.Entities.DevMenu", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
@@ -71,9 +71,9 @@ namespace devitemapi.Migrations
 
             modelBuilder.Entity("devitemapi.Entities.DevMenuAction", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("ActionId")
                         .HasColumnType("int");
@@ -94,9 +94,9 @@ namespace devitemapi.Migrations
 
             modelBuilder.Entity("devitemapi.Entities.DevRole", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
@@ -113,13 +113,31 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DevRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
+                            CreateDate = new DateTime(2020, 8, 12, 16, 47, 6, 84, DateTimeKind.Local).AddTicks(4175),
+                            ModifyDate = new DateTime(2020, 8, 12, 16, 47, 6, 84, DateTimeKind.Local).AddTicks(4217),
+                            RoleName = "超级管理员",
+                            Status = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
+                            CreateDate = new DateTime(2020, 8, 12, 16, 47, 6, 84, DateTimeKind.Local).AddTicks(4293),
+                            ModifyDate = new DateTime(2020, 8, 12, 16, 47, 6, 84, DateTimeKind.Local).AddTicks(4295),
+                            RoleName = "管理员",
+                            Status = 1
+                        });
                 });
 
             modelBuilder.Entity("devitemapi.Entities.DevRolePermission", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("ActionId")
                         .HasColumnType("int");
@@ -129,6 +147,9 @@ namespace devitemapi.Migrations
 
                     b.Property<int>("MemuId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifyDate")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -140,9 +161,9 @@ namespace devitemapi.Migrations
 
             modelBuilder.Entity("devitemapi.Entities.DevUser", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Account")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -176,13 +197,25 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DevUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
+                            Account = "Administrator",
+                            CreateDate = new DateTime(2020, 8, 12, 16, 47, 6, 81, DateTimeKind.Local).AddTicks(7769),
+                            ModifyDate = new DateTime(2020, 8, 12, 16, 47, 6, 82, DateTimeKind.Local).AddTicks(8069),
+                            Pwd = "123456",
+                            Status = 1,
+                            UserName = "超级管理员"
+                        });
                 });
 
             modelBuilder.Entity("devitemapi.Entities.DevUserRole", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");

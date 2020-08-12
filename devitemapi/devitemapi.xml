@@ -4,6 +4,11 @@
         <name>devitemapi</name>
     </assembly>
     <members>
+        <member name="P:devitemapi.Common.ConfigEntity.Expire">
+            <summary>
+            过期时间(min)
+            </summary>
+        </member>
         <member name="T:devitemapi.Controllers.Rbac.ActionController">
             <summary>
             菜单功能

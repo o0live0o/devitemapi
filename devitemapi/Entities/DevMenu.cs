@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Entities
 {
-    public class DevMenu
+    public class DevMenu: BaseEntity
     {
-        public int Id { get; set; }
 
         public string MenuName { get; set; }
 
@@ -17,9 +16,6 @@ namespace devitemapi.Entities
 
         public string Icon { get; set; }
 
-        public DateTime CreateDate { get; set; }
-
-        public DateTime ModifyDate { get; set; }
 
     }
 }

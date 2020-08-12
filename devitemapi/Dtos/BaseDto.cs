@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devitemapi.Entities
+namespace devitemapi.Dtos
 {
-    public class BaseEntity
+    public class BaseDto
     {
         public Guid Id { get; set; }
 

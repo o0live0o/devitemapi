@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Entities
 {
-    public class DevUser
+    public class DevUser: BaseEntity
     {
-        public int Id { get; set; }
 
         //[RegularExpression(@"^[u4e00-u9fa5]{0,10}|^[A-Z]{1}[a-zA-Z.\s]{0,30}$")]
         [Required]
@@ -30,10 +29,5 @@ namespace devitemapi.Entities
         public string Phone { get; set; }
 
         public int Status { get; set; }
-
-        public DateTime CreateDate { get; set; }
-
-        public DateTime ModifyDate { get; set; }
-
     }
 }

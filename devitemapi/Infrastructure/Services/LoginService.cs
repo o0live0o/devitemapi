@@ -58,7 +58,7 @@ namespace devitemapi.Infrastructure.Services
                 response.SetSuccess(MessageTxt.PASS_LOGIN);
                 //TODO JWT
                 var token = JWTService.GetJWTToken(userName, AppConfig.Config.JwtSecurityKey);
-                response.SetData(tok);
+                response.SetData(token);
             }
             return response;
         }
