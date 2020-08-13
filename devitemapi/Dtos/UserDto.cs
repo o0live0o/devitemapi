@@ -21,6 +21,5 @@ namespace devitemapi.Dtos
 
         public int Status { get; set; }
 
-        public String IDCard { get; set; }
     }
 }
