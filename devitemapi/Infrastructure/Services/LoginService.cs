@@ -2,6 +2,7 @@
 using devitemapi.Dtos;
 using devitemapi.Entities;
 using devitemapi.Infrastructure.Services.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +50,7 @@ namespace devitemapi.Infrastructure.Services
         {
             ResponseDto response = new ResponseDto();
             var user = _dbContext.DevUsers.Where(u=>account.Equals(u.Account) && pwd.Equals(u.Pwd)).FirstOrDefault();
+            _dbContext.DevUsers.FirstOrDefaultAsync(u=>account.Equals(u.Account));
             if (user == null)
                 response.SetFail(MessageTxt.ERROR_LOGIN_MISS_USERORPWD);
             else if (!1.Equals(user.Status))
