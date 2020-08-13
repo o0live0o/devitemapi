@@ -1,6 +1,7 @@
 ﻿using devitemapi.Common;
 using devitemapi.Dtos;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,21 +23,26 @@ namespace devitemapi.Controllers.Rbac
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly IDevUserRepository _userRepository;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService,IDevUserRepository repository)
         {
             this._userService = userService;
+            this._userRepository = repository;
         }
 
         /// <summary>
         /// 获取指定Id的用户信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Get(int id)
+        [HttpGet("{userId}")]
+        public async Task<ResponseDto> GetUser(Guid userId)
         {
-            return await _userService.Get(id);
+            ResponseDto response = new ResponseDto();
+            var user = await _userRepository.GetUserAsync(userId);
+            response.SetData(user);
+            return response;
         }
 
         /// <summary>
@@ -44,9 +50,12 @@ namespace devitemapi.Controllers.Rbac
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ResponseDto> Get()
+        public async Task<ResponseDto> GetUsers()
         {
-            return await _userService.Get();
+            ResponseDto response = new ResponseDto();
+            var users = await _userRepository.GetUsersAsync();
+            response.SetData(users);
+            return response;
         }
 
         /// <summary>

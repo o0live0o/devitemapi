@@ -38,5 +38,21 @@ namespace devitemapi.Common
                     services.AddScoped(item, type);
             }
         }
+
+        public static void AddCusRepository(this IServiceCollection services)
+        {
+            var _interfaceNS = "devitemapi.Infrastructure.Repository.Interface";
+            var _impleNS = "devitemapi.Infrastructure.Repository";
+
+            var @interfaces = Assembly.GetExecutingAssembly().GetTypes().Where(type => _interfaceNS.Equals(type.Namespace) && type.IsInterface);
+            var @implements = Assembly.GetExecutingAssembly().GetTypes().Where(type => _impleNS.Equals(type.Namespace));
+
+            foreach (var item in @interfaces)
+            {
+                var type = @implements.Where(t => item.IsAssignableFrom(t)).FirstOrDefault();
+                if (type != null)
+                    services.AddScoped(item, type);
+            }
+        }
     }
 }

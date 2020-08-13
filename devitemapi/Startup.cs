@@ -42,6 +42,8 @@ namespace devitemapi
 
             services.AddCusService();
 
+            services.AddCusRepository();
+
             services.AddDbContext<DevDbContext>(options =>
             {
                 options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
@@ -75,10 +77,10 @@ namespace devitemapi
                 options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
 
-                //开启 oauth2 安全描述
+                //寮�鍚痮auth2瀹夊叏鎻忚堪
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                {
-                    Description = "JWT授权(数据将在请求头中进行传输) 直接在下框中输入Bearer {token}（注意两者之间是一个空格）\"",
+                {  
+                    Description = "JWT鎺堟潈 Bearer {tokem}",
                     In = ParameterLocation.Header,
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,

@@ -45,10 +45,10 @@ namespace devitemapi.Infrastructure.Services
             return response;
         }
 
-        public ResponseDto Login(string userName, string pwd)
+        public ResponseDto Login(string account, string pwd)
         {
             ResponseDto response = new ResponseDto();
-            var user = _dbContext.DevUsers.Where(u=>userName.Equals(u.UserName) && pwd.Equals(u.Pwd)).FirstOrDefault();
+            var user = _dbContext.DevUsers.Where(u=>account.Equals(u.Account) && pwd.Equals(u.Pwd)).FirstOrDefault();
             if (user == null)
                 response.SetFail(MessageTxt.ERROR_LOGIN_MISS_USERORPWD);
             else if (!1.Equals(user.Status))
@@ -57,7 +57,7 @@ namespace devitemapi.Infrastructure.Services
             {
                 response.SetSuccess(MessageTxt.PASS_LOGIN);
                 //TODO JWT
-                var token = JWTService.GetJWTToken(userName, AppConfig.Config.JwtSecurityKey);
+                var token = JWTService.GetJWTToken(account, AppConfig.Config.JwtSecurityKey);
                 response.SetData(token);
             }
             return response;

@@ -42,14 +42,14 @@
             用户管理
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.Get(System.Int32)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUser(System.Guid)">
             <summary>
             获取指定Id的用户信息
             </summary>
-            <param name="id"></param>
+            <param name="guid"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.Get">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUsers">
             <summary>
             获取所有用户信息
             </summary>
