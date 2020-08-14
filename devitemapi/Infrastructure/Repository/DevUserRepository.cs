@@ -16,6 +16,35 @@ namespace devitemapi.Infrastructure.Repository
             this._dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
+        public void AddUser(DevUser user)
+        {
+            if(user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            user.Id = Guid.NewGuid();
+            _dbContext.DevUsers.Add(user);
+        }
+
+        public void DeleteUser(DevUser user)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            _dbContext.DevUsers.Remove(user);
+        }
+
+        public Task<bool> ExistsUserAsync(Guid guid)
+        {
+            if(guid == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(guid));
+            }
+            return _dbContext.DevUsers.AnyAsync(x=>guid == x.Id);
+        }
+
         public async Task<DevUser> GetUserAsync(Guid guid)
         {
             if(guid == Guid.Empty)
@@ -38,6 +67,11 @@ namespace devitemapi.Infrastructure.Repository
         public async Task<IEnumerable<DevUser>> GetUsersAsync()
         {
            return await _dbContext.DevUsers.ToListAsync();
+        }
+
+        public void UpdateUser(DevUser user)
+        {
+            
         }
     }
 }

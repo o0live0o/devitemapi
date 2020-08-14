@@ -66,7 +66,9 @@ namespace devitemapi.Controllers.Rbac
         [HttpPost]
         public async Task<ResponseDto> Add(DevUser user)
         {
-            return await _userService.Add(user);
+            ResponseDto response = new ResponseDto();
+            _userRepository.AddUser(user);
+            return response;
         }
 
         /// <summary>

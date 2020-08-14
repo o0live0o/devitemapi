@@ -24,8 +24,8 @@ namespace devitemapi.Controllers.Rbac
             this._actionService = actionService;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Get(int id)
+        [HttpGet("{guid}")]
+        public async Task<ResponseDto> Get(Guid guid)
         {
             return await _actionService.Get(id);
         }

@@ -12,5 +12,13 @@ namespace devitemapi.Infrastructure.Repository.Interface
         Task<DevUser> GetUserAsync(string account,string pwd);
 
         Task<IEnumerable<DevUser>> GetUsersAsync();
+
+        void AddUser(DevUser user);
+
+        void DeleteUser(DevUser user);
+
+        void UpdateUser(DevUser user);
+
+        Task<bool> ExistsUserAsync(Guid guid);
     } 
 }
