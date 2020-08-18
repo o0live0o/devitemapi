@@ -28,6 +28,11 @@ namespace devitemapi.Common
         #endregion
 
         #region Login
+        public static string EMPTY_LOGIN_ACCOUNT = "用户账号不能为空！";
+
+        public static string EMPTY_LOGIN_PASSWORD = "用户密码不能为空！";
+
+
         public static string ERROR_LOGIN_MISS_USERORPWD = "用户名或密码错误!";
 
         public static string ERROR_LOGIN_NO_POWER = "用户被锁定，请联系管理员!";

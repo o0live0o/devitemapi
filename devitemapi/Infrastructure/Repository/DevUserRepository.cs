@@ -69,6 +69,11 @@ namespace devitemapi.Infrastructure.Repository
            return await _dbContext.DevUsers.ToListAsync();
         }
 
+        public async Task<bool> SaveAsync()
+        {
+            return await _dbContext.SaveChangesAsync() >=0;
+        }
+
         public void UpdateUser(DevUser user)
         {
             

@@ -14,6 +14,26 @@
             菜单功能
             </summary>
         </member>
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetAction(System.Guid)">
+            <summary>
+            Get action
+            </summary>
+            <param name="actionId">方法Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetActions">
+            <summary>
+            Get all actions
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.DeleteAction(System.Guid)">
+            <summary>
+            Delete Action
+            </summary>
+            <param name="actionId">Action Id</param>
+            <returns></returns>
+        </member>
         <member name="T:devitemapi.Controllers.Rbac.LoginController">
             <summary>
             登录授权
@@ -23,7 +43,7 @@
             <summary>
             用户登录
             </summary>
-            <param name="user">用户名</param>
+            <param name="userAccount">用户账号</param>
             <param name="pwd">密码</param>
             <returns></returns>
         </member>
@@ -46,7 +66,7 @@
             <summary>
             获取指定Id的用户信息
             </summary>
-            <param name="guid"></param>
+            <param name="userId"></param>
             <returns></returns>
         </member>
         <member name="M:devitemapi.Controllers.Rbac.UserController.GetUsers">
@@ -55,28 +75,21 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.Add(devitemapi.Entities.DevUser)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Entities.DevUser)">
             <summary>
             
             </summary>
             <param name="user"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.Delete(System.Int32)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.DeleteUser(System.Guid)">
             <summary>
             删除指定用户信息
             </summary>
-            <param name="id"></param>
+            <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.DeleteBatch(System.String)">
-            <summary>
-            批量删除用户
-            </summary>
-            <param name="ids">用户Id,多个用英文 , 分隔</param>
-            <returns></returns>
-        </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.Modify(devitemapi.Entities.DevUser)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(devitemapi.Entities.DevUser)">
             <summary>
             修改用户
             </summary>

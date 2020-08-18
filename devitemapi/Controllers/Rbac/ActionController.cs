@@ -1,9 +1,16 @@
-﻿using System;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-08-18 14:39:05 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-08-18 14:40:28
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using devitemapi.Dtos;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,47 +24,76 @@ namespace devitemapi.Controllers.Rbac
     //[ApiController]
     public class ActionController : BaseController
     {
-        private readonly IActionService _actionService;
+        private readonly IDevActionRepository _actionRepository;
 
-        public ActionController(IActionService actionService)
+        public ActionController(IDevActionRepository actionRepository)
         {
-            this._actionService = actionService;
+            this._actionRepository = actionRepository;
         }
 
-        [HttpGet("{guid}")]
-        public async Task<ResponseDto> Get(Guid guid)
+        /// <summary>
+        /// Get action
+        /// </summary>
+        /// <param name="actionId">方法Id</param>
+        /// <returns></returns>
+        [HttpGet("{actionId}")]
+        public async Task<ResponseDto> GetAction(Guid actionId)
         {
-            return await _actionService.Get(id);
+            ResponseDto response = new ResponseDto();
+            var actions = await _actionRepository.GetActionAsync(actionId);
+            response.SetData(actions);
+            return response;
         }
 
+        /// <summary>
+        /// Get all actions
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<ResponseDto> Get()
+        public async Task<ResponseDto> GetActions()
         {
-            return await _actionService.Get();
+            ResponseDto response = new ResponseDto();
+            var actions = await _actionRepository.GetActionsAsync();
+            response.SetData(actions);
+            return response;
         }
 
         [HttpPost]
-        public async Task<ResponseDto> Add(DevAction action)
+        public async Task<ResponseDto> AddAction(DevAction action)
         {
-            return await _actionService.Add(action);
+            ResponseDto response = new ResponseDto();
+            _actionRepository.AddAction(action);
+            await _actionRepository.SaveAsync();
+            return response;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Delete(int id)
+        /// <summary>
+        /// Delete Action
+        /// </summary>
+        /// <param name="actionId">Action Id</param>
+        /// <returns></returns>
+        [HttpGet("{actionId}")]
+        public async Task<ResponseDto> DeleteAction(Guid actionId)
         {
-            return await _actionService.Delete(id);
+            ResponseDto response = new ResponseDto();
+            var action = await _actionRepository.GetActionAsync(actionId);
+            _actionRepository.DeleteAction(action);
+            await _actionRepository.SaveAsync();
+            return response;
         }
 
-        [HttpGet("{ids}")]
-        public async Task<ResponseDto> DeleteBatch(string ids)
-        {
-            return await  _actionService.Delete(ids);
-        }
+        // [HttpGet("{ids}")]
+        // public async Task<ResponseDto> DeleteBatch(string ids)
+        // {
+        //     return await  _actionService.Delete(ids);
+        // }
 
         [HttpPost]
-        public async Task<ResponseDto> Modify(DevAction action)
+        public async Task<ResponseDto> UpdateAction(DevAction action)
         {
-            return await _actionService.Modify(action);
+            ResponseDto response = new ResponseDto();
+            await _actionRepository.SaveAsync();
+            return response;
         }
     }
 }

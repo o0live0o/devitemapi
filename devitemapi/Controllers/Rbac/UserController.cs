@@ -22,12 +22,10 @@ namespace devitemapi.Controllers.Rbac
     //[ApiController]
     public class UserController : BaseController
     {
-        private readonly IUserService _userService;
         private readonly IDevUserRepository _userRepository;
 
         public UserController(IUserService userService,IDevUserRepository repository)
         {
-            this._userService = userService;
             this._userRepository = repository;
         }
 
@@ -64,34 +62,44 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ResponseDto> Add(DevUser user)
+        public async Task<ResponseDto> CreateUser(DevUser user)
         {
             ResponseDto response = new ResponseDto();
             _userRepository.AddUser(user);
+            await _userRepository.SaveAsync();
             return response;
         }
 
         /// <summary>
         /// 删除指定用户信息
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="userId">用户GUID</param>
         /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Delete(int id)
+        [HttpGet("{userId}")]
+        public async Task<ResponseDto> DeleteUser(Guid userId)
         {
-            return await _userService.Delete(id);
+            ResponseDto response = new ResponseDto();
+            var user = await _userRepository.GetUserAsync(userId);
+            if(user == null)
+            {
+               response.SetFail("用户不存在");
+               return response;
+            }
+            _userRepository.DeleteUser(user);
+            await _userRepository.SaveAsync();
+            return response;
         }
 
-        /// <summary>
-        /// 批量删除用户
-        /// </summary>
-        /// <param name="ids">用户Id,多个用英文 , 分隔</param>
-        /// <returns></returns>
-        [HttpGet("{ids}")]
-        public async Task<ResponseDto> DeleteBatch(string ids)
-        {
-            return await _userService.Delete(ids);
-        }
+        // /// <summary>
+        // /// 批量删除用户
+        // /// </summary>
+        // /// <param name="ids">用户Id,多个用英文 , 分隔</param>
+        // /// <returns></returns>
+        // [HttpGet("{ids}")]
+        // public async Task<ResponseDto> DeleteBatch(string ids)
+        // {
+        //     return await _userService.Delete(ids);
+        // }
 
         /// <summary>
         /// 修改用户
@@ -99,9 +107,12 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ResponseDto> Modify(DevUser user)
+        public async Task<ResponseDto> UpdateUser(DevUser user)
         {
-            return await _userService.Modify(user);
+            ResponseDto response = new ResponseDto();
+            _userRepository.UpdateUser(user);
+            await _userRepository.SaveAsync();
+            return response;
         }
     }
 }

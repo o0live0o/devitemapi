@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using devitemapi.Common;
 using devitemapi.Dtos;
+using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,24 +20,46 @@ namespace devitemapi.Controllers.Rbac
     //[ApiController]
     public class LoginController : BaseController
     {
-        private readonly ILoginService _loginService;
+        private readonly IDevUserRepository _userRepository;
 
-        public LoginController(ILoginService loginService)
+        public LoginController(IDevUserRepository userRepository)
         {
-            this._loginService = loginService;
+            this._userRepository = userRepository;
         }
 
         /// <summary>
         /// 用户登录
         /// </summary>
-        /// <param name="user">用户名</param>
+        /// <param name="userAccount">用户账号</param>
         /// <param name="pwd">密码</param>
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public ResponseDto Login(string user,string pwd)
+        public async Task<ResponseDto> Login(string userAccount,string pwd)
         {
-            return _loginService.Login(user,pwd);
+            ResponseDto response = new ResponseDto();
+            if(string.IsNullOrEmpty(userAccount))
+            {
+                response.SetFail(MessageTxt.EMPTY_LOGIN_ACCOUNT);
+            }
+            else if(string.IsNullOrEmpty(pwd))
+            {
+                response.SetFail(MessageTxt.EMPTY_LOGIN_PASSWORD);
+            }
+            else
+            {
+                 var user = await _userRepository.GetUserAsync(userAccount,pwd);
+                 if(user == null)
+                 {
+                     response.SetFail(MessageTxt.ERROR_LOGIN_MISS_USERORPWD);
+                 }
+                 else
+                 {
+                    var token = JWTService.GetJWTToken(userAccount, AppConfig.Config.JwtSecurityKey);
+                    response.SetData(token);
+                 }
+            }
+            return response;
         }
     }
 }

@@ -20,5 +20,7 @@ namespace devitemapi.Infrastructure.Repository.Interface
         void UpdateUser(DevUser user);
 
         Task<bool> ExistsUserAsync(Guid guid);
+
+        Task<bool> SaveAsync();
     } 
 }
