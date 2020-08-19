@@ -69,6 +69,6 @@ namespace devitemapi.Infrastructure.Services
         {
             var userRoles = _dbContext.DevUserRoles.Where(ur => userId.Equals(ur.Useid));
             return userRoles.Select(r => r.RoleId).ToList();
-        }
+        }        
     }
 }
