@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using devitemapi.Common;
 using devitemapi.Dtos;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,49 +20,68 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
-    public class    RoleController : BaseController
+    public class RoleController : BaseController
     {
-        private readonly IRoleService _roleService;
+        private readonly IDevRoleRepository _roleRepository;
 
-        public RoleController(IRoleService roleService)
+        public RoleController(IDevRoleRepository roleRepository)
         {
-            this._roleService = roleService;
+            this._roleRepository = roleRepository;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Get(int id)
+        [HttpGet("{roleId}")]
+        public async Task<ResponseDto> GetRole(Guid roleId)
         {
-            return await _roleService.Get(id);
+            if (roleId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(roleId));
+            }
+            ResponseDto response = new ResponseDto();
+            var role = await _roleRepository.GetRoleAsync(roleId);
+            return response.SetData(role);
         }
 
         [HttpGet]
-        public async Task<ResponseDto> Get()
+        public async Task<ResponseDto> GetRoles()
         {
-            return await _roleService.Get();
+            ResponseDto response = new ResponseDto();
+            var roles = await _roleRepository.GetRolesAsync();
+            return response.SetData(roles);
         }
 
         [HttpPost]
-        public async Task<ResponseDto> Add(DevRole role)
+        public async Task<ResponseDto> CreateRole(DevRole role)
         {
-            return await _roleService.Add(role);
+            ResponseDto response = new ResponseDto();
+            _roleRepository.AddRole(role);
+            await _roleRepository.SaveAsync();
+            return response;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Delete(int id)
+        [HttpGet("{roleId}")]
+        public async Task<ResponseDto> DeleteRole(Guid roleId)
         {
-            return await _roleService.Delete(id);
-        }
-
-        [HttpGet("{ids}")]
-        public async Task<ResponseDto> DeleteBatch(string ids)
-        {
-            return await _roleService.Delete(ids);
+            ResponseDto response = new ResponseDto();
+            var role = await _roleRepository.GetRoleAsync(roleId);
+            if (role != null)
+            {
+                _roleRepository.DeleteRole(role);
+                await _roleRepository.SaveAsync();
+            }
+            return response;
         }
 
         [HttpPost]
-        public async Task<ResponseDto> Modify(DevRole role)
+        public async Task<ResponseDto> UpdateRole(DevRole role)
         {
-            return await _roleService.Modify(role);
+            ResponseDto response = new ResponseDto();
+            if (role == null || role.Id == Guid.Empty)
+            {
+                return response.SetFail("Role Invalid");
+            }
+            _roleRepository.UpdateRole(role);
+            await _roleRepository.SaveAsync();
+            return response;
         }
     }
 }

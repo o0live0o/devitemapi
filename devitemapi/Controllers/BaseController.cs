@@ -10,7 +10,7 @@ namespace devitemapi.Controllers
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class BaseController: ControllerBase
+    public class BaseController : ControllerBase
     {
     }
 }

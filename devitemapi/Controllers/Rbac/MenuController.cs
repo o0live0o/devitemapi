@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using devitemapi.Dtos;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,47 +19,55 @@ namespace devitemapi.Controllers.Rbac
     //[ApiController]
     public class MenuController : BaseController
     {
-        private readonly IMenuService _menuService;
+        private readonly IDevMenuRepository _menuRepository;
 
-        public MenuController(IMenuService menuService)
+        public MenuController(IDevMenuRepository menuRepository)
         {
-            this._menuService = menuService;
+            this._menuRepository = menuRepository;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Get(int id)
+        [HttpGet("{menuId}")]
+        public async Task<ResponseDto> GetMenu(Guid menuId)
         {
-            return await _menuService.Get(id);
+            ResponseDto response = new ResponseDto();
+            var menu = await _menuRepository.GetMenuAsync(menuId);
+            return response.SetData(menu);
         }
 
         [HttpGet]
-        public async Task<ResponseDto> Get()
+        public async Task<ResponseDto> GetMenus()
         {
-            return await _menuService.Get();
+            ResponseDto response = new ResponseDto();
+            return response.SetData(await _menuRepository.GetMenusAsync());
         }
 
         [HttpPost]
-        public async Task<ResponseDto> Add(DevMenu menu)
+        public async Task<ResponseDto> CreateMenu(DevMenu menu)
         {
-            return await _menuService.Add(menu);
+            ResponseDto response = new ResponseDto();
+            _menuRepository.AddMenu(menu);
+            await _menuRepository.SaveAsync();
+            return response;
         }
 
-        [HttpGet("{id}")]
-        public async Task<ResponseDto> Delete(int id)
+        [HttpGet("{menuId}")]
+        public async Task<ResponseDto> DeleteMenu(Guid menuId)
         {
-            return await _menuService.Delete(id);
+            ResponseDto response = new ResponseDto();
+            var menu = await _menuRepository.GetMenuAsync(menuId);
+            _menuRepository.DeleteMenu(menu);
+            await _menuRepository.SaveAsync();
+            return response;
         }
 
-        [HttpGet("{ids}")]
-        public async Task<ResponseDto> DeleteBatch(string ids)
-        {
-            return await _menuService.Delete(ids);
-        }
 
         [HttpPost]
-        public async Task<ResponseDto> Modify(DevMenu menu)
+        public async Task<ResponseDto> UpdateMenu(DevMenu menu)
         {
-            return await _menuService.Modify(menu);
+            ResponseDto response = new ResponseDto();
+            _menuRepository.UpdateMenu(menu);
+            await _menuRepository.SaveAsync();
+            return response;
         }
     }
 }

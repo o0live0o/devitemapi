@@ -29,10 +29,11 @@ namespace devitemapi.Dtos
         /// </summary>
         public object Data { get; set; }
         
-        public void SetFail(string msg = "请求异常")
+        public ResponseDto SetFail(string msg = "请求异常")
         {
             Code = ReqStatus.Error;
             Message = msg;
+            return this;
         }
         public void SetSuccess(string msg = "请求成功")
         {
@@ -40,11 +41,12 @@ namespace devitemapi.Dtos
             Message = msg;
         }
 
-        public void SetData(object o)
+        public ResponseDto SetData(object o)
         {
             Message = "获取数据成功";
             Code = ReqStatus.Success;
             Data = o;
+            return this;
         }
     }
 }
