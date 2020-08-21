@@ -78,6 +78,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet("{userId}")]
         public async Task<ResponseDto> DeleteUser(Guid userId)
         {
+           
             ResponseDto response = new ResponseDto();
             var user = await _userRepository.GetUserAsync(userId);
             if(user == null)

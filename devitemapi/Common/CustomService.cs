@@ -1,6 +1,8 @@
-﻿using devitemapi.Infrastructure.Services;
+﻿using devitemapi.Infrastructure.Log;
+using devitemapi.Infrastructure.Services;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,5 +56,11 @@ namespace devitemapi.Common
                     services.AddScoped(item, type);
             }
         }
+
+        //public static void Trace(this ILogger logger, string message, params object[] args)
+        //{
+        //    ApiLogger apiLogger = new ApiLogger();
+        //    apiLogger.Debug();
+        //}
     }
 }

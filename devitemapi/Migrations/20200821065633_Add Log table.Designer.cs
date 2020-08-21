@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devitemapi.Entities;
 
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200821065633_Add Log table")]
+    partial class AddLogtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,16 +120,16 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 8, 21, 15, 10, 1, 772, DateTimeKind.Local).AddTicks(8306),
-                            ModifyDate = new DateTime(2020, 8, 21, 15, 10, 1, 772, DateTimeKind.Local).AddTicks(8332),
+                            CreateDate = new DateTime(2020, 8, 21, 14, 56, 33, 417, DateTimeKind.Local).AddTicks(1099),
+                            ModifyDate = new DateTime(2020, 8, 21, 14, 56, 33, 417, DateTimeKind.Local).AddTicks(1144),
                             RoleName = "超级管理员",
                             Status = 1
                         },
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 8, 21, 15, 10, 1, 772, DateTimeKind.Local).AddTicks(8386),
-                            ModifyDate = new DateTime(2020, 8, 21, 15, 10, 1, 772, DateTimeKind.Local).AddTicks(8388),
+                            CreateDate = new DateTime(2020, 8, 21, 14, 56, 33, 417, DateTimeKind.Local).AddTicks(1331),
+                            ModifyDate = new DateTime(2020, 8, 21, 14, 56, 33, 417, DateTimeKind.Local).AddTicks(1332),
                             RoleName = "管理员",
                             Status = 1
                         });
@@ -203,8 +205,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 8, 21, 15, 10, 1, 770, DateTimeKind.Local).AddTicks(8194),
-                            ModifyDate = new DateTime(2020, 8, 21, 15, 10, 1, 770, DateTimeKind.Local).AddTicks(9128),
+                            CreateDate = new DateTime(2020, 8, 21, 14, 56, 33, 414, DateTimeKind.Local).AddTicks(8119),
+                            ModifyDate = new DateTime(2020, 8, 21, 14, 56, 33, 414, DateTimeKind.Local).AddTicks(8648),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"
@@ -253,9 +255,6 @@ namespace devitemapi.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Levels")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("LogContent")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Logger")

@@ -54,19 +54,7 @@ namespace devitemapi.Infrastructure.Services
 
         public Task<ResponseDto> Delete(int id)
         {
-            return Task.Run(() =>
-            {
-                ResponseDto response = new ResponseDto();
-                var sql = "UPDATE devusers SET Status = 2 WHERE Id = @Id";
-                MySqlParameter[] parameters = new[]{
-                new MySqlParameter("@Id", id)
-            };
-                //dbContext.Database.ExecuteSqlCommand(sql,parameters);
-                var transAction = RelationalDatabaseFacadeExtensions.BeginTransaction(new DatabaseFacade(_dbContext), System.Data.IsolationLevel.ReadCommitted);
-                _dbContext.Database.ExecuteSqlRaw(sql, parameters);
-                transAction.Commit();
-                return response;
-            });
+            throw new NotImplementedException();
         }
 
         public Task<ResponseDto> Delete(string ids)

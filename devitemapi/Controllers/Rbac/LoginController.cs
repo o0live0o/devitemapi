@@ -4,10 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using devitemapi.Common;
 using devitemapi.Dtos;
+using devitemapi.Infrastructure.Log;
 using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Infrastructure.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,10 +25,12 @@ namespace devitemapi.Controllers.Rbac
     public class LoginController : BaseController
     {
         private readonly IDevUserRepository _userRepository;
+        private readonly ILogger _logger;
 
         public LoginController(IDevUserRepository userRepository)
         {
-            this._userRepository = userRepository;
+            this._userRepository = userRepository;;
+   
         }
 
         /// <summary>
@@ -37,6 +43,8 @@ namespace devitemapi.Controllers.Rbac
         [AllowAnonymous]
         public async Task<ResponseDto> Login(string userAccount,string pwd)
         {
+
+            //_logger.Trace("iiiiii");
             ResponseDto response = new ResponseDto();
             if(string.IsNullOrEmpty(userAccount))
             {
@@ -61,5 +69,6 @@ namespace devitemapi.Controllers.Rbac
             }
             return response;
         }
+
     }
 }

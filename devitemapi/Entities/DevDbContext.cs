@@ -13,6 +13,7 @@ namespace devitemapi.Entities
 
         }
 
+        public virtual DbSet<nlogrec> Nlogrecs { get; set; }
         public virtual DbSet<DevMenu> DevMenus { get; set; }
 
         public virtual DbSet<DevUser> DevUsers { get; set; }

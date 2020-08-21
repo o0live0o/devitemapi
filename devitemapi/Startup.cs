@@ -8,6 +8,7 @@ using System.Text.Unicode;
 using System.Threading.Tasks;
 using devitemapi.Common;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.Log;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NLog.Extensions.Logging;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace devitemapi
@@ -36,13 +38,17 @@ namespace devitemapi
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddControllers();
 
+            
             //RedisClient.GetRedisClient.Init(Configuration);
 
             services.AddCusService();
 
             services.AddCusRepository();
+
+            services.AddSingleton<IApiLogger, ApiLogger>();
 
             services.AddDbContext<DevDbContext>(options =>
             {
@@ -92,6 +98,9 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            NLog.LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
+            NLog.LogManager.Configuration.Variables["connectionString"] = "server=localhost;database=devitem;user=root;password=123456";
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -100,6 +109,8 @@ namespace devitemapi
             app.UseRouting();
 
             app.UseSwagger();
+
+            app.UseApiLog();
 
             app.UseSwaggerUI(options =>
             {
