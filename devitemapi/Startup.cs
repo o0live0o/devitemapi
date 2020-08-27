@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Unicode;
 using System.Threading.Tasks;
+using AutoMapper;
 using devitemapi.Common;
 using devitemapi.Entities;
 using devitemapi.Infrastructure.Log;
@@ -41,8 +42,9 @@ namespace devitemapi
 
             services.AddControllers();
 
-            
+
             //RedisClient.GetRedisClient.Init(Configuration);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddCusService();
 

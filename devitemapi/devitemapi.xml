@@ -75,7 +75,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Entities.DevUser)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dtos.UserDto)">
             <summary>
             
             </summary>

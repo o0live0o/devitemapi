@@ -7,7 +7,7 @@ namespace devitemapi.Dtos
 {
     public class UserDto: BaseDto
     {
-        public string UserName { get; set; }
+        public string Name { get; set; }
 
         public string Account { get; set; }
 

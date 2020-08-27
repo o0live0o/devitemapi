@@ -1,4 +1,5 @@
-﻿using devitemapi.Common;
+﻿using AutoMapper;
+using devitemapi.Common;
 using devitemapi.Dtos;
 using devitemapi.Entities;
 using devitemapi.Infrastructure.Repository.Interface;
@@ -23,10 +24,12 @@ namespace devitemapi.Controllers.Rbac
     public class UserController : BaseController
     {
         private readonly IDevUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService,IDevUserRepository repository)
+        public UserController(IUserService userService,IDevUserRepository repository,IMapper mapper)
         {
             this._userRepository = repository;
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         /// <summary>
@@ -39,6 +42,7 @@ namespace devitemapi.Controllers.Rbac
         {
             ResponseDto response = new ResponseDto();
             var user = await _userRepository.GetUserAsync(userId);
+            var userDto = _mapper.Map<UserDto>(user);
             response.SetData(user);
             return response;
         }
@@ -52,6 +56,7 @@ namespace devitemapi.Controllers.Rbac
         {
             ResponseDto response = new ResponseDto();
             var users = await _userRepository.GetUsersAsync();
+            var userDto = _mapper.Map<IEnumerable<UserDto>>(users);
             response.SetData(users);
             return response;
         }
@@ -62,10 +67,10 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ResponseDto> CreateUser(DevUser user)
+        public async Task<ResponseDto> CreateUser(UserDto user)
         {
             ResponseDto response = new ResponseDto();
-            _userRepository.AddUser(user);
+            _userRepository.AddUser(_mapper.Map<DevUser>(user));
             await _userRepository.SaveAsync();
             return response;
         }
