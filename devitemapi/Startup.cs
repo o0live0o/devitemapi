@@ -38,7 +38,14 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(o =>
+           o.AddPolicy("CorsPolicy",
+              builder => builder
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+             .SetIsOriginAllowed(_ => true)
+             //.AllowCredentials()
+             ));
 
             services.AddControllers();
 
@@ -59,6 +66,8 @@ namespace devitemapi
 
             AppConfig.Config = Configuration.GetSection("AppConfig").Get<ConfigEntity>();
 
+            services.AddCors();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options=> {
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
                     ValidateIssuer = false,
@@ -75,6 +84,7 @@ namespace devitemapi
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
+                    Version = "V1.0",
                     Title = "v1"
                 });
 
@@ -107,7 +117,7 @@ namespace devitemapi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors("CorsPolicy");
             app.UseRouting();
 
             app.UseSwagger();
@@ -118,6 +128,7 @@ namespace devitemapi
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
+
 
             app.UseAuthentication();
 

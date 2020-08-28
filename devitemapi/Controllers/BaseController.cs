@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ namespace devitemapi.Controllers
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
     public class BaseController : ControllerBase
     {
     }
