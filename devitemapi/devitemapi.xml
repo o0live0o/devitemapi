@@ -14,7 +14,7 @@
             菜单功能
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetAction(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetActionById(System.Guid)">
             <summary>
             Get action
             </summary>
@@ -69,7 +69,7 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUsers">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUsers(System.Int32,System.Int32)">
             <summary>
             获取所有用户信息
             </summary>
@@ -89,7 +89,7 @@
             <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(devitemapi.Entities.DevUser)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Entities.DevUser)">
             <summary>
             修改用户
             </summary>

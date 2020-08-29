@@ -20,6 +20,7 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
+    [Route("roles")]
     public class RoleController : BaseController
     {
         private readonly IDevRoleRepository _roleRepository;
@@ -58,7 +59,7 @@ namespace devitemapi.Controllers.Rbac
             return response;
         }
 
-        [HttpGet("{roleId}")]
+        [HttpDelete("{roleId}")]
         public async Task<ResponseDto> DeleteRole(Guid roleId)
         {
             ResponseDto response = new ResponseDto();
@@ -71,8 +72,8 @@ namespace devitemapi.Controllers.Rbac
             return response;
         }
 
-        [HttpPost]
-        public async Task<ResponseDto> UpdateRole(DevRole role)
+        [HttpPut("roleId")]
+        public async Task<ResponseDto> UpdateRole(Guid roleId, DevRole role)
         {
             ResponseDto response = new ResponseDto();
             if (role == null || role.Id == Guid.Empty)

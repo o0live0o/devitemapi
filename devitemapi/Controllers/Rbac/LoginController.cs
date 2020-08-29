@@ -22,6 +22,7 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
+    [Route("login")]
     public class LoginController : BaseController
     {
         private readonly IDevUserRepository _userRepository;
@@ -41,6 +42,7 @@ namespace devitemapi.Controllers.Rbac
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
+        [Route("login")]
         public async Task<ResponseDto> Login(string userAccount,string pwd)
         {
 

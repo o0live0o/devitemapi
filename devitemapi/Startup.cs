@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using devitemapi.Common;
 using devitemapi.Entities;
+using devitemapi.Infrastructure.CusMiddlewares;
 using devitemapi.Infrastructure.Log;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -85,7 +86,7 @@ namespace devitemapi
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Version = "V1.0",
-                    Title = "v1"
+                    Title = "IetmApi"
                 });
 
                 var xmlPath = Path.Combine(System.AppContext.BaseDirectory, "devitemapi.xml");
@@ -110,6 +111,7 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             NLog.LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
             NLog.LogManager.Configuration.Variables["connectionString"] = "server=localhost;database=devitem;user=root;password=123456";
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  
@@ -117,9 +119,11 @@ namespace devitemapi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("CorsPolicy");
+ 
             app.UseRouting();
+            app.UseMiddleware<CusExpetionMiddleware>();
 
+            app.UseCors("CorsPolicy");
             app.UseSwagger();
 
             app.UseApiLog();
@@ -128,7 +132,6 @@ namespace devitemapi
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
-
 
             app.UseAuthentication();
 

@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]/[action]")]
+    //[Authorize]
+    [AllowAnonymous]
+    //[Route("api/[controller]/[action]")]
+    [Route("api")]
     [ApiController]
     [EnableCors("CorsPolicy")]
     public class BaseController : ControllerBase

@@ -22,6 +22,7 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
+    [Route("actions")]
     public class ActionController : BaseController
     {
         private readonly IDevActionRepository _actionRepository;
@@ -37,7 +38,7 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="actionId">方法Id</param>
         /// <returns></returns>
         [HttpGet("{actionId}")]
-        public async Task<ResponseDto> GetAction(Guid actionId)
+        public async Task<ResponseDto> GetActionById([FromRoute] Guid actionId)
         {
             ResponseDto response = new ResponseDto();
             var actions = await _actionRepository.GetActionAsync(actionId);
@@ -72,7 +73,7 @@ namespace devitemapi.Controllers.Rbac
         /// </summary>
         /// <param name="actionId">Action Id</param>
         /// <returns></returns>
-        [HttpGet("{actionId}")]
+        [HttpDelete("{actionId}")]
         public async Task<ResponseDto> DeleteAction(Guid actionId)
         {
             ResponseDto response = new ResponseDto();
@@ -88,8 +89,8 @@ namespace devitemapi.Controllers.Rbac
         //     return await  _actionService.Delete(ids);
         // }
 
-        [HttpPost]
-        public async Task<ResponseDto> UpdateAction(DevAction action)
+        [HttpPut("{actionId}")]
+        public async Task<ResponseDto> UpdateAction(Guid actionId,DevAction action)
         {
             ResponseDto response = new ResponseDto();
             await _actionRepository.SaveAsync();

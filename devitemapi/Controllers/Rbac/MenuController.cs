@@ -17,6 +17,7 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
+    [Route("menus")]
     public class MenuController : BaseController
     {
         private readonly IDevMenuRepository _menuRepository;
@@ -50,7 +51,7 @@ namespace devitemapi.Controllers.Rbac
             return response;
         }
 
-        [HttpGet("{menuId}")]
+        [HttpDelete("{menuId}")]
         public async Task<ResponseDto> DeleteMenu(Guid menuId)
         {
             ResponseDto response = new ResponseDto();
@@ -61,8 +62,8 @@ namespace devitemapi.Controllers.Rbac
         }
 
 
-        [HttpPost]
-        public async Task<ResponseDto> UpdateMenu(DevMenu menu)
+        [HttpPut("{meunId}")]
+        public async Task<ResponseDto> UpdateMenu(Guid menuId, DevMenu menu)
         {
             ResponseDto response = new ResponseDto();
             _menuRepository.UpdateMenu(menu);
