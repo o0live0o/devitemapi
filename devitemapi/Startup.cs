@@ -121,6 +121,7 @@ namespace devitemapi
             }
  
             app.UseRouting();
+
             app.UseMiddleware<CusExpetionMiddleware>();
 
             app.UseCors("CorsPolicy");

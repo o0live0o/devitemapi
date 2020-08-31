@@ -30,7 +30,7 @@ namespace devitemapi.Infrastructure.CusMiddlewares
                 {
                     context.Response.ContentType = "application/text";
                     context.Response.StatusCode = 40401;
-                    context.Response.WriteAsync(nullException.Message);
+                    await context.Response.WriteAsync(nullException.Message);
                 }
                 else
                 {
