@@ -1,14 +1,14 @@
 ﻿using devitemapi.Common;
-using devitemapi.Dtos;
-using devitemapi.Entities;
-using devitemapi.Infrastructure.Services.Interface;
+using devitemapi.Dto;
+using devitemapi.Entity;
+using devitemapi.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devitemapi.Infrastructure.Services
+namespace devitemapi.Services
 {
     /*
      * 1.登录返回Token

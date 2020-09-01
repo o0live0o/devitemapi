@@ -1,6 +1,6 @@
 ﻿using devitemapi.Infrastructure.Log;
-using devitemapi.Infrastructure.Services;
-using devitemapi.Infrastructure.Services.Interface;
+using devitemapi.Services;
+using devitemapi.Services.Interface;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -27,8 +27,8 @@ namespace devitemapi.Common
 
         public static void AddCusService(this IServiceCollection services)
         {
-            var _interfaceNS = "devitemapi.Infrastructure.Services.Interface";
-            var _impleNS = "devitemapi.Infrastructure.Services";
+            var _interfaceNS = "devitemapi.Services.Interface";
+            var _impleNS = "devitemapi.Services";
 
             var @interfaces = Assembly.GetExecutingAssembly().GetTypes().Where(type => _interfaceNS.Equals(type.Namespace) && type.IsInterface);
             var @implements = Assembly.GetExecutingAssembly().GetTypes().Where(type => _impleNS.Equals(type.Namespace));

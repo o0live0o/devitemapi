@@ -75,7 +75,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dtos.UserDto)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dto.UserDto)">
             <summary>
             
             </summary>
@@ -89,29 +89,29 @@
             <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Entities.DevUser)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Entity.DevUser)">
             <summary>
             修改用户
             </summary>
             <param name="user"></param>
             <returns></returns>
         </member>
-        <member name="P:devitemapi.Dtos.ResponseDto.Code">
+        <member name="P:devitemapi.Dto.ResponseDto.Code">
             <summary>
             响应代码
             </summary>
         </member>
-        <member name="P:devitemapi.Dtos.ResponseDto.Message">
+        <member name="P:devitemapi.Dto.ResponseDto.Message">
             <summary>
             响应信息
             </summary>
         </member>
-        <member name="P:devitemapi.Dtos.ResponseDto.Data">
+        <member name="P:devitemapi.Dto.ResponseDto.Data">
             <summary>
             响应数据
             </summary>
         </member>
-        <member name="M:devitemapi.Infrastructure.Services.Interface.ILoginService.Login(System.String,System.String)">
+        <member name="M:devitemapi.Services.Interface.ILoginService.Login(System.String,System.String)">
             <summary>
             用户登录
             </summary>

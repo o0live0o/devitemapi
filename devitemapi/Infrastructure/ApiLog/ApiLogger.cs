@@ -1,4 +1,4 @@
-﻿using devitemapi.Dtos;
+﻿using devitemapi.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NLog;

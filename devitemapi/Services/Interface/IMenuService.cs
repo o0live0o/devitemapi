@@ -1,11 +1,11 @@
-﻿using devitemapi.Dtos;
-using devitemapi.Entities;
+﻿using devitemapi.Dto;
+using devitemapi.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devitemapi.Infrastructure.Services.Interface
+namespace devitemapi.Services.Interface
 {
     public interface IMenuService
     {

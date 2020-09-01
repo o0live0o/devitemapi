@@ -1,12 +1,12 @@
-﻿using devitemapi.Entities;
-using devitemapi.Infrastructure.Services.Interface;
+﻿using devitemapi.Entity;
+using devitemapi.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace devitemapi.Infrastructure.Services
+namespace devitemapi.Services
 {
     public class BaseService<T>// : IBaseService<T> where T : class
     {

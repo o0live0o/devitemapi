@@ -1,10 +1,10 @@
-﻿using devitemapi.Enums;
+﻿using devitemapi.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devitemapi.Dtos
+namespace devitemapi.Dto
 {
     public class ResponseDto
     {

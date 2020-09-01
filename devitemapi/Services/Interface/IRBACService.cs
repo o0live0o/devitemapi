@@ -1,4 +1,4 @@
-namespace devitemapi.Infrastructure.Services.Interface
+namespace devitemapi.Services.Interface
 {
     public interface IRBACService
     {

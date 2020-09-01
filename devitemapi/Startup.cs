@@ -8,7 +8,7 @@ using System.Text.Unicode;
 using System.Threading.Tasks;
 using AutoMapper;
 using devitemapi.Common;
-using devitemapi.Entities;
+using devitemapi.Entity;
 using devitemapi.Infrastructure.CusMiddlewares;
 using devitemapi.Infrastructure.Log;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

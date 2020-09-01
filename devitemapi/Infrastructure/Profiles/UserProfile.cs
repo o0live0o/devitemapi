@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using devitemapi.Dtos;
-using devitemapi.Entities;
+using devitemapi.Dto;
+using devitemapi.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

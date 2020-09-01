@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace devitemapi.Infrastructure.Services.Interface
+namespace devitemapi.Services.Interface
 {
     public interface IBaseService<T> where T : class
     {

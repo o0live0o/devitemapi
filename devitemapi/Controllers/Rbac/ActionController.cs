@@ -8,10 +8,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using devitemapi.Dtos;
-using devitemapi.Entities;
+using devitemapi.Dto;
+using devitemapi.Entity;
 using devitemapi.Infrastructure.Repository.Interface;
-using devitemapi.Infrastructure.Services.Interface;
+using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

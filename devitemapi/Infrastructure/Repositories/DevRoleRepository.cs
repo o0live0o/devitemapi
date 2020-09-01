@@ -7,7 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using devitemapi.Entities;
+using devitemapi.Entity;
 using devitemapi.Infrastructure.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 

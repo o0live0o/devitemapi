@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using devitemapi.Entities;
+using devitemapi.Entity;
 
 namespace devitemapi.Migrations
 {
@@ -19,7 +19,7 @@ namespace devitemapi.Migrations
                 .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("devitemapi.Entities.DevAction", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevAction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace devitemapi.Migrations
                     b.ToTable("DevActions");
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.DevMenu", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevMenu", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace devitemapi.Migrations
                     b.ToTable("DevMenus");
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.DevMenuAction", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevMenuAction", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +94,7 @@ namespace devitemapi.Migrations
                     b.ToTable("DevMenuActions");
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.DevRole", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,7 @@ namespace devitemapi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.DevRolePermission", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevRolePermission", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +161,7 @@ namespace devitemapi.Migrations
                     b.ToTable("DevRolePermissions");
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.DevUser", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -213,7 +213,7 @@ namespace devitemapi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.DevUserRole", b =>
+            modelBuilder.Entity("devitemapi.Entity.DevUserRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -236,7 +236,7 @@ namespace devitemapi.Migrations
                     b.ToTable("DevUserRoles");
                 });
 
-            modelBuilder.Entity("devitemapi.Entities.nlogrec", b =>
+            modelBuilder.Entity("devitemapi.Entity.nlogrec", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using devitemapi.Common;
-using devitemapi.Dtos;
-using devitemapi.Entities;
+using devitemapi.Dto;
+using devitemapi.Entity;
 using devitemapi.Infrastructure.Repository.Interface;
-using devitemapi.Infrastructure.Services.Interface;
+using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
