@@ -43,7 +43,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public async Task<ResponseDto> Login(string userAccount,string pwd)
+        public async Task<IActionResult> SignIn(string userAccount,string pwd)
         {
 
             //_logger.Trace("iiiiii");
@@ -69,7 +69,7 @@ namespace devitemapi.Controllers.Rbac
                     response.SetData(token);
                  }
             }
-            return response;
+            return Ok(response);
         }
 
     }

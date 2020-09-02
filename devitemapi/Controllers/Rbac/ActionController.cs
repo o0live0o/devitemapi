@@ -1,19 +1,16 @@
 ﻿/*
- * @Author: live0x 
- * @Date: 2020-08-18 14:39:05 
+ * @Author: live0x
+ * @Date: 2020-08-18 14:39:05
  * @Last Modified by: live0x
  * @Last Modified time: 2020-08-18 14:40:28
  */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using devitemapi.Dto;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Repository.Interface;
-using devitemapi.Services.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace devitemapi.Controllers.Rbac
 {
@@ -90,7 +87,7 @@ namespace devitemapi.Controllers.Rbac
         // }
 
         [HttpPut("{actionId}")]
-        public async Task<ResponseDto> UpdateAction(Guid actionId,DevAction action)
+        public async Task<ResponseDto> UpdateAction(Guid actionId, DevAction action)
         {
             ResponseDto response = new ResponseDto();
             await _actionRepository.SaveAsync();

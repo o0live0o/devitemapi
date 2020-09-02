@@ -39,7 +39,7 @@
             登录授权
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.LoginController.Login(System.String,System.String)">
+        <member name="M:devitemapi.Controllers.Rbac.LoginController.SignIn(System.String,System.String)">
             <summary>
             用户登录
             </summary>
@@ -101,14 +101,14 @@
             响应代码
             </summary>
         </member>
-        <member name="P:devitemapi.Dto.ResponseDto.Message">
-            <summary>
-            响应信息
-            </summary>
-        </member>
         <member name="P:devitemapi.Dto.ResponseDto.Data">
             <summary>
             响应数据
+            </summary>
+        </member>
+        <member name="P:devitemapi.Dto.ResponseDto.Message">
+            <summary>
+            响应信息
             </summary>
         </member>
         <member name="M:devitemapi.Services.Interface.ILoginService.Login(System.String,System.String)">

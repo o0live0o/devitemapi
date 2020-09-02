@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.Unicode;
-using System.Threading.Tasks;
 using AutoMapper;
 using devitemapi.Common;
 using devitemapi.Entity;
@@ -14,16 +6,16 @@ using devitemapi.Infrastructure.Log;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NLog.Extensions.Logging;
 using Swashbuckle.AspNetCore.Filters;
+using System;
+using System.IO;
+using System.Text;
 
 namespace devitemapi
 {
@@ -40,7 +32,7 @@ namespace devitemapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(o =>
-           o.AddPolicy("CorsPolicy",
+             o.AddPolicy("CorsPolicy",
               builder => builder
             .AllowAnyHeader()
             .AllowAnyMethod()
@@ -50,6 +42,13 @@ namespace devitemapi
 
             services.AddControllers();
 
+            //services.AddHsts(options=> { 
+            
+            //});
+
+            //services.AddHttpsRedirection(options=> { 
+            
+            //});
 
             //RedisClient.GetRedisClient.Init(Configuration);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -69,8 +68,10 @@ namespace devitemapi
 
             services.AddCors();
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options=> {
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
@@ -98,7 +99,7 @@ namespace devitemapi
 
                 //开启oauth2安全描述
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                {  
+                {
                     Description = "JWT授权 Bearer {tokem}",
                     In = ParameterLocation.Header,
                     Name = "Authorization",
@@ -111,20 +112,25 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
             NLog.LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
             NLog.LogManager.Configuration.Variables["connectionString"] = "server=localhost;database=devitem;user=root;password=123456";
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);  
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
- 
+            else
+            {
+                //app.UseHsts();
+            }
+            //app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseMiddleware<CusExpetionMiddleware>();
 
             app.UseCors("CorsPolicy");
+
             app.UseSwagger();
 
             app.UseApiLog();

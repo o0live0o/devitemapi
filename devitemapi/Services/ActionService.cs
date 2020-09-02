@@ -4,7 +4,6 @@ using devitemapi.Entity;
 using devitemapi.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -85,7 +84,8 @@ namespace devitemapi.Services
 
         public Task<ResponseDto> Modify(DevAction action)
         {
-            return Task.Run(()=>{
+            return Task.Run(() =>
+            {
                 ResponseDto response = new ResponseDto();
 
                 var entity = _dbContext.DevActions.Find(action.Id);
