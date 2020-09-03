@@ -75,7 +75,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dto.UserDto)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dto.User.UserAddDto)">
             <summary>
             
             </summary>
@@ -89,10 +89,11 @@
             <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Entity.DevUser)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Dto.User.UserUpdateDto)">
             <summary>
             修改用户
             </summary>
+            <param name="userId"></param>
             <param name="user"></param>
             <returns></returns>
         </member>

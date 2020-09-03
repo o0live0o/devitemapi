@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using devitemapi.Infrastructure.ActionResult;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -27,7 +28,8 @@ namespace devitemapi.Infrastructure.Filters
             {
                 json.DeveloperMessage = context.Exception;
             }
-
+            context.Result = new InternalServerErrorObjectResult(json);
+            context.ExceptionHandled = true;
         }
 
         public class JsonErrorResponse

@@ -22,6 +22,9 @@ namespace devitemapi.Infrastructure.Repository
             {
                 throw new ArgumentNullException(nameof(user));
             }
+
+        
+
             user.Id = Guid.NewGuid();
             _dbContext.DevUsers.Add(user);
         }

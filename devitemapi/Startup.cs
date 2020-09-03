@@ -1,7 +1,14 @@
+/*
+ * @Author: live0x 
+ * @Date: 2020-09-03 11:26:35 
+ * @Last Modified by:   live0x 
+ * @Last Modified time: 2020-09-03 11:26:35 
+ */
 using AutoMapper;
 using devitemapi.Common;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.CusMiddlewares;
+using devitemapi.Infrastructure.Filters;
 using devitemapi.Infrastructure.Log;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -40,7 +47,9 @@ namespace devitemapi
              //.AllowCredentials()
              ));
 
-            services.AddControllers();
+            services.AddControllers(options => {
+                options.Filters.Add(typeof(GlobalExceptionFilter));
+            }).AddNewtonsoftJson();
 
             //services.AddHsts(options=> { 
             
@@ -66,8 +75,6 @@ namespace devitemapi
 
             AppConfig.Config = Configuration.GetSection("AppConfig").Get<ConfigEntity>();
 
-            services.AddCors();
-
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
@@ -87,7 +94,7 @@ namespace devitemapi
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Version = "V1.0",
-                    Title = "IetmApi"
+                    Title = "Developer Item Api"
                 });
 
                 var xmlPath = Path.Combine(System.AppContext.BaseDirectory, "devitemapi.xml");
@@ -100,7 +107,7 @@ namespace devitemapi
                 //开启oauth2安全描述
                 options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Description = "JWT授权 Bearer {tokem}",
+                    Description = "JWT授权 Bearer {token}",
                     In = ParameterLocation.Header,
                     Name = "Authorization",
                     Type = SecuritySchemeType.ApiKey,
@@ -133,10 +140,11 @@ namespace devitemapi
 
             app.UseSwagger();
 
-            app.UseApiLog();
+            //app.UseApiLog();
 
             app.UseSwaggerUI(options =>
             {
+                options.RoutePrefix = string.Empty;
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
 

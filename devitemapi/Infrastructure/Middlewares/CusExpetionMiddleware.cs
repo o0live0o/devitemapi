@@ -20,23 +20,23 @@ namespace devitemapi.Infrastructure.CusMiddlewares
 
         public async Task InvokeAsync(HttpContext context)
         {
-            try
-            {
+            // try
+            // {
                 await _next.Invoke(context);
-            }
-            catch (Exception ex)
-            {
-                if (ex is ArgumentNullException nullException)
-                {
-                    context.Response.ContentType = "application/text";
-                    context.Response.StatusCode = 40401;
-                    await context.Response.WriteAsync(nullException.Message);
-                }
-                else
-                {
-                    throw ex;
-                }
-            }
+            // }
+            // catch (Exception ex)
+            // {
+            //     if (ex is ArgumentNullException nullException)
+            //     {
+            //         context.Response.ContentType = "application/text";
+            //         context.Response.StatusCode = 40401;
+            //         await context.Response.WriteAsync(nullException.Message);
+            //     }
+            //     else
+            //     {
+            //         throw ex;
+            //     }
+            // }
         }
     }
 }

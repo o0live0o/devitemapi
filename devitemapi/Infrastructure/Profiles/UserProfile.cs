@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using devitemapi.Dto;
+using devitemapi.Dto.User;
 using devitemapi.Entity;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,11 @@ namespace devitemapi.Infrastructure.Profiles
         {
             CreateMap<DevUser, UserDto>()
                 .ForMember(p => p.Name, opt => opt.MapFrom(src => src.UserName));
+
             CreateMap<UserDto, DevUser>()
+                .ForMember(p => p.UserName, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<UserAddDto, DevUser>()
                 .ForMember(p => p.UserName, opt => opt.MapFrom(src => src.Name));
         }
     }
