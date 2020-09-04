@@ -1,8 +1,8 @@
 /*
  * @Author: live0x 
  * @Date: 2020-09-03 11:26:35 
- * @Last Modified by:   live0x 
- * @Last Modified time: 2020-09-03 11:26:35 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-04 16:22:21
  */
 using AutoMapper;
 using devitemapi.Common;
@@ -10,6 +10,10 @@ using devitemapi.Entity;
 using devitemapi.Infrastructure.CusMiddlewares;
 using devitemapi.Infrastructure.Filters;
 using devitemapi.Infrastructure.Log;
+using devitemapi.Infrastructure.Repositories;
+using devitemapi.Infrastructure.Repositories.Interface;
+using devitemapi.Services;
+using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -47,6 +51,8 @@ namespace devitemapi
              //.AllowCredentials()
              ));
 
+            Console.WriteLine(Guid.NewGuid().ToString("N"));
+
             services.AddControllers(options => {
                 options.Filters.Add(typeof(GlobalExceptionFilter));
             }).AddNewtonsoftJson();
@@ -60,9 +66,13 @@ namespace devitemapi
             //});
 
             //RedisClient.GetRedisClient.Init(Configuration);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
 
             services.AddCusService();
+
+            //泛型注入
+            services.Add(new ServiceDescriptor(typeof(IBaseService<>),typeof(BaseService<>),ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBaseRepository<>),typeof(BaseRepository<>),ServiceLifetime.Scoped));
 
             services.AddCusRepository();
 
@@ -72,6 +82,8 @@ namespace devitemapi
             {
                 options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
             });
+
+           
 
             AppConfig.Config = Configuration.GetSection("AppConfig").Get<ConfigEntity>();
 

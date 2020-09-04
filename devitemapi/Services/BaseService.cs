@@ -1,4 +1,11 @@
-﻿using devitemapi.Entity;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-04 10:17:27 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-04 15:50:14
+ */
+using devitemapi.Entity;
+using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -8,18 +15,53 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    public class BaseService<T>// : IBaseService<T> where T : class
+    public class BaseService<T> : IBaseService<T> where T : IEntity
     {
-        private readonly DevDbContext _context;
+        private readonly IBaseRepository<T> _repository;
 
-        public BaseService(DevDbContext devDbContext)
+        public BaseService(IBaseRepository<T> repository)
         {
-            this._context = devDbContext;
+            this._repository = repository;
         }
 
-        public virtual T Get(Expression<Func<T, bool>> @where)
+        public void Add(T t)
         {
-            return default(T); // _context.Set<T>().FirstOrDefault(@where);
+           _repository.Add(t);
+        }
+
+        public virtual async Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func, int pageSize, int pageIndex)
+        {
+            return await _repository.QueryAsync(func,pageSize,pageIndex);
+        }
+
+        public virtual async Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func)
+        {
+            return await _repository.QueryAsync(func);
+        }
+
+        public virtual async Task<IEnumerable<T>> QueryAsync(int limit = 20, int offest = 0)
+        {
+            return await _repository.QueryAsync();
+        }
+
+        public async Task<T> QueryByIdAsync(Guid id)
+        {
+            return await _repository.QueryFirstAsync(id);
+        }
+
+        public virtual void Remove(T t)
+        {
+            _repository.Remove(t);
+        }
+
+        public Task<bool> RemoveAsync(Expression<Func<T, bool>> func)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> SaveChangeAsync()
+        {
+           return await _repository.SaveAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,6 @@ namespace devitemapi.Common
 
         public async Task Invoke(HttpContext context)
         {
-
             context.Request.EnableBuffering();
             using (var reader = new StreamReader(context.Request.Body, Encoding.UTF8))
             {

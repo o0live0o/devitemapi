@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using devitemapi.Common;
 using devitemapi.Dto;
+using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Log;
 using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repository.Interface;
@@ -21,18 +23,14 @@ namespace devitemapi.Controllers.Rbac
     /// <summary>
     /// 登录授权
     /// </summary>
-    //[Route("api/[controller]/[action]")]
-    //[ApiController]
     [Route("login")]
     public class LoginController : BaseController
     {
-        private readonly IDevUserRepository _userRepository;
-        private readonly ILogger _logger;
+        private readonly IUserService _userService;
 
-        public LoginController(IDevUserRepository userRepository)
+        public LoginController(IUserService userService)
         {
-            this._userRepository = userRepository;;
-   
+            this._userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         /// <summary>
@@ -44,33 +42,27 @@ namespace devitemapi.Controllers.Rbac
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        public async Task<IActionResult> SignIn(string userAccount,string pwd)
+        [ProducesResponseType(typeof(string),(int)HttpStatusCode.OK)]
+        public async Task<ActionResult> SignIn(string userAccount, string pwd)
         {
 
-            //_logger.Trace("iiiiii");
-            ResponseDto response = new ResponseDto();
-            if(string.IsNullOrEmpty(userAccount))
+            if (string.IsNullOrEmpty(userAccount))
             {
-                response.SetFail(MessageTxt.EMPTY_LOGIN_ACCOUNT);
+                throw new ItemException(ErrorTxt.USER_ACCOUNT_EMPTY);
             }
-            else if(string.IsNullOrEmpty(pwd))
+            else if (string.IsNullOrEmpty(pwd))
             {
-                response.SetFail(MessageTxt.EMPTY_LOGIN_PASSWORD);
+                throw new ItemException(ErrorTxt.USER_PASSWORD_EMPTY);
             }
-            else
+
+            var user = await _userService.QueryUserByAccount(userAccount, pwd);
+            if (user == null)
             {
-                 var user = await _userRepository.GetUserAsync(userAccount,pwd);
-                 if(user == null)
-                 {
-                     response.SetFail(MessageTxt.ERROR_LOGIN_MISS_USERORPWD);
-                 }
-                 else
-                 {
-                    var token = JWTService.GetJWTToken(userAccount, AppConfig.Config.JwtSecurityKey);
-                    response.SetData(token);
-                 }
+                throw new ItemException(ErrorTxt.USER_ACCOUNTORPASSWORD_FAIL);
             }
-            return Ok(response);
+
+            var token = JWTService.GetJWTToken(userAccount, AppConfig.Config.JwtSecurityKey);
+            return Ok(token);
         }
 
     }

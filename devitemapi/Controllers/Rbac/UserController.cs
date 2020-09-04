@@ -26,12 +26,13 @@ namespace devitemapi.Controllers.Rbac
     [Route("users")]
     public class UserController : BaseController
     {
-        private readonly IDevUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public UserController(IUserService userService, IDevUserRepository repository, IMapper mapper)
+        public UserController(IUserService userService,
+                              IMapper mapper)
         {
-            this._userRepository = repository;
+            this._userService = userService ?? throw new ArgumentNullException(nameof(userService));
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
@@ -45,7 +46,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         public async Task<ActionResult<UserDto>> GetUser(Guid userId)
         {
-            var user = await _userRepository.GetUserAsync(userId);
+            var user = await _userService.QueryByIdAsync(userId);
             if (user == null)
             {
                 return NotFound();
@@ -60,10 +61,9 @@ namespace devitemapi.Controllers.Rbac
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]   //声明可能返回的类型
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers(int limit = 10, int offest = 0)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers(int pageSize = 1, int pageIndex = 1)
         {
-            return BadRequest(new ValidateErrorResult());
-            var users = await _userRepository.GetUsersAsync();
+            var users = await _userService.QueryAsync(null, pageSize, pageIndex);
             var userDto = _mapper.Map<IEnumerable<UserDto>>(users);
             return Ok(userDto);
         }
@@ -82,10 +82,10 @@ namespace devitemapi.Controllers.Rbac
             {
                 return BadRequest();
             }
-            var userDto = _mapper.Map<DevUser>(user);
-            _userRepository.AddUser(userDto);
-            await _userRepository.SaveAsync();
-            return CreatedAtRoute(nameof(GetUser), new { userId = userDto.Id }, null);
+            var userEntity = _mapper.Map<DevUser>(user);
+            _userService.Add(userEntity);
+            await _userService.SaveChangeAsync();
+            return CreatedAtRoute(nameof(GetUser), new { userId = userEntity.Id }, null);
         }
 
         /// <summary>
@@ -104,14 +104,15 @@ namespace devitemapi.Controllers.Rbac
                 return BadRequest();
             }
 
-            var user = await _userRepository.GetUserAsync(userId);
+            var user = await _userService.QueryByIdAsync(userId);
+
             if (user == null)
             {
                 return NotFound();
             }
 
-            _userRepository.DeleteUser(user);
-            await _userRepository.SaveAsync();
+            _userService.Remove(user);
+            await _userService.SaveChangeAsync();
             return NoContent();
         }
 
@@ -132,7 +133,7 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="userId"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-        [HttpPut("userId")]
+        [HttpPut("{userId}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
@@ -141,18 +142,19 @@ namespace devitemapi.Controllers.Rbac
             if (userId == null || userId == Guid.Empty || user is null)
             {
                 return BadRequest();
-            }           
-            var userEntity = await _userRepository.GetUserAsync(userId);
+            }
+            var userEntity = await _userService.QueryByIdAsync(userId);
+
             if (userEntity == null)
             {
                 return NotFound();
             }
 
-            _mapper.Map(user,userEntity);            
-            _userRepository.UpdateUser(userEntity);
-            await _userRepository.SaveAsync();
+            _mapper.Map(user, userEntity);
 
-            return CreatedAtRoute(nameof(GetUser), new { userId },null);
+            await _userService.SaveChangeAsync();
+
+            return CreatedAtRoute(nameof(GetUser), new { userId }, null);
         }
     }
 }

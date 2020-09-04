@@ -1,7 +1,16 @@
-﻿using devitemapi.Common;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-04 10:17:21 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-04 14:55:23
+ */
+using devitemapi.Common;
 using devitemapi.Dto;
 using devitemapi.Entity;
+using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
+using devitemapi.Infrastructure.Repositories.Interface;
+using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -13,113 +22,49 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService<DevUser>, IUserService
     {
-        private readonly DevDbContext _dbContext;
 
-        public UserService(DevDbContext dbContext)
+        private readonly IBaseRepository<DevUser> _repository;
+
+        public UserService(IBaseRepository<DevUser> repository) : base(repository)
         {
-            this._dbContext = dbContext;
+            this._repository = repository;
         }
 
-        public Task<ResponseDto> Add(DevUser user)
+        public async Task<DevUser> CreateUser(DevUser user)
         {
-            return Task.Run(() =>
+            //过滤超级管理员账号
+            if (user.Account.ToLower().Equals("administrator") ||
+                user.Account.ToLower().Equals("admin"))
             {
-                ResponseDto response = new ResponseDto();
+                throw new ItemException(ErrorTxt.USER_ILLEGAL_ACCOUNT);
+            }
 
-                //过滤超级管理员账号
-                if (user.Account.ToLower().Equals("administrator") ||
-                    user.Account.ToLower().Equals("admin"))
-                {
-                    response.SetFail("用户账号非法");
-                    return response;
-                }
+            //账号重复判断，不区分大小写
+            var existsUser = await _repository.QueryFirstAsync(u => u.Account.ToLower().Equals(user.Account.ToLower()));
 
-                //账号重复判断，不区分大小写
-                if (_dbContext.DevUsers.FirstOrDefault(u => u.Account.ToLower().Equals(user.Account.ToLower())) != null)
-                {
-                    response.SetFail("用户账号已存在");
-                    return response;
-                }
-
-                user.Status = 1;    //默认启用
-                user.CreateDate = DateTime.Now;
-                user.ModifyDate = DateTime.Now;
-
-                _dbContext.DevUsers.Add(user);
-                _dbContext.SaveChanges();
-                return response;
-            });
-        }
-
-        public Task<ResponseDto> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResponseDto> Delete(string ids)
-        {
-            return Task.Run(() =>
+            if (existsUser != null)
             {
-                ResponseDto response = new ResponseDto();
-                string delSql = $"DELETE devusers WHERE Id IN ({ids})";
-                _dbContext.Database.ExecuteSqlRaw(delSql);
-                _dbContext.SaveChanges();
-                return response;
-            });
+                throw new ItemException(ErrorTxt.USER_ALREADY_EXISTS);
+            }
+
+            user.Status = 1;    //默认启用
+            user.CreateDate = DateTime.Now;
+            user.ModifyDate = DateTime.Now;
+
+            Add(user);
+            return user;
         }
 
-        public Task<ResponseDto> Get(int id)
+        public async Task<DevUser> QueryUserByAccount(string account, string pwd)
         {
-            return Task.Run(() =>
-            {
-                ResponseDto response = new ResponseDto();
-                var user = _dbContext.DevUsers.Find(id);
-                if (user == null)
-                    response.SetFail(MessageTxt.EMPTY_SEARCH);
-                else
-                    response.SetData(user);
-                return response;
-            });
+            return await _repository.QueryFirstAsync(u=>u.Account == account && u.Pwd == pwd);
         }
 
-        public Task<ResponseDto> Get()
+        public DevUser UpdateUser(DevUser user)
         {
-            return Task.Run(() =>
-            {
-                ResponseDto response = new ResponseDto();
-                var users = _dbContext.DevUsers;
-                if (users == null || users.Count() < 1)
-                    response.SetFail(MessageTxt.EMPTY_SEARCH);
-                else
-                    response.SetData(users);
-                return response;
-            });
-        }
-
-        public Task<ResponseDto> Modify(DevUser user)
-        {
-            return Task.Run(()=>{
-                ResponseDto response = new ResponseDto();
-                using (_dbContext)
-                {
-                    var entity = _dbContext.DevUsers.FirstOrDefault(p => user.Id.Equals(p.Id));
-                    if (entity != null)
-                    {
-                        entity.ModifyDate = DateTime.Now;
-                        entity.Phone = user.Phone;
-                        entity.Pwd = user.Pwd;
-                        entity.Address = user.Address;
-                        entity.EMail = user.EMail;
-                        _dbContext.SaveChanges();
-                        response.SetSuccess("用户信息修改成功");
-                    }
-                    else
-                        response.SetFail("用户不存在");
-                }
-                return response;
-            });
+            return default;
         }
     }
 }

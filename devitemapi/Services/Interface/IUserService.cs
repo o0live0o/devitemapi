@@ -1,4 +1,10 @@
-﻿using devitemapi.Dto;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-04 11:44:54 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-04 15:00:12
+ */
+using devitemapi.Dto;
 using devitemapi.Entity;
 using System;
 using System.Collections.Generic;
@@ -7,18 +13,12 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IUserService
+    public interface IUserService : IBaseService<DevUser>
     {
-        Task<ResponseDto> Add(DevUser user);
+        Task<DevUser> CreateUser(DevUser user);
 
-        Task<ResponseDto> Delete(int id);
-
-        Task<ResponseDto> Delete(string ids);
-
-        Task<ResponseDto> Modify(DevUser user);
-
-        Task<ResponseDto> Get(int id);
-
-        Task<ResponseDto> Get();
+        Task<DevUser> QueryUserByAccount(string account,string pwd);
+  
+        DevUser UpdateUser(DevUser user);
     }
 }

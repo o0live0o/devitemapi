@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-03 14:55:31 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-03 15:07:18
+ * @Last Modified time: 2020-09-04 15:21:34
  */
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,7 @@ namespace devitemapi.Dto.User
 {
     public class UserDto: BaseDto
     {
+        public Guid UserId {get;set;}
         public string Name { get; set; }
 
         public string Account { get; set; }
