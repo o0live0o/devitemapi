@@ -2,14 +2,18 @@
  * @Author: live0x
  * @Date: 2020-08-18 14:39:05
  * @Last Modified by: live0x
- * @Last Modified time: 2020-08-18 14:40:28
+ * @Last Modified time: 2020-09-04 18:03:29
  */
 
+using AutoMapper;
 using devitemapi.Dto;
+using devitemapi.Dto.Action;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Repository.Interface;
+using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace devitemapi.Controllers.Rbac
@@ -22,11 +26,13 @@ namespace devitemapi.Controllers.Rbac
     [Route("actions")]
     public class ActionController : BaseController
     {
-        private readonly IDevActionRepository _actionRepository;
+        private readonly IActionService _actionService;
+        private readonly IMapper _mapper;
 
-        public ActionController(IDevActionRepository actionRepository)
+        public ActionController(IActionService actionService, IMapper mapper)
         {
-            this._actionRepository = actionRepository;
+            this._mapper = mapper;
+            this._actionService = actionService;
         }
 
         /// <summary>
@@ -34,13 +40,18 @@ namespace devitemapi.Controllers.Rbac
         /// </summary>
         /// <param name="actionId">方法Id</param>
         /// <returns></returns>
-        [HttpGet("{actionId}")]
-        public async Task<ResponseDto> GetActionById([FromRoute] Guid actionId)
+        [HttpGet("{actionId}", Name = nameof(GetActionById))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ActionDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetActionById([FromRoute] Guid actionId)
         {
-            ResponseDto response = new ResponseDto();
-            var actions = await _actionRepository.GetActionAsync(actionId);
-            response.SetData(actions);
-            return response;
+            var @action = await _actionService.QueryByIdAsync(actionId);
+            if (@action == null)
+            {
+                return NotFound();
+            }
+            var actionDto = _mapper.Map<ActionDto>(@action);
+            return Ok(actionDto);
         }
 
         /// <summary>
@@ -48,21 +59,20 @@ namespace devitemapi.Controllers.Rbac
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ResponseDto> GetActions()
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetActions(int pageSize = 20, int pageIndex = 1)
         {
-            ResponseDto response = new ResponseDto();
-            var actions = await _actionRepository.GetActionsAsync();
-            response.SetData(actions);
-            return response;
+            var @actions = await _actionService.QueryAsync(null, pageSize, pageIndex);
+            return Ok(@actions);
         }
 
         [HttpPost]
-        public async Task<ResponseDto> AddAction(DevAction action)
+        public async Task<ActionResult<ActionDto>> AddAction(ActionAddDto action)
         {
-            ResponseDto response = new ResponseDto();
-            _actionRepository.AddAction(action);
-            await _actionRepository.SaveAsync();
-            return response;
+            var actionEntity = _mapper.Map<DevAction>(action);
+            _actionService.Add(actionEntity);
+            await _actionService.SaveChangeAsync();
+            return CreatedAtRoute(nameof(GetActionById), new { }, null);
         }
 
         /// <summary>
@@ -71,7 +81,7 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="actionId">Action Id</param>
         /// <returns></returns>
         [HttpDelete("{actionId}")]
-        public async Task<ResponseDto> DeleteAction(Guid actionId)
+        public async Task<ActionResult> DeleteAction(Guid actionId)
         {
             ResponseDto response = new ResponseDto();
             var action = await _actionRepository.GetActionAsync(actionId);
@@ -87,7 +97,7 @@ namespace devitemapi.Controllers.Rbac
         // }
 
         [HttpPut("{actionId}")]
-        public async Task<ResponseDto> UpdateAction(Guid actionId, DevAction action)
+        public async Task<ActionResult> UpdateAction(Guid actionId, DevAction action)
         {
             ResponseDto response = new ResponseDto();
             await _actionRepository.SaveAsync();

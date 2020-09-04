@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-04 10:17:27 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-04 15:50:14
+ * @Last Modified time: 2020-09-04 18:00:10
  */
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Repositories.Interface;
@@ -24,7 +24,7 @@ namespace devitemapi.Services
             this._repository = repository;
         }
 
-        public void Add(T t)
+        public virtual void Add(T t)
         {
            _repository.Add(t);
         }
