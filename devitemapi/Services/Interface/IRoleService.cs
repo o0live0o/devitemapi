@@ -7,18 +7,8 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IRoleService
+    public interface IRoleService:IBaseService<DevRole>
     {
-        Task<ResponseDto> Add(DevRole action);
 
-        Task<ResponseDto> Delete(int id);
-
-        Task<ResponseDto> Delete(string ids);
-
-        Task<ResponseDto> Modify(DevRole action);
-
-        Task<ResponseDto> Get(int id);
-
-        Task<ResponseDto> Get();
     }
 }

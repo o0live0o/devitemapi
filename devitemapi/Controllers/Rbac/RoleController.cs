@@ -1,11 +1,22 @@
-﻿using System;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-05 11:55:09 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-05 12:05:37
+ */
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using devitemapi.Common;
 using devitemapi.Dto;
+using devitemapi.Dto.Role;
 using devitemapi.Entity;
+using devitemapi.Infrastructure.Exceptions;
+using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Http;
@@ -23,40 +34,47 @@ namespace devitemapi.Controllers.Rbac
     [Route("roles")]
     public class RoleController : BaseController
     {
-        private readonly IDevRoleRepository _roleRepository;
+        private readonly IRoleService _roleService;
+        private readonly IMapper _mapper;
 
-        public RoleController(IDevRoleRepository roleRepository)
+        public RoleController(IRoleService roleService, IMapper mapper)
         {
-            this._roleRepository = roleRepository;
+            this._roleService = roleService;
+            this._mapper = mapper;
         }
 
-        [HttpGet("{roleId}")]
-        public async Task<ResponseDto> GetRole(Guid roleId)
+        [HttpGet("{roleId}",Name = nameof(GetRoleById))]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(RoleDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<RoleDto>> GetRoleById(Guid roleId)
         {
             if (roleId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(roleId));
+                throw new ItemException(ErrorTxt.ROLE_ID_EMPTY);
             }
-            ResponseDto response = new ResponseDto();
-            var role = await _roleRepository.GetRoleAsync(roleId);
-            return response.SetData(role);
+            var role =await _roleService.QueryByIdAsync(roleId);
+            if (role == null)
+            {
+                return NotFound();
+            }
+            return Ok(role);
         }
 
         [HttpGet]
-        public async Task<ResponseDto> GetRoles()
+        [ProducesResponseType(typeof(IEnumerable<RoleDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<RoleDto>>> GetRoles(int pageSize = 20, int pageIndex = 1)
         {
-            ResponseDto response = new ResponseDto();
-            var roles = await _roleRepository.GetRolesAsync();
-            return response.SetData(roles);
+            var roles = await _roleService.QueryAsync(pageSize, pageIndex);
+            return Ok(roles);
         }
 
         [HttpPost]
-        public async Task<ResponseDto> CreateRole(DevRole role)
+        public async Task<ActionResult<RoleDto>> CreateRole(RoleAddDto role)
         {
-            ResponseDto response = new ResponseDto();
-            _roleRepository.AddRole(role);
-            await _roleRepository.SaveAsync();
-            return response;
+            var roleEntity = _mapper.Map<DevRole>(role);
+            _roleService.Add(roleEntity);
+            await _roleService.SaveChangeAsync();
+            return CreatedAtRoute(nameof(GetRoleById), new { roleId = roleEntity.Id }, null);
         }
 
         [HttpDelete("{roleId}")]

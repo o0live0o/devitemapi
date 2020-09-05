@@ -9,6 +9,8 @@ using AutoMapper;
 using devitemapi.Dto;
 using devitemapi.Dto.Action;
 using devitemapi.Entity;
+using devitemapi.Infrastructure.Exceptions;
+using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -72,7 +74,7 @@ namespace devitemapi.Controllers.Rbac
             var actionEntity = _mapper.Map<DevAction>(action);
             _actionService.Add(actionEntity);
             await _actionService.SaveChangeAsync();
-            return CreatedAtRoute(nameof(GetActionById), new { }, null);
+            return CreatedAtRoute(nameof(GetActionById), new { actionId = actionEntity.Id }, null);
         }
 
         /// <summary>
@@ -81,13 +83,24 @@ namespace devitemapi.Controllers.Rbac
         /// <param name="actionId">Action Id</param>
         /// <returns></returns>
         [HttpDelete("{actionId}")]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<ActionResult> DeleteAction(Guid actionId)
         {
-            ResponseDto response = new ResponseDto();
-            var action = await _actionRepository.GetActionAsync(actionId);
-            _actionRepository.DeleteAction(action);
-            await _actionRepository.SaveAsync();
-            return response;
+            if (actionId == Guid.Empty)
+            {
+                throw new ItemException(ErrorTxt.ACTION_EMPTY_ID);
+            }
+
+            var actionEtity = await _actionService.QueryByIdAsync(actionId);
+            if (actionEtity == null)
+            {
+                return NotFound();
+            }
+
+            _actionService.Remove(actionEtity);
+            await _actionService.SaveChangeAsync();
+            return NoContent();
         }
 
         // [HttpGet("{ids}")]
@@ -97,11 +110,25 @@ namespace devitemapi.Controllers.Rbac
         // }
 
         [HttpPut("{actionId}")]
-        public async Task<ActionResult> UpdateAction(Guid actionId, DevAction action)
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<ActionResult> UpdateAction(Guid actionId, ActionUpdateDto action)
         {
-            ResponseDto response = new ResponseDto();
-            await _actionRepository.SaveAsync();
-            return response;
+            if (actionId == Guid.Empty)
+            {
+                throw new ItemException(ErrorTxt.ACTION_EMPTY_ID);
+            }
+
+            var actionEntity = await _actionService.QueryByIdAsync(actionId);
+            if (actionEntity == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(action, actionEntity);
+
+            await _actionService.SaveChangeAsync();
+            return CreatedAtRoute(nameof(GetActionById), new { actionId }, null);
         }
     }
 }

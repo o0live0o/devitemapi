@@ -9,6 +9,8 @@ namespace devitemapi.Entity
     {
         public string RoleName { get; set; }
 
+        public string RoleCode { get; set; }
+
         public int Status { get; set; }
 
     }

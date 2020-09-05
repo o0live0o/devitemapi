@@ -1,7 +1,9 @@
 ﻿using devitemapi.Common;
 using devitemapi.Dto;
 using devitemapi.Entity;
+using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
+using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -13,102 +15,27 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    public class RoleService : IRoleService
+    public class RoleService : BaseService<DevRole>, IRoleService
     {
-        private readonly DevDbContext _dbContext;
-
-        public RoleService(DevDbContext dbContext)
+        public RoleService(IBaseRepository<DevRole> repository) : base(repository)
         {
-            this._dbContext = dbContext;
         }
 
-        public Task<ResponseDto> Add(DevRole role)
+        public override void Add(DevRole role)
         {
-            return Task.Run(() =>
+            if (string.IsNullOrEmpty(role.RoleCode) ||
+                string.IsNullOrEmpty(role.RoleName))
             {
-                ResponseDto response = new ResponseDto();
-
-
-                //账号重复判断，不区分大小写
-                if (_dbContext.DevRoles.FirstOrDefault(u => u.RoleName.ToLower().Equals(role.RoleName.ToLower())) != null)
-                {
-                    response.SetFail("角色已存在");
-                    return response;
-                }
-
-                role.Status = 1;    //默认启用
-                role.CreateDate = DateTime.Now;
-                role.ModifyDate = DateTime.Now;
-
-                _dbContext.DevRoles.Add(role);
-                _dbContext.SaveChanges();
-                return response;
-            });
-        }
-
-        public Task<ResponseDto> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ResponseDto> Delete(string ids)
-        {
-            return Task.Run(() =>
+                throw new ItemException(ErrorTxt.ROLE_NAMEORCODE_EMPTY);
+            }
+            var roleEntity = QueryAsync(r => r.RoleCode == role.RoleCode || r.RoleName == role.RoleName);
+            if (roleEntity != null)
             {
-                ResponseDto response = new ResponseDto();
-                string delSql = $"DELETE devroles WHERE Id IN ({ids})";
-                _dbContext.Database.ExecuteSqlRaw(delSql);
-                _dbContext.SaveChanges();
-                return response;
-            });
+                throw new ItemException(ErrorTxt.ROLE_ALREADY_EXISTS);
+            }
+            role.Id = Guid.NewGuid();
+            base.Add(role);
         }
 
-        public Task<ResponseDto> Get(int id)
-        {
-            return Task.Run(() =>
-            {
-                ResponseDto response = new ResponseDto();
-                var role = _dbContext.DevRoles.Find(id);
-                if (role == null)
-                    response.SetFail(MessageTxt.EMPTY_SEARCH);
-                else
-                    response.SetData(role);
-                return response;
-            });
-        }
-
-        public Task<ResponseDto> Get()
-        {
-            return Task.Run(() =>
-            {
-                ResponseDto response = new ResponseDto();
-                var roles = _dbContext.DevRoles;
-                if (roles == null || roles.Count() < 1)
-                    response.SetFail(MessageTxt.EMPTY_SEARCH);
-                else
-                    response.SetData(roles);
-                return response;
-            });
-        }
-
-        public Task<ResponseDto> Modify(DevRole role)
-        {
-            return Task.Run(()=>{
-                ResponseDto response = new ResponseDto();
-                using (_dbContext)
-                {
-                    var entity = _dbContext.DevRoles.FirstOrDefault(p => role.Id.Equals(p.Id));
-                    if (entity != null)
-                    {
-                        entity.ModifyDate = DateTime.Now;
-                        _dbContext.SaveChanges();
-                        response.SetSuccess(MessageTxt.PASS_MODIFY_ROLE);
-                    }
-                    else
-                        response.SetFail(MessageTxt.ERROR_NOT_EXISTS_ROLE);
-                }
-                return response;
-            });
-        }
     }
 }
