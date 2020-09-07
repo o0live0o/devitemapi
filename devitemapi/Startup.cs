@@ -53,26 +53,27 @@ namespace devitemapi
 
             Console.WriteLine(Guid.NewGuid().ToString("N"));
 
-            services.AddControllers(options => {
+            services.AddControllers(options =>
+            {
                 options.Filters.Add(typeof(GlobalExceptionFilter));
             }).AddNewtonsoftJson();
 
             //services.AddHsts(options=> { 
-            
+
             //});
 
             //services.AddHttpsRedirection(options=> { 
-            
+
             //});
 
             //RedisClient.GetRedisClient.Init(Configuration);
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddCusService();
 
             //泛型注入
-            services.Add(new ServiceDescriptor(typeof(IBaseService<>),typeof(BaseService<>),ServiceLifetime.Scoped));
-            services.Add(new ServiceDescriptor(typeof(IBaseRepository<>),typeof(BaseRepository<>),ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBaseService<>), typeof(BaseService<>), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBaseRepository<>), typeof(BaseRepository<>), ServiceLifetime.Scoped));
 
             services.AddCusRepository();
 
@@ -83,7 +84,7 @@ namespace devitemapi
                 options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
             });
 
-           
+
 
             AppConfig.Config = Configuration.GetSection("AppConfig").Get<ConfigEntity>();
 
@@ -103,10 +104,12 @@ namespace devitemapi
 
             services.AddSwaggerGen(options =>
             {
+
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo()
                 {
                     Version = "V1.0",
                     Title = "Developer Item Api"
+
                 });
 
                 var xmlPath = Path.Combine(System.AppContext.BaseDirectory, "devitemapi.xml");
@@ -150,15 +153,37 @@ namespace devitemapi
 
             app.UseCors("CorsPolicy");
 
-            app.UseSwagger();
+            string pathBase = Configuration["PATH_BASE"] ?? "";
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                pathBase = "/" + pathBase;
+            }
+
+            app.UseSwagger(c =>
+            {
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    swaggerDoc.Servers.Add(new OpenApiServer() { Url = "/" });
+                    if (!string.IsNullOrEmpty(pathBase))
+                    {
+                        swaggerDoc.Servers.Add(new OpenApiServer() { Url = pathBase });
+                    }
+                }
+                 );
+            });
 
             //app.UseApiLog();
-
             app.UseSwaggerUI(options =>
-            {
-                options.RoutePrefix = string.Empty;
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
+               {
+                   options.RoutePrefix = string.Empty;
+
+                   options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                   if (!string.IsNullOrEmpty(pathBase))
+                   {
+                       options.SwaggerEndpoint($"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json", "v1");
+                   }
+               });
 
             app.UseAuthentication();
 
