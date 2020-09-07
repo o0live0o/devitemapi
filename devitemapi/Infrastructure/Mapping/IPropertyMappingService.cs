@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace devitemapi.Infrastructure.Mapping
 {
     public interface IPropertyMappingService
     {
         Dictionary<string, PropertyMappingValue> GetPropertyMapping<TSource, TDestination>();
+
         bool ValidMappingExistsFor<TSource, TDestination>(string fields);
     }
 }

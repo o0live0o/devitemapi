@@ -1,24 +1,19 @@
-﻿using devitemapi.Dto;
+﻿using devitemapi.Entity;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace devitemapi.Services.Interface
 {
     public interface ILoginService
     {
-        /// <summary>
-        /// 用户登录
-        /// </summary>
-        /// <param name="userName">用户名</param>
-        /// <param name="pwd">密码</param>
-        /// <returns>JWT Token</returns>
-        ResponseDto Login(string userName,string pwd);
+        Task<object> GetMenuTreeByUser(Guid userId);
 
-        ResponseDto GetMenuTreeByUser(int userId);
+        void GetMenuTreeByRole(Guid roleId);
 
-        ResponseDto GetPowerByUser(int userId);
+        void GetPermissionByUser(Guid userId);
 
+        void GetPermissionByRole(Guid roleId);
+
+        void UpdatePermission(Guid roleId, DevPermission permission);
     }
 }

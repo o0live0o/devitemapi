@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using StackExchange.Redis;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devitemapi.Common
 {
@@ -15,9 +12,11 @@ namespace devitemapi.Common
 
         private static RedisClient _redisClient;
 
-        IDatabase db = null;
+        private IDatabase db = null;
 
-        private RedisClient() { }
+        private RedisClient()
+        {
+        }
 
         public static RedisClient GetRedisClient
         {
@@ -47,7 +46,6 @@ namespace devitemapi.Common
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -61,6 +59,5 @@ namespace devitemapi.Common
         {
             return db.StringGet(key);
         }
-
     }
 }

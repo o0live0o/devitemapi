@@ -1,15 +1,15 @@
 ﻿/*
- * @Author: live0x 
- * @Date: 2020-09-04 10:17:27 
+ * @Author: live0x
+ * @Date: 2020-09-04 10:17:27
  * @Last Modified by: live0x
  * @Last Modified time: 2020-09-04 18:00:10
  */
+
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -26,12 +26,12 @@ namespace devitemapi.Services
 
         public virtual void Add(T t)
         {
-           _repository.Add(t);
+            _repository.Add(t);
         }
 
         public virtual async Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func, int pageSize, int pageIndex)
         {
-            return await _repository.QueryAsync(func,pageSize,pageIndex);
+            return await _repository.QueryAsync(func, pageSize, pageIndex);
         }
 
         public virtual async Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func)
@@ -61,7 +61,7 @@ namespace devitemapi.Services
 
         public async Task<bool> SaveChangeAsync()
         {
-           return await _repository.SaveAsync();
+            return await _repository.SaveAsync();
         }
     }
 }

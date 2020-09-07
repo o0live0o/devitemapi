@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devitemapi.Entity
 {
     public class DevUserRole : BaseEntity
     {
-        public int Useid { get; set; }
+        public Guid Useid { get; set; }
 
-        public int RoleId { get; set; }
-
+        public Guid RoleId { get; set; }
     }
 }

@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿/*
+ * @Author: live0x
+ * @Date: 2020-09-07 11:11:42
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-07 11:17:47
+ */
+
 using devitemapi.Common;
 using devitemapi.Dto;
 using devitemapi.Infrastructure.Exceptions;
-using devitemapi.Infrastructure.Log;
 using devitemapi.Infrastructure.Message;
-using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Logging;
+using System;
+using System.Net;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,13 +23,15 @@ namespace devitemapi.Controllers.Rbac
     /// <summary>
     /// 登录授权
     /// </summary>
-    [Route("login")]
+    // [Route("login")]
     public class LoginController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly ILoginService _loginService;
 
-        public LoginController(IUserService userService)
+        public LoginController(IUserService userService, ILoginService loginService)
         {
+            this._loginService = loginService;
             this._userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
@@ -42,28 +44,37 @@ namespace devitemapi.Controllers.Rbac
         [HttpPost]
         [AllowAnonymous]
         [Route("login")]
-        [ProducesResponseType(typeof(string),(int)HttpStatusCode.OK)]
-        public async Task<ActionResult> SignIn(string userAccount, string pwd)
+        [ProducesResponseType(typeof(LoginDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<LoginDto>> SignIn(string userAccount, string pwd)
         {
-
             if (string.IsNullOrEmpty(userAccount))
             {
-                throw new ItemException(ErrorTxt.USER_ACCOUNT_EMPTY);
+                throw new ItemException(TipsTxt.USER_ACCOUNT_EMPTY);
             }
             else if (string.IsNullOrEmpty(pwd))
             {
-                throw new ItemException(ErrorTxt.USER_PASSWORD_EMPTY);
+                throw new ItemException(TipsTxt.USER_PASSWORD_EMPTY);
             }
 
             var user = await _userService.QueryUserByAccount(userAccount, pwd);
             if (user == null)
             {
-                throw new ItemException(ErrorTxt.USER_ACCOUNTORPASSWORD_FAIL);
+                throw new ItemException(TipsTxt.USER_ACCOUNTORPASSWORD_FAIL);
             }
 
             var token = JWTService.GetJWTToken(userAccount, AppConfig.Config.JwtSecurityKey);
-            return Ok(token);
+            var loginDto = new LoginDto()
+            {
+                Token = token
+            };
+            return Ok(loginDto);
         }
 
+        [HttpGet("permission/menus/{userId}")]
+        public async Task<ActionResult> GetMenusByUserId(Guid userId)
+        {
+            var menus = await _loginService.GetMenuTreeByUser(userId);
+            return Ok(menus);
+        }
     }
 }

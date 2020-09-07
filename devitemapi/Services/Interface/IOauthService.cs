@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace devitemapi.Services.Interface
+﻿namespace devitemapi.Services.Interface
 {
-
     /*
      * 1.获取用户-角色关系
      * 2.保存用户-角色关系
@@ -14,6 +8,7 @@ namespace devitemapi.Services.Interface
      * 5.获取菜单-操作关系
      * 6.保存菜单-操作关系
      */
+
     public interface IOauthService
     {
     }

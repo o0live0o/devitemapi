@@ -24,6 +24,7 @@ namespace devitemapi.Dto
         /// 响应信息
         /// </summary>
         public string Message { get; set; }
+
         public ResponseDto SetData(object o)
         {
             Message = "获取数据成功";

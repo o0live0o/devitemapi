@@ -1,13 +1,6 @@
-﻿using devitemapi.Infrastructure.Log;
-using devitemapi.Services;
-using devitemapi.Services.Interface;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace devitemapi.Common
 {

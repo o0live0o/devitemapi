@@ -21,7 +21,7 @@
             <param name="actionId">方法Id</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetActions">
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetActions(System.Int32,System.Int32)">
             <summary>
             Get all actions
             </summary>
@@ -75,7 +75,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dto.User.UserAddDto)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.CreateUser(devitemapi.Dto.User.UserAddOrUpdateDto)">
             <summary>
             
             </summary>
@@ -89,7 +89,7 @@
             <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Dto.User.UserUpdateDto)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Dto.User.UserAddOrUpdateDto)">
             <summary>
             修改用户
             </summary>
@@ -111,14 +111,6 @@
             <summary>
             响应信息
             </summary>
-        </member>
-        <member name="M:devitemapi.Services.Interface.ILoginService.Login(System.String,System.String)">
-            <summary>
-            用户登录
-            </summary>
-            <param name="userName">用户名</param>
-            <param name="pwd">密码</param>
-            <returns>JWT Token</returns>
         </member>
     </members>
 </doc>

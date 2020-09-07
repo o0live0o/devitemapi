@@ -1,20 +1,12 @@
 ﻿using AutoMapper;
-using devitemapi.Common;
+using devitemapi.Dto.User;
 using devitemapi.Entity;
-using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using devitemapi.Dto.User;
-using devitemapi.Infrastructure.ActionResult;
 
 namespace devitemapi.Controllers.Rbac
 {
@@ -69,14 +61,14 @@ namespace devitemapi.Controllers.Rbac
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> CreateUser([FromBody] UserAddDto user)
+        public async Task<ActionResult> CreateUser([FromBody] UserAddOrUpdateDto user)
         {
             if (user == null)
             {
@@ -137,7 +129,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UserUpdateDto user)
+        public async Task<ActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UserAddOrUpdateDto user)
         {
             if (userId == null || userId == Guid.Empty || user is null)
             {

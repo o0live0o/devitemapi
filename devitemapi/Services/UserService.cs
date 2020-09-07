@@ -1,30 +1,22 @@
 ﻿/*
- * @Author: live0x 
- * @Date: 2020-09-04 10:17:21 
+ * @Author: live0x
+ * @Date: 2020-09-04 10:17:21
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-04 14:55:23
+ * @Last Modified time: 2020-09-07 09:00:55
  */
-using devitemapi.Common;
-using devitemapi.Dto;
+
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repositories.Interface;
-using devitemapi.Infrastructure.Repository.Interface;
 using devitemapi.Services.Interface;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
     public class UserService : BaseService<DevUser>, IUserService
     {
-
         private readonly IBaseRepository<DevUser> _repository;
 
         public UserService(IBaseRepository<DevUser> repository) : base(repository)
@@ -38,7 +30,7 @@ namespace devitemapi.Services
             if (user.Account.ToLower().Equals("administrator") ||
                 user.Account.ToLower().Equals("admin"))
             {
-                throw new ItemException(ErrorTxt.USER_ILLEGAL_ACCOUNT);
+                throw new ItemException(TipsTxt.USER_ILLEGAL_ACCOUNT);
             }
 
             //账号重复判断，不区分大小写
@@ -46,7 +38,7 @@ namespace devitemapi.Services
 
             if (existsUser != null)
             {
-                throw new ItemException(ErrorTxt.USER_ALREADY_EXISTS);
+                throw new ItemException(TipsTxt.USER_ALREADY_EXISTS);
             }
 
             user.Status = 1;    //默认启用
@@ -59,7 +51,7 @@ namespace devitemapi.Services
 
         public async Task<DevUser> QueryUserByAccount(string account, string pwd)
         {
-            return await _repository.QueryFirstAsync(u=>u.Account == account && u.Pwd == pwd);
+            return await _repository.QueryFirstAsync(u => u.Account == account && u.Pwd == pwd);
         }
 
         public DevUser UpdateUser(DevUser user)

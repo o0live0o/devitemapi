@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace devitemapi.Entity
+﻿namespace devitemapi.Entity
 {
-    public class DevMenu: BaseEntity
+    public class DevMenu : BaseEntity
     {
-
+        public string MenuCode { get; set; }
         public string MenuName { get; set; }
 
         public int ParentId { get; set; }
@@ -15,7 +10,5 @@ namespace devitemapi.Entity
         public string Url { get; set; }
 
         public string Icon { get; set; }
-
-
     }
 }

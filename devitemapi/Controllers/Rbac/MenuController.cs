@@ -1,17 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using devitemapi.Dto;
+﻿/*
+ * @Author: live0x
+ * @Date: 2020-09-07 09:14:27
+ * @Last Modified by:   live0x
+ * @Last Modified time: 2020-09-07 09:14:27
+ */
+
+using AutoMapper;
+using devitemapi.Dto.Menu;
 using devitemapi.Entity;
-using devitemapi.Infrastructure.Repository.Interface;
+using devitemapi.Infrastructure.Exceptions;
+using devitemapi.Infrastructure.Message;
 using devitemapi.Services.Interface;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace devitemapi.Controllers.Rbac
 {
-
     /// <summary>
     /// 菜单管理
     /// </summary>
@@ -20,55 +27,89 @@ namespace devitemapi.Controllers.Rbac
     [Route("menus")]
     public class MenuController : BaseController
     {
-        private readonly IDevMenuRepository _menuRepository;
+        private readonly IMenuService _menuService;
+        private readonly IMapper _mapper;
 
-        public MenuController(IDevMenuRepository menuRepository)
+        public MenuController(IMenuService menuService, IMapper mapper)
         {
-            this._menuRepository = menuRepository;
+            this._mapper = mapper;
+            this._menuService = menuService;
         }
 
-        [HttpGet("{menuId}")]
-        public async Task<ResponseDto> GetMenu(Guid menuId)
+        [HttpGet("{menuId}", Name = nameof(GetMenuById))]
+        public async Task<ActionResult> GetMenuById(Guid menuId)
         {
-            ResponseDto response = new ResponseDto();
-            var menu = await _menuRepository.GetMenuAsync(menuId);
-            return response.SetData(menu);
+            if (menuId == Guid.Empty)
+            {
+                throw new ItemException(TipsTxt.MENU_ID_EMPTY);
+            }
+            var menu = await _menuService.QueryByIdAsync(menuId);
+            if (menu == null)
+            {
+                return NotFound();
+            }
+            return Ok(menu);
         }
 
         [HttpGet]
-        public async Task<ResponseDto> GetMenus()
+        [ProducesResponseType(typeof(IEnumerable<MenuDto>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<IEnumerable<MenuDto>>> Getmenus(int pageSize = 20, int pageIndex = 1)
         {
-            ResponseDto response = new ResponseDto();
-            return response.SetData(await _menuRepository.GetMenusAsync());
+            var menus = await _menuService.QueryAsync(pageSize, pageIndex);
+            return Ok(menus);
         }
 
         [HttpPost]
-        public async Task<ResponseDto> CreateMenu(DevMenu menu)
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<ActionResult> CreateMenu(MenuAddOrUpdateDto menu)
         {
-            ResponseDto response = new ResponseDto();
-            _menuRepository.AddMenu(menu);
-            await _menuRepository.SaveAsync();
-            return response;
+            var menuEntity = _mapper.Map<DevMenu>(menu);
+            _menuService.Add(menuEntity);
+            await _menuService.SaveChangeAsync();
+            return CreatedAtRoute(nameof(GetMenuById), new { menuId = menuEntity.Id }, null);
         }
 
         [HttpDelete("{menuId}")]
-        public async Task<ResponseDto> DeleteMenu(Guid menuId)
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        public async Task<ActionResult> DeleteMenu(Guid menuId)
         {
-            ResponseDto response = new ResponseDto();
-            var menu = await _menuRepository.GetMenuAsync(menuId);
-            _menuRepository.DeleteMenu(menu);
-            await _menuRepository.SaveAsync();
-            return response;
+            if (menuId == Guid.Empty)
+            {
+                throw new ItemException(TipsTxt.MENU_ID_EMPTY);
+            }
+            var menu = await _menuService.QueryByIdAsync(menuId);
+            if (menu == null)
+            {
+                return NotFound();
+            }
+            _menuService.Remove(menu);
+            await _menuService.SaveChangeAsync();
+            return NoContent();
         }
 
-
-        [HttpPut("{meunId}")]
-        public async Task<ResponseDto> UpdateMenu(Guid menuId, DevMenu menu)
+        [HttpPut("menuId")]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<IActionResult> UpdateMenu(Guid menuId, MenuAddOrUpdateDto menu)
         {
-            ResponseDto response = new ResponseDto();
-            _menuRepository.UpdateMenu(menu);
-            await _menuRepository.SaveAsync();
-            return response;
+            if (menuId == Guid.Empty)
+            {
+                throw new ItemException(TipsTxt.MENU_ID_EMPTY);
+            }
+
+            var menuEntity = await _menuService.QueryByIdAsync(menuId);
+
+            if (menuEntity == null)
+            {
+                return NotFound();
+            }
+
+            _mapper.Map(menu, menuEntity);
+            await _menuService.SaveChangeAsync();
+            return CreatedAtRoute(nameof(GetMenuById), new { menuId }, null);
         }
     }
 }

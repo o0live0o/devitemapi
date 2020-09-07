@@ -1,17 +1,17 @@
-﻿using devitemapi.Common;
-using devitemapi.Dto;
+﻿/*
+ * @Author: live0x
+ * @Date: 2020-09-07 08:58:00
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-07 09:07:03
+ */
+
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
@@ -21,21 +21,20 @@ namespace devitemapi.Services
         {
         }
 
-        public override void Add(DevRole role)
+        public override async void Add(DevRole role)
         {
             if (string.IsNullOrEmpty(role.RoleCode) ||
                 string.IsNullOrEmpty(role.RoleName))
             {
-                throw new ItemException(ErrorTxt.ROLE_NAMEORCODE_EMPTY);
+                throw new ItemException(TipsTxt.ROLE_NAMEORCODE_EMPTY);
             }
-            var roleEntity = QueryAsync(r => r.RoleCode == role.RoleCode || r.RoleName == role.RoleName);
-            if (roleEntity != null)
+            var roleEntity = await QueryAsync(r => r.RoleCode == role.RoleCode || r.RoleName == role.RoleName);
+            if (roleEntity != null && roleEntity.Count() > 0)
             {
-                throw new ItemException(ErrorTxt.ROLE_ALREADY_EXISTS);
+                throw new ItemException(TipsTxt.ROLE_ALREADY_EXISTS);
             }
             role.Id = Guid.NewGuid();
             base.Add(role);
         }
-
     }
 }

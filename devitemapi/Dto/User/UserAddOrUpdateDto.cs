@@ -1,10 +1,14 @@
-using System;
+/*
+ * @Author: live0x
+ * @Date: 2020-09-07 09:33:14
+ * @Last Modified by:   live0x
+ * @Last Modified time: 2020-09-07 09:33:14
+ */
 
 namespace devitemapi.Dto.User
 {
-    public class UserUpdateDto
+    public class UserAddOrUpdateDto : BaseDto
     {
-        public Guid UserId { get; set; }
         public string Name { get; set; }
 
         public string Account { get; set; }

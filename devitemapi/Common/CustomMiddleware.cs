@@ -1,8 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devitemapi.Common
 {
@@ -12,6 +8,5 @@ namespace devitemapi.Common
         {
             return app.UseMiddleware<LogMiddlerware>();
         }
-
     }
 }

@@ -1,24 +1,19 @@
 ﻿using devitemapi.Dto;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.Log
 {
     public class ApiLogger : IApiLogger
     {
-        Logger _logger = LogManager.GetCurrentClassLogger();
+        private Logger _logger = LogManager.GetCurrentClassLogger();
+
         public ApiLogger()
         {
-
         }
 
         public void Debug()
-        {   
+        {
             LogEventInfo lei = new LogEventInfo();
             lei.Message = "测试";
             lei.Properties["logcontent"] = "debug";
@@ -33,22 +28,18 @@ namespace devitemapi.Infrastructure.Log
 
         public void Error(LogDto log)
         {
-          
         }
 
         public void Info(LogDto log)
         {
-
         }
 
         public void Trace(LogDto log)
         {
-
         }
 
         public void Warnnig(LogDto log)
         {
-
         }
     }
 }

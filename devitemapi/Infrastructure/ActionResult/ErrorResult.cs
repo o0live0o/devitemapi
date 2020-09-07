@@ -1,11 +1,17 @@
+/*
+ * @Author: live0x
+ * @Date: 2020-09-07 08:58:15
+ * @Last Modified by:   live0x
+ * @Last Modified time: 2020-09-07 08:58:15
+ */
+
 using devitemapi.Infrastructure.Message;
-using Microsoft.AspNetCore.Mvc;
 
 namespace devitemapi.Infrastructure.ActionResult
 {
-    public class ErrorResult 
+    public class ErrorResult
     {
-        public ErrorResult(string message) 
+        public ErrorResult(string message)
         {
             this.Message = message;
         }
@@ -15,14 +21,10 @@ namespace devitemapi.Infrastructure.ActionResult
 
     public class ValidateErrorResult : ErrorResult
     {
-        public ValidateErrorResult(string message = ErrorTxt.VALIDATE_FAILED) : base(message)
+        public ValidateErrorResult(string message = TipsTxt.VALIDATE_FAILED) : base(message)
         {
-
         }
 
         public object Error { get; set; }
-
     }
-
-
 }
