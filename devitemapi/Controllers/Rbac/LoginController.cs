@@ -27,11 +27,11 @@ namespace devitemapi.Controllers.Rbac
     public class LoginController : BaseController
     {
         private readonly IUserService _userService;
-        private readonly ILoginService _loginService;
+        private readonly IRbacService _rbacService;
 
-        public LoginController(IUserService userService, ILoginService loginService)
+        public LoginController(IUserService userService, IRbacService rbacService)
         {
-            this._loginService = loginService;
+            this._rbacService = rbacService ?? throw new ArgumentNullException(nameof(rbacService));
             this._userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
@@ -73,7 +73,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet("permission/menus/{userId}")]
         public async Task<ActionResult> GetMenusByUserId(Guid userId)
         {
-            var menus = await _loginService.GetMenuTreeByUser(userId);
+            var menus = await _rbacService.GetMenuTreeByUser(userId);
             return Ok(menus);
         }
     }

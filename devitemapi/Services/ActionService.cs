@@ -1,5 +1,12 @@
-﻿using devitemapi.Entity;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-08 15:57:15 
+ * @Last Modified by:   live0x 
+ * @Last Modified time: 2020-09-08 15:57:15 
+ */
+using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
+using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
 using System;
@@ -17,7 +24,7 @@ namespace devitemapi.Services
             if (string.IsNullOrEmpty(devAction.ActionName) ||
                     string.IsNullOrEmpty(devAction.ActionCode))
             {
-                throw new ItemException("操作名称或代码不能为空");
+                throw new ItemException(TipsTxt.ACTION_CODE_EMPTY);
             }
 
             devAction.Id = Guid.NewGuid();

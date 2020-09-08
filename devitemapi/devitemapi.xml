@@ -112,5 +112,13 @@
             响应信息
             </summary>
         </member>
+        <member name="M:devitemapi.Services.LoginService.CreateTree(System.Collections.Generic.List{devitemapi.Dto.RoleMenuDto},System.Collections.Generic.List{devitemapi.Dto.TreeMenuDto},System.Guid)">
+            <summary>
+            创建树形结构
+            </summary>
+            <param name="list"></param>
+            <param name="treeMenus"></param>
+            <param name="parentId"></param>
+        </member>
     </members>
 </doc>

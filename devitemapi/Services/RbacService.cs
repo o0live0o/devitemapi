@@ -1,44 +1,33 @@
-﻿/*
+/*
  * @Author: live0x 
- * @Date: 2020-09-07 17:55:57 
- * @Last Modified by:   live0x 
- * @Last Modified time: 2020-09-07 17:55:57 
+ * @Date: 2020-09-08 17:47:42 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-08 17:56:04
  */
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using devitemapi.Dto;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
 using devitemapi.Services.Interface;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    /*
-     * 1.登录返回Token
-     * 2.根据用户Id返回左侧菜单和每个菜单的操作权限
-     * 3.根据用户Id返回左侧菜单
-     * 4.根据用户Id返回菜单操作权限
-     */
-
-    public class LoginService : ILoginService
+    public class RbacService : IRbacService
     {
-        private static bool IsAdministrtor = true;
         private readonly DevDbContext _dbContext;
-
-        public LoginService(DevDbContext dbContext)
+        public RbacService(DevDbContext dbContext)
         {
-            this._dbContext = dbContext;
-        }
+            this._dbContext = dbContext ?? throw new System.ArgumentNullException(nameof(dbContext));
 
-        public void GetMenuTreeByRole(Guid roleId)
-        {
-            throw new NotImplementedException();
         }
+        public bool IsAdministrtor = true;
 
+        #region 树型菜单
         public async Task<TreeDto> GetMenuTreeByUser(Guid userId)
         {
             var user = await _dbContext.DevUsers.FirstOrDefaultAsync();
@@ -100,6 +89,7 @@ namespace devitemapi.Services
             return trees;
         }
 
+
         /// <summary>
         /// 创建树形结构
         /// </summary>
@@ -115,14 +105,12 @@ namespace devitemapi.Services
 
             foreach (var item in list)
             {
-
                 if (item.MenuParentId == parentId)
                 {
                     if (treeMenus.Select(p => p.MenuCode).ToList().Contains(item.MenuCode))
                     {
                         continue;
                     }
-
                     var treeMenu = new TreeMenuDto()
                     {
                         MenuName = item.MenuName,
@@ -141,40 +129,12 @@ namespace devitemapi.Services
                 }
             }
         }
+        #endregion
 
+        #region 权限管理
 
-        public void GetPermissionByRole(Guid roleId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void GetPermissionByUser(Guid userId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public ResponseDto GetPowerByUser(int userId)
-        {
-            ResponseDto response = new ResponseDto();
-            var roleIdArr = GetRoleIdsByUserId(userId);
-
-            return response;
-        }
-
-        public void UpdatePermission(Guid roleId, DevPermission permission)
-        {
-            throw new NotImplementedException();
-        }
-
-        private List<int> GetRoleIdsByUserId(int userId)
-        {
-            throw new NotImplementedException();
-            //var userRoles = _dbContext.DevUserRoles.Where(ur => userId.Equals(ur.Useid));
-            //return userRoles.Select(r => r.RoleId).ToList();
-        }
-
+        #endregion
 
     }
-
 
 }

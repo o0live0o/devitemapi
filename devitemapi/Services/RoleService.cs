@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-07 08:58:00
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-07 09:07:03
+ * @Last Modified time: 2020-09-08 18:02:14
  */
 
 using devitemapi.Entity;
@@ -35,6 +35,11 @@ namespace devitemapi.Services
             }
             role.Id = Guid.NewGuid();
             base.Add(role);
+        }
+
+        public void func1(Guid roleId,DevMenuAction menuAction)
+        {
+               
         }
     }
 }

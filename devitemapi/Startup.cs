@@ -14,6 +14,7 @@ using devitemapi.Infrastructure.Repositories;
 using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services;
 using devitemapi.Services.Interface;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,7 +57,12 @@ namespace devitemapi
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter));
-            }).AddNewtonsoftJson();
+            }).AddNewtonsoftJson()
+            .AddFluentValidation(fv => {
+                fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+               // fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+                
+            });
 
             //services.AddHsts(options=> { 
 
