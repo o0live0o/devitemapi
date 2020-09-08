@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devitemapi.Entity;
 
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200908012123_20200908")]
+    partial class _20200908
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -165,56 +167,6 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DevMenuActions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("ba6612d8-0f28-43c7-b4ec-5fb8e130b635"),
-                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("41dbae89-4b0c-4407-b18a-75d702639684"),
-                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("90f6e437-9fe3-4d5e-93b1-0d5e05d9d20d"),
-                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("235deae7-b378-488e-bab9-4523a84d620b"),
-                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("8df1d3ce-ed8a-4221-ae7d-12a886593cc5"),
-                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("997ef473-3aff-4db5-aec4-4feeefc3c8b6"),
-                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("devitemapi.Entity.DevPermission", b =>
@@ -269,24 +221,6 @@ namespace devitemapi.Migrations
                             MemuId = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("f93a453e-a93d-4314-803d-fe586c119bcd"),
-                            ActionId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MemuId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("3e41c160-9781-4818-afb5-3d33455ab754"),
-                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MemuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
                         });
                 });
 
@@ -319,8 +253,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3765),
-                            ModifyDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3789),
+                            CreateDate = new DateTime(2020, 9, 8, 9, 21, 22, 812, DateTimeKind.Local).AddTicks(7923),
+                            ModifyDate = new DateTime(2020, 9, 8, 9, 21, 22, 812, DateTimeKind.Local).AddTicks(7972),
                             RoleCode = "SuperAdmin",
                             RoleName = "超级管理员",
                             Status = 1
@@ -328,8 +262,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3853),
-                            ModifyDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3854),
+                            CreateDate = new DateTime(2020, 9, 8, 9, 21, 22, 812, DateTimeKind.Local).AddTicks(8021),
+                            ModifyDate = new DateTime(2020, 9, 8, 9, 21, 22, 812, DateTimeKind.Local).AddTicks(8022),
                             RoleCode = "Admin",
                             RoleName = "管理员",
                             Status = 1
@@ -380,8 +314,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 9, 8, 10, 1, 28, 475, DateTimeKind.Local).AddTicks(7481),
-                            ModifyDate = new DateTime(2020, 9, 8, 10, 1, 28, 475, DateTimeKind.Local).AddTicks(7982),
+                            CreateDate = new DateTime(2020, 9, 8, 9, 21, 22, 810, DateTimeKind.Local).AddTicks(8690),
+                            ModifyDate = new DateTime(2020, 9, 8, 9, 21, 22, 810, DateTimeKind.Local).AddTicks(9222),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"

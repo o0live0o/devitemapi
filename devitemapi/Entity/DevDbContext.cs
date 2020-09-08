@@ -60,6 +60,21 @@ namespace devitemapi.Entity
                         RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
                         ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
                     }
+                    ,
+                    new DevPermission
+                    {
+                        Id = Guid.Parse("{F93A453E-A93D-4314-803D-FE586C119BCD}"),
+                        MemuId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}"),
+                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A")
+                    }
+                    ,
+                    new DevPermission
+                    {
+                        Id = Guid.Parse("{3E41C160-9781-4818-AFB5-3D33455AB754}"),
+                        MemuId = Guid.Parse("{1CE75274-4033-4081-88D0-6BA7EF00FDDD}"),
+                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
+                        ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
+                    }
                 );
 
             modelBuilder.Entity<DevMenu>().HasData(
@@ -70,7 +85,7 @@ namespace devitemapi.Entity
                         MenuCode = "Index",
                         Icon = "/item.ico",
                         Url = "localhost:8080",
-                        ParentId = 0
+                        ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}")
                     },
                     new DevMenu
                     {
@@ -79,7 +94,25 @@ namespace devitemapi.Entity
                         MenuCode = "About",
                         Icon = "/item.ico",
                         Url = "localhost/about:8080",
-                        ParentId = 0
+                        ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}") 
+                    },
+                    new DevMenu
+                    {
+                        Id = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}"),
+                        MenuName = "系统设置",
+                        MenuCode = "System",
+                        Icon = "/item.ico",
+                        Url = "localhost/system:8080",
+                        ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}")
+                    },
+                    new DevMenu
+                    {
+                        Id = Guid.Parse("{1CE75274-4033-4081-88D0-6BA7EF00FDDD}"),
+                        MenuName = "人员管理",
+                        MenuCode = "People",
+                        Icon = "/item.ico",
+                        Url = "localhost/people:8080",
+                        ParentId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}")
                     }
                 );
 
@@ -101,8 +134,49 @@ namespace devitemapi.Entity
                         Id = Guid.Parse("{39579C2F-7F92-4CD0-BF51-76A7A01C8E16}"),
                         ActionCode = "Delete",
                         ActionName = "删除"
+                    
+                    },
+                    new DevAction
+                    {
+                        Id = Guid.Parse("{255F3693-099D-432A-9A80-E377976F9C22}"),
+                        ActionCode = "View",
+                        ActionName = "查看"
                     }
                 );
+
+            modelBuilder.Entity<DevMenuAction>().HasData(
+                new DevMenuAction{
+                    Id = Guid.Parse("{BA6612D8-0F28-43C7-B4EC-5FB8E130B635}"),
+                    ActionId = Guid.Parse("{7B48A7F0-4077-4C1E-ACD5-87EF0A8ACE93}"),
+                    MenuId = Guid.Parse("{1CE75274-4033-4081-88D0-6BA7EF00FDDD}")
+                },
+                new DevMenuAction{
+                    Id = Guid.Parse("{41DBAE89-4B0C-4407-B18A-75D702639684}"),
+                    ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
+                    MenuId = Guid.Parse("{1CE75274-4033-4081-88D0-6BA7EF00FDDD}")
+                },
+                new DevMenuAction{
+                    Id = Guid.Parse("{90F6E437-9FE3-4D5E-93B1-0D5E05D9D20D}"),
+                    ActionId = Guid.Parse("{7B48A7F0-4077-4C1E-ACD5-87EF0A8ACE93}"),
+                    MenuId = Guid.Parse("{19B93B25-5230-425B-B5C5-625B708915B5}")
+                },
+                new DevMenuAction{
+                    Id = Guid.Parse("{235DEAE7-B378-488E-BAB9-4523A84D620B}"),
+                    ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
+                    MenuId = Guid.Parse("{19B93B25-5230-425B-B5C5-625B708915B5}")
+                },
+                new DevMenuAction{
+                    Id = Guid.Parse("{8DF1D3CE-ED8A-4221-AE7D-12A886593CC5}"),
+                    ActionId = Guid.Parse("{7B48A7F0-4077-4C1E-ACD5-87EF0A8ACE93}"),
+                    MenuId = Guid.Parse("{DAF50AD9-C46B-43DE-AAB2-CA4418785BA3}")
+                },
+                new DevMenuAction{
+                    Id = Guid.Parse("{997EF473-3AFF-4DB5-AEC4-4FEEEFC3C8B6}"),
+                    ActionId = Guid.Parse("{7B48A7F0-4077-4C1E-ACD5-87EF0A8ACE93}"),
+                    MenuId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}")
+                }
+                
+            );
 
             base.OnModelCreating(modelBuilder);
         }

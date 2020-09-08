@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devitemapi.Entity;
 
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200908015858_2020090802")]
+    partial class _2020090802
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,14 +208,6 @@ namespace devitemapi.Migrations
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MenuId = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("997ef473-3aff-4db5-aec4-4feeefc3c8b6"),
-                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -319,8 +313,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3765),
-                            ModifyDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3789),
+                            CreateDate = new DateTime(2020, 9, 8, 9, 58, 57, 797, DateTimeKind.Local).AddTicks(7321),
+                            ModifyDate = new DateTime(2020, 9, 8, 9, 58, 57, 797, DateTimeKind.Local).AddTicks(7353),
                             RoleCode = "SuperAdmin",
                             RoleName = "超级管理员",
                             Status = 1
@@ -328,8 +322,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3853),
-                            ModifyDate = new DateTime(2020, 9, 8, 10, 1, 28, 477, DateTimeKind.Local).AddTicks(3854),
+                            CreateDate = new DateTime(2020, 9, 8, 9, 58, 57, 797, DateTimeKind.Local).AddTicks(7421),
+                            ModifyDate = new DateTime(2020, 9, 8, 9, 58, 57, 797, DateTimeKind.Local).AddTicks(7423),
                             RoleCode = "Admin",
                             RoleName = "管理员",
                             Status = 1
@@ -380,8 +374,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 9, 8, 10, 1, 28, 475, DateTimeKind.Local).AddTicks(7481),
-                            ModifyDate = new DateTime(2020, 9, 8, 10, 1, 28, 475, DateTimeKind.Local).AddTicks(7982),
+                            CreateDate = new DateTime(2020, 9, 8, 9, 58, 57, 795, DateTimeKind.Local).AddTicks(9032),
+                            ModifyDate = new DateTime(2020, 9, 8, 9, 58, 57, 795, DateTimeKind.Local).AddTicks(9571),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"

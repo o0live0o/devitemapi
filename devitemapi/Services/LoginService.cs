@@ -26,6 +26,7 @@ namespace devitemapi.Services
 
     public class LoginService : ILoginService
     {
+        private static bool IsAdministrtor = true;
         private readonly DevDbContext _dbContext;
 
         public LoginService(DevDbContext dbContext)
@@ -38,20 +39,7 @@ namespace devitemapi.Services
             throw new NotImplementedException();
         }
 
-        // public ResponseDto GetMenuTreeByUser(int userId)
-        // {
-        //     ResponseDto response = new ResponseDto();
-        //     var roleIdArr = GetRoleIdsByUserId(userId);
-        //     var menus = (from rolePermission in _dbContext.DevPermissions
-        //                   from action in _dbContext.DevActions.Where(a => a.Id.Equals(rolePermission.ActionId)).DefaultIfEmpty()
-        //                   from menu in _dbContext.DevMenus.Where(m => m.Id.Equals(rolePermission.MemuId)).DefaultIfEmpty()
-        //                   where roleIdArr.Contains(rolePermission.RoleId)
-        //                   select menu).ToList();
-        //     response.SetData(menus);
-        //     return response;
-        // }
-
-        public async Task<object> GetMenuTreeByUser(Guid userId)
+        public async Task<TreeDto> GetMenuTreeByUser(Guid userId)
         {
             var user = await _dbContext.DevUsers.FirstOrDefaultAsync();
 
@@ -59,14 +47,36 @@ namespace devitemapi.Services
             {
                 throw new ItemException(TipsTxt.USER_NOT_EXISTS);
             }
-
-            var permissionCollection = await (from userRole in _dbContext.DevUserRoles
+            List<RoleMenuDto> permissionCollection;
+            if (IsAdministrtor)
+            {
+                permissionCollection = await (from super_menuAction in _dbContext.DevMenuActions
+                                              from super_menus in _dbContext.DevMenus.Where(m => m.Id == super_menuAction.MenuId)
+                                              from super_action in _dbContext.DevActions.Where(a => a.Id == super_menuAction.ActionId)
+                                              select new RoleMenuDto
+                                              {
+                                                  RoleName = "超级管理员",
+                                                  RoleCode = "SuperAdmin",
+                                                  MenuName = super_menus.MenuName,
+                                                  MenuCode = super_menus.MenuCode,
+                                                  Path = super_menus.Url,
+                                                  Icon = super_menus.Icon,
+                                                  MenuParentId = super_menus.ParentId,
+                                                  ActionName = super_action.ActionName,
+                                                  ActionCode = super_action.ActionCode,
+                                                  MenuId = super_menus.Id
+                                              }
+                 ).ToListAsync();
+            }
+            else
+            {
+                permissionCollection = await (from userRole in _dbContext.DevUserRoles
                                               from roles in _dbContext.DevRoles.Where(r => r.Id == userRole.RoleId).DefaultIfEmpty()
                                               from permissons in _dbContext.DevPermissions.Where(r => r.RoleId == userRole.RoleId).DefaultIfEmpty()
                                               from menus in _dbContext.DevMenus.Where(m => m.Id == permissons.MemuId).DefaultIfEmpty()
                                               from actions in _dbContext.DevActions.Where(a => a.Id == permissons.ActionId).DefaultIfEmpty()
                                               where userRole.Useid == userId
-                                              select new
+                                              select new RoleMenuDto
                                               {
                                                   RoleName = roles.RoleName,
                                                   RoleCode = roles.RoleCode,
@@ -74,50 +84,64 @@ namespace devitemapi.Services
                                                   MenuCode = menus.MenuCode,
                                                   Path = menus.Url,
                                                   Icon = menus.Icon,
+                                                  MenuParentId = menus.ParentId,
                                                   ActionName = actions.ActionName,
-                                                  ActionCode = actions.ActionCode
+                                                  ActionCode = actions.ActionCode,
+                                                  MenuId = menus.Id
                                               }).ToListAsync();
+            }
 
-            var roleList = new List<string>();
+            TreeDto trees = new TreeDto();
+            trees.Roles = await (from roles_userRole in _dbContext.DevUserRoles
+                                 from roles_role in _dbContext.DevRoles.Where(r => r.Id == roles_userRole.RoleId)
+                                 where roles_userRole.Useid == userId
+                                 select roles_role.RoleCode).ToListAsync();
+            CreateTree(permissionCollection, trees.Trees, Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}"));
+            return trees;
+        }
 
-            Dictionary<string, List<string>> urlDic = new Dictionary<string, List<string>>();
-            foreach (var item in permissionCollection)
+        /// <summary>
+        /// 创建树形结构
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="treeMenus"></param>
+        /// <param name="parentId"></param>
+        private void CreateTree(List<RoleMenuDto> list, List<TreeMenuDto> treeMenus, Guid parentId)
+        {
+            if (list == null || treeMenus == null)
             {
-                if (!roleList.Contains(item.RoleCode))
+                throw new NullReferenceException();
+            }
+
+            foreach (var item in list)
+            {
+
+                if (item.MenuParentId == parentId)
                 {
-                    roleList.Add(item.RoleCode);
-                }
-                string menuCode = item.MenuCode.Trim();
-                if (!urlDic.ContainsKey(menuCode))
-                {
-                    urlDic[menuCode] = new List<string>();
-                }
-                if (!urlDic[menuCode].Contains(item.ActionCode))
-                {
-                    urlDic[menuCode].Add(item.ActionCode);
+                    if (treeMenus.Select(p => p.MenuCode).ToList().Contains(item.MenuCode))
+                    {
+                        continue;
+                    }
+
+                    var treeMenu = new TreeMenuDto()
+                    {
+                        MenuName = item.MenuName,
+                        MenuCode = item.MenuCode,
+                        Path = item.Path,
+                        Icon = item.Icon
+                    };
+                    treeMenu.Actions = list.Where(p => p.MenuId == item.MenuId && !string.IsNullOrEmpty(p.ActionCode)).Select(p => new TreeActionDto()
+                    {
+                        ActionCode = p.ActionCode,
+                        ActionName = p.ActionName
+                    }).ToList();
+                    if (!treeMenu.Actions.Select(p => p.ActionCode).ToList().Contains("View")) continue;
+                    treeMenus.Add(treeMenu);
+                    CreateTree(list, treeMenu.Children, item.MenuId);
                 }
             }
-            return new
-            {
-                Roles = roleList,
-                Menus = urlDic
-            };
-            /*
-                [
-                    {
-                        roles:[],
-                        menus:[
-                            {
-                                path : "",
-                                action:[
-
-                                ]
-                            }
-                        ],
-                    }
-                ]
-            */
         }
+
 
         public void GetPermissionByRole(Guid roleId)
         {
@@ -148,7 +172,9 @@ namespace devitemapi.Services
             //var userRoles = _dbContext.DevUserRoles.Where(ur => userId.Equals(ur.Useid));
             //return userRoles.Select(r => r.RoleId).ToList();
         }
+
+
     }
 
-     
+
 }

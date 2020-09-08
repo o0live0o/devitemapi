@@ -1,11 +1,13 @@
-﻿namespace devitemapi.Entity
+﻿using System;
+
+namespace devitemapi.Entity
 {
     public class DevMenu : BaseEntity
     {
         public string MenuCode { get; set; }
         public string MenuName { get; set; }
 
-        public int ParentId { get; set; }
+        public Guid ParentId { get; set; }
 
         public string Url { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using devitemapi.Entity;
+﻿using devitemapi.Dto;
+using devitemapi.Entity;
 using System;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace devitemapi.Services.Interface
 {
     public interface ILoginService
     {
-        Task<object> GetMenuTreeByUser(Guid userId);
+        Task<TreeDto> GetMenuTreeByUser(Guid userId);
 
         void GetMenuTreeByRole(Guid roleId);
 
