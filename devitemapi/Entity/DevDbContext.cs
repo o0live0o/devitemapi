@@ -84,7 +84,7 @@ namespace devitemapi.Entity
                         MenuName = "首页",
                         MenuCode = "Index",
                         Icon = "/item.ico",
-                        Url = "localhost:8080",
+                        Path = "localhost:8080",
                         ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}")
                     },
                     new DevMenu
@@ -93,7 +93,7 @@ namespace devitemapi.Entity
                         MenuName = "关于",
                         MenuCode = "About",
                         Icon = "/item.ico",
-                        Url = "localhost/about:8080",
+                        Path = "localhost/about:8080",
                         ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}") 
                     },
                     new DevMenu
@@ -102,7 +102,7 @@ namespace devitemapi.Entity
                         MenuName = "系统设置",
                         MenuCode = "System",
                         Icon = "/item.ico",
-                        Url = "localhost/system:8080",
+                        Path = "localhost/system:8080",
                         ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}")
                     },
                     new DevMenu
@@ -111,7 +111,7 @@ namespace devitemapi.Entity
                         MenuName = "人员管理",
                         MenuCode = "People",
                         Icon = "/item.ico",
-                        Url = "localhost/people:8080",
+                        Path = "localhost/people:8080",
                         ParentId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}")
                     }
                 );
