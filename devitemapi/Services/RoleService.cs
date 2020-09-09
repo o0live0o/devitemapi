@@ -2,9 +2,10 @@
  * @Author: live0x
  * @Date: 2020-09-07 08:58:00
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-08 18:02:14
+ * @Last Modified time: 2020-09-09 16:30:44
  */
 
+using devitemapi.Dto.Role;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
@@ -12,13 +13,19 @@ using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
     public class RoleService : BaseService<DevRole>, IRoleService
     {
-        public RoleService(IBaseRepository<DevRole> repository) : base(repository)
+        private readonly IBaseRepository<DevPermission> _permissionRepos;
+
+        public RoleService(
+            IBaseRepository<DevRole> repository,
+            IBaseRepository<DevPermission> permissionRepos) : base(repository)
         {
+            this._permissionRepos = permissionRepos ?? throw new ArgumentNullException(nameof(permissionRepos));
         }
 
         public override async void Add(DevRole role)
@@ -37,9 +44,6 @@ namespace devitemapi.Services
             base.Add(role);
         }
 
-        public void func1(Guid roleId,DevMenuAction menuAction)
-        {
-               
-        }
+
     }
 }

@@ -1,4 +1,4 @@
-namespace devitemapi.Dto
+namespace devitemapi.Dto.Rbac
 {
     public class LoginDto
     {

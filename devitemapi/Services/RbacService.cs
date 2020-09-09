@@ -2,13 +2,15 @@
  * @Author: live0x 
  * @Date: 2020-09-08 17:47:42 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-08 17:56:04
+ * @Last Modified time: 2020-09-09 17:57:34
  */
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using devitemapi.Dto;
+using devitemapi.Dto.Action;
+using devitemapi.Dto.Rbac;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
@@ -20,10 +22,10 @@ namespace devitemapi.Services
     public class RbacService : IRbacService
     {
         private readonly DevDbContext _dbContext;
+
         public RbacService(DevDbContext dbContext)
         {
             this._dbContext = dbContext ?? throw new System.ArgumentNullException(nameof(dbContext));
-
         }
         public bool IsAdministrtor = true;
 
@@ -48,7 +50,7 @@ namespace devitemapi.Services
                                                   RoleCode = "SuperAdmin",
                                                   MenuName = super_menus.MenuName,
                                                   MenuCode = super_menus.MenuCode,
-                                                  Path = super_menus.Url,
+                                                  Path = super_menus.Path,
                                                   Icon = super_menus.Icon,
                                                   MenuParentId = super_menus.ParentId,
                                                   ActionName = super_action.ActionName,
@@ -71,7 +73,7 @@ namespace devitemapi.Services
                                                   RoleCode = roles.RoleCode,
                                                   MenuName = menus.MenuName,
                                                   MenuCode = menus.MenuCode,
-                                                  Path = menus.Url,
+                                                  Path = menus.Path,
                                                   Icon = menus.Icon,
                                                   MenuParentId = menus.ParentId,
                                                   ActionName = actions.ActionName,
@@ -129,10 +131,69 @@ namespace devitemapi.Services
                 }
             }
         }
+
         #endregion
 
         #region 权限管理
 
+        public async Task<IEnumerable<DevPermission>> GetPermissionByRoleId(Guid roleId)
+        {
+            return await _dbContext.Set<DevPermission>().Where(p => p.RoleId == roleId).ToListAsync();
+        }
+
+        public async Task<MenuActionDto> GetMenuActionsByMenuId(Guid menuId)
+        {
+            var menuActions =await (from menuAtion in _dbContext.DevMenuActions
+            from menus in _dbContext.DevMenus.Where(m => m.Id == menuAtion.MenuId)
+            from actions in _dbContext.DevActions.Where(a => a.Id == menuAtion.ActionId)
+            where menuAtion.MenuId == menuId
+            select new {
+                MenuId = menus.Id,
+                MenuName = menus.MenuName,
+                ParentId = menus.ParentId,
+                Path = menus.Path,
+                Icon = menus.Icon,
+                ActionId = actions.Id,
+                ActionName = actions.ActionName,
+                ActionCode = actions.ActionCode
+            }).ToListAsync();
+            
+            MenuActionDto menuActionDto = new MenuActionDto();
+            
+            if(menuActions.Count() > 0)
+            {
+                menuActionDto.MenuId =  menuActions[0].MenuId;
+                menuActionDto.MenuName =  menuActions[0].MenuName;
+                menuActionDto.ParentId =  menuActions[0].ParentId;
+                menuActionDto.Path =  menuActions[0].Path;
+                menuActionDto.Icon =  menuActions[0].Icon;
+                menuActionDto.Actions = menuActions.Select(p=>new ActionDto{
+                    ActionId = p.ActionId,
+                    ActionName = p.ActionName,
+                    ActionCode = p.ActionCode
+                }).ToList(); 
+            }
+            return menuActionDto;
+        }
+        public async Task<IEnumerable<MenuActionDto>> GetMenuActions()
+        {
+            var menuActions = await(from menuAtion in _dbContext.DevMenuActions
+                                    from menus in _dbContext.DevMenus.Where(m => m.Id == menuAtion.MenuId)
+                                    from actions in _dbContext.DevActions.Where(a => a.Id == menuAtion.ActionId)
+                                    select new
+                                    {
+                                        MenuId = menus.Id,
+                                        MenuName = menus.MenuName,
+                                        ParentId = menus.ParentId,
+                                        Path = menus.Path,
+                                        Icon = menus.Icon,
+                                        ActionId = actions.Id,
+                                        ActionName = actions.ActionName,
+                                        ActionCode = actions.ActionCode
+                                    }).ToListAsync();
+
+            return null;
+        }
         #endregion
 
     }

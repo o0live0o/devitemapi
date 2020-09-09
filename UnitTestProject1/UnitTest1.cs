@@ -1,5 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ServiceStack.Redis;
+using System;
+using System.Net;
+using System.Net.Http;
 using System.Text.RegularExpressions;
 
 namespace UnitTestProject1
@@ -74,6 +77,29 @@ namespace UnitTestProject1
         private void CalArr()
         {
             
+        }
+
+        [TestMethod]
+        public void TestStr()
+        {
+            TStr();
+        }
+
+        public async void TStr()
+        {
+            try
+            {
+                string url = "https://jx3.seasunwbl.com/buyer?t=coin";
+                HttpClient http = new HttpClient();
+                var response = await http.GetAsync(url);
+                Console.Write(await response.Content.ReadAsStringAsync());
+            }
+            catch (System.Exception ex)
+            {
+                
+                throw;
+            }
+
         }
     }
 }

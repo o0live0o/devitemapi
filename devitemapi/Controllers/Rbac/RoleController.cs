@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-05 11:55:09
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-07 08:59:51
+ * @Last Modified time: 2020-09-09 17:04:02
  */
 
 using AutoMapper;
@@ -30,10 +30,13 @@ namespace devitemapi.Controllers.Rbac
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
 
-        public RoleController(IRoleService roleService, IMapper mapper)
+        public RoleController(
+            IRoleService roleService,
+            IPermissionService permissionService,
+            IMapper mapper)
         {
-            this._roleService = roleService;
-            this._mapper = mapper;
+            this._roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
+            this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet("{roleId}", Name = nameof(GetRoleById))]

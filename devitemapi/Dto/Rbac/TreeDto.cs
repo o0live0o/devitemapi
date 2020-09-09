@@ -2,12 +2,12 @@
  * @Author: live0x 
  * @Date: 2020-09-07 17:59:41 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-07 18:02:37
+ * @Last Modified time: 2020-09-09 17:19:45
  */
 using System;
 using System.Collections.Generic;
 
-namespace devitemapi.Dto
+namespace devitemapi.Dto.Rbac
 {
     public class TreeDto
     {

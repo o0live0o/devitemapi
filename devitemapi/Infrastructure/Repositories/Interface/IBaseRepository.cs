@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-04 14:40:01
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-04 15:49:11
+ * @Last Modified time: 2020-09-09 16:29:20
  */
 
 using devitemapi.Entity;
@@ -35,5 +35,7 @@ namespace devitemapi.Infrastructure.Repositories.Interface
         Task<bool> SaveAsync();
 
         void Add(TEntity entity);
+
+        void Add(IEnumerable<IEntity> entities);
     }
 }

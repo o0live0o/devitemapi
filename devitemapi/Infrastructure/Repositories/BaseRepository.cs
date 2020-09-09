@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-04 10:44:19
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-04 15:50:30
+ * @Last Modified time: 2020-09-09 16:30:08
  */
 
 using devitemapi.Entity;
@@ -29,6 +29,11 @@ namespace devitemapi.Infrastructure.Repositories
         public void Add(TEntity entity)
         {
             _dbContext.Set<TEntity>().Add(entity);
+        }
+
+        public void Add(IEnumerable<IEntity> entities)
+        {
+            _dbContext.Set<IEntity>().AddRange(entities);
         }
 
         public virtual async Task<IEnumerable<TEntity>> QueryAsync()
@@ -68,7 +73,6 @@ namespace devitemapi.Infrastructure.Repositories
             {
                 return await queryable.ToListAsync();
             }
-
             return await queryable.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToListAsync();
         }
 
@@ -77,9 +81,9 @@ namespace devitemapi.Infrastructure.Repositories
             return await _dbContext.Set<TEntity>().FirstOrDefaultAsync();
         }
 
-        public virtual Task<TEntity> QueryFirstAsync(Expression<Func<TEntity, bool>> where)
+        public virtual async Task<TEntity> QueryFirstAsync(Expression<Func<TEntity, bool>> where)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Set<TEntity>().Where(where).FirstOrDefaultAsync();
         }
 
         public virtual async Task<TEntity> QueryFirstAsync(Guid id)
