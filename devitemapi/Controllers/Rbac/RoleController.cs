@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-05 11:55:09
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-09 17:04:02
+ * @Last Modified time: 2020-09-14 15:21:28
  */
 
 using AutoMapper;
@@ -14,6 +14,7 @@ using devitemapi.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -115,6 +116,17 @@ namespace devitemapi.Controllers.Rbac
             _mapper.Map(role, roleEntity);
             await _roleService.SaveChangeAsync();
             return CreatedAtRoute(nameof(GetRoleById), new { roleId }, null);
+        }
+
+        [HttpGet("test")]
+        public async Task<IActionResult> Test()
+        {
+            var roles = await _roleService.QueryAsync();
+            var role = roles.ToList().FirstOrDefault();
+            role.DevPermissions = new List<DevPermission>();
+            role.AddPermission(Guid.NewGuid(), Guid.NewGuid());
+            await _roleService.SaveChangeAsync();
+            return Ok();
         }
     }
 }

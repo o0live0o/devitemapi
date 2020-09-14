@@ -9,8 +9,8 @@ using devitemapi.Entity;
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    [Migration("20200907033804_Add menu role action")]
-    partial class Addmenuroleaction
+    [Migration("20200914095257_20200914")]
+    partial class _20200914
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,14 @@ namespace devitemapi.Migrations
                             ActionName = "删除",
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("255f3693-099d-432a-9a80-e377976f9c22"),
+                            ActionCode = "View",
+                            ActionName = "查看",
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -89,10 +97,10 @@ namespace devitemapi.Migrations
                     b.Property<DateTime>("ModifyDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("ParentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Path")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
@@ -108,8 +116,41 @@ namespace devitemapi.Migrations
                             MenuCode = "Index",
                             MenuName = "首页",
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ParentId = 0,
-                            Url = "localhost:8080"
+                            ParentId = new Guid("edc8f6c4-d734-49cf-9250-759d966e8641"),
+                            Path = "localhost:8080"
+                        },
+                        new
+                        {
+                            Id = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Icon = "/item.ico",
+                            MenuCode = "About",
+                            MenuName = "关于",
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ParentId = new Guid("edc8f6c4-d734-49cf-9250-759d966e8641"),
+                            Path = "localhost/about:8080"
+                        },
+                        new
+                        {
+                            Id = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Icon = "/item.ico",
+                            MenuCode = "System",
+                            MenuName = "系统设置",
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ParentId = new Guid("edc8f6c4-d734-49cf-9250-759d966e8641"),
+                            Path = "localhost/system:8080"
+                        },
+                        new
+                        {
+                            Id = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Icon = "/item.ico",
+                            MenuCode = "People",
+                            MenuName = "人员管理",
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ParentId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
+                            Path = "localhost/people:8080"
                         });
                 });
 
@@ -134,6 +175,56 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DevMenuActions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ba6612d8-0f28-43c7-b4ec-5fb8e130b635"),
+                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("41dbae89-4b0c-4407-b18a-75d702639684"),
+                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("90f6e437-9fe3-4d5e-93b1-0d5e05d9d20d"),
+                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("235deae7-b378-488e-bab9-4523a84d620b"),
+                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("8df1d3ce-ed8a-4221-ae7d-12a886593cc5"),
+                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("997ef473-3aff-4db5-aec4-4feeefc3c8b6"),
+                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("devitemapi.Entity.DevPermission", b =>
@@ -148,7 +239,7 @@ namespace devitemapi.Migrations
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("MemuId")
+                    b.Property<Guid>("MenuId")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("ModifyDate")
@@ -159,6 +250,8 @@ namespace devitemapi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("DevPermissions");
 
                     b.HasData(
@@ -167,7 +260,43 @@ namespace devitemapi.Migrations
                             Id = new Guid("c9372ae7-ebd4-4c4b-9e64-f55965d35e78"),
                             ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MemuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
+                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
+                        },
+                        new
+                        {
+                            Id = new Guid("028d9d91-2f5f-4503-803c-8296c4bae426"),
+                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
+                        },
+                        new
+                        {
+                            Id = new Guid("e55c31ba-e4fc-4682-a4ad-b5eee06d2b3b"),
+                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
+                        },
+                        new
+                        {
+                            Id = new Guid("f93a453e-a93d-4314-803d-fe586c119bcd"),
+                            ActionId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
+                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
+                        },
+                        new
+                        {
+                            Id = new Guid("3e41c160-9781-4818-afb5-3d33455ab754"),
+                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
+                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MenuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
                         });
@@ -202,8 +331,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 9, 7, 11, 38, 3, 445, DateTimeKind.Local).AddTicks(5573),
-                            ModifyDate = new DateTime(2020, 9, 7, 11, 38, 3, 445, DateTimeKind.Local).AddTicks(5602),
+                            CreateDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3519),
+                            ModifyDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3542),
                             RoleCode = "SuperAdmin",
                             RoleName = "超级管理员",
                             Status = 1
@@ -211,8 +340,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 9, 7, 11, 38, 3, 445, DateTimeKind.Local).AddTicks(5671),
-                            ModifyDate = new DateTime(2020, 9, 7, 11, 38, 3, 445, DateTimeKind.Local).AddTicks(5672),
+                            CreateDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3619),
+                            ModifyDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3620),
                             RoleCode = "Admin",
                             RoleName = "管理员",
                             Status = 1
@@ -263,8 +392,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 9, 7, 11, 38, 3, 443, DateTimeKind.Local).AddTicks(8497),
-                            ModifyDate = new DateTime(2020, 9, 7, 11, 38, 3, 443, DateTimeKind.Local).AddTicks(9046),
+                            CreateDate = new DateTime(2020, 9, 14, 17, 52, 57, 17, DateTimeKind.Local).AddTicks(983),
+                            ModifyDate = new DateTime(2020, 9, 14, 17, 52, 57, 17, DateTimeKind.Local).AddTicks(1328),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"
@@ -352,6 +481,15 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nlogrecs");
+                });
+
+            modelBuilder.Entity("devitemapi.Entity.DevPermission", b =>
+                {
+                    b.HasOne("devitemapi.Entity.DevRole", null)
+                        .WithMany("DevPermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

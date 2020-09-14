@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-04 10:17:21
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-07 09:00:55
+ * @Last Modified time: 2020-09-14 11:53:45
  */
 
 using AutoMapper;
@@ -60,11 +60,6 @@ namespace devitemapi.Services
         public async Task<DevUser> QueryUserByAccount(string account, string pwd)
         {
             return await _repository.QueryFirstAsync(u => u.Account == account && u.Pwd == pwd);
-        }
-
-        public DevUser UpdateUser(DevUser user)
-        {
-            return default;
         }
     }
 }

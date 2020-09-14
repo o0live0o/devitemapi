@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-08 17:47:17 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-14 11:38:39
+ * @Last Modified time: 2020-09-14 14:30:29
  */
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,21 @@ using devitemapi.Entity;
 
 namespace devitemapi.Services.Interface
 {
+    /*
+        一、用户登录
+            1、根据用户Id获取菜单和权限
+        二、编辑菜单
+            1、根据菜单Id获取菜单的操作方法 
+            2、根据菜单Id保存菜单的操作方法 
+            3、增加菜单和方法
+        三、角色授权
+            1、获取所有菜单和操作方法
+            2、根据角色ID保存菜单和操作方法4
+            3、新增角色和对应的操作权限
+        四、用户授权
+            1、获取用户拥有的角色
+            2、根据用户Id 新增/修改角色
+    */
     public interface IRbacService
     {
         /// <summary>

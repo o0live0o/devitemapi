@@ -43,6 +43,9 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+
             services.AddCors(o =>
              o.AddPolicy("CorsPolicy",
               builder => builder
@@ -54,14 +57,20 @@ namespace devitemapi
 
             // Console.WriteLine(Guid.NewGuid().ToString("N"));
 
+            services.AddDbContext<DevDbContext>(options =>
+                      {
+                          options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
+                      });
+
             services.AddControllers(options =>
             {
                 options.Filters.Add(typeof(GlobalExceptionFilter));
             }).AddNewtonsoftJson()
-            .AddFluentValidation(fv => {
-                fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
-               // fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-                
+            .AddFluentValidation(fv =>
+            {
+                //fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+                //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+
             });
 
             //services.AddHsts(options=> { 
@@ -71,7 +80,6 @@ namespace devitemapi
             //services.AddHttpsRedirection(options=> { 
 
             //});
-
             //RedisClient.GetRedisClient.Init(Configuration);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -85,10 +93,6 @@ namespace devitemapi
 
             services.AddSingleton<IApiLogger, ApiLogger>();
 
-            services.AddDbContext<DevDbContext>(options =>
-            {
-                options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
-            });
 
 
 

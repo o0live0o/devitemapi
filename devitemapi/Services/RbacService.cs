@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-08 17:47:42 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-09 17:57:34
+ * @Last Modified time: 2020-09-14 15:10:19
  */
 using System;
 using System.Collections.Generic;
@@ -64,7 +64,7 @@ namespace devitemapi.Services
                 permissionCollection = await (from userRole in _dbContext.DevUserRoles
                                               from roles in _dbContext.DevRoles.Where(r => r.Id == userRole.RoleId).DefaultIfEmpty()
                                               from permissons in _dbContext.DevPermissions.Where(r => r.RoleId == userRole.RoleId).DefaultIfEmpty()
-                                              from menus in _dbContext.DevMenus.Where(m => m.Id == permissons.MemuId).DefaultIfEmpty()
+                                              from menus in _dbContext.DevMenus.Where(m => m.Id == permissons.MenuId).DefaultIfEmpty()
                                               from actions in _dbContext.DevActions.Where(a => a.Id == permissons.ActionId).DefaultIfEmpty()
                                               where userRole.Useid == userId
                                               select new RoleMenuDto

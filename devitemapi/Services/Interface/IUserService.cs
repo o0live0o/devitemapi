@@ -17,6 +17,5 @@ namespace devitemapi.Services.Interface
 
         Task<DevUser> QueryUserByAccount(string account, string pwd);
 
-        DevUser UpdateUser(DevUser user);
     }
 }

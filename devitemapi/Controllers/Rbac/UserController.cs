@@ -133,6 +133,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<ActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UserAddOrUpdateDto user)
         {
+
             if (userId == null || userId == Guid.Empty || user is null)
             {
                 return BadRequest();
