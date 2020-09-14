@@ -52,7 +52,7 @@ namespace devitemapi
              //.AllowCredentials()
              ));
 
-            Console.WriteLine(Guid.NewGuid().ToString("N"));
+            // Console.WriteLine(Guid.NewGuid().ToString("N"));
 
             services.AddControllers(options =>
             {

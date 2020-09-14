@@ -17,8 +17,6 @@ namespace devitemapi.Services.Interface
     {
         void Remove(T t);
 
-        Task<bool> RemoveAsync(Expression<Func<T, bool>> func);
-
         Task<T> QueryByIdAsync(Guid id);
 
         Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func, int pageSize = 20, int pageIndex = 0);
@@ -28,7 +26,7 @@ namespace devitemapi.Services.Interface
         Task<IEnumerable<T>> QueryAsync(int limit = 20, int offest = 0);
 
         void Add(T t);
-
+        
         Task<bool> SaveChangeAsync();
     }
 }

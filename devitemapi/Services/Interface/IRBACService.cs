@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-08 17:47:17 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-09 17:42:28
+ * @Last Modified time: 2020-09-14 11:38:39
  */
 using System;
 using System.Collections.Generic;
@@ -22,11 +22,11 @@ namespace devitemapi.Services.Interface
         /// <returns></returns>
         Task<TreeDto> GetMenuTreeByUser(Guid userId);
 
-        /// <summary>
-        /// 根据角色Id获取角色操作权限
-        /// </summary>
-        /// <param name="roleId"></param>
-        /// <returns></returns>
+        // /// <summary>
+        // /// 根据角色Id获取角色操作权限
+        // /// </summary>
+        // /// <param name="roleId"></param>
+        // /// <returns></returns>
         //Task<DevPermission> GetPermissionByRoleId(Guid roleId);
         
         /// <summary>

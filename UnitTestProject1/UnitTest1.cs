@@ -60,9 +60,9 @@ namespace UnitTestProject1
             RedisClient redisClient = new RedisClient("127.0.0.1",6379);
             redisClient.Set("100","10001");
 
-            var res = @"^(?!.*\s)(?!^[\u4e00-\u9fa5]+$)(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{8,16}$";
+            //var res = @"^(?!.*\s)(?!^[\u4e00-\u9fa5]+$)(?!^[0-9]+$)(?!^[A-z]+$)(?!^[^A-z0-9]+$)^.{8,16}$";
 
-            string regex = @"^$";
+            //string regex = @"^$";
 
            var s = redisClient.Get<string>("100");
         }
@@ -70,7 +70,7 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMothod6()
         {
-            var regex1 = @"^(?!)$";
+           // var regex1 = @"^(?!)$";
         }
 
         //0、1、1、2、3、5、8、13、21、34
@@ -94,7 +94,7 @@ namespace UnitTestProject1
                 var response = await http.GetAsync(url);
                 Console.Write(await response.Content.ReadAsStringAsync());
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 
                 throw;

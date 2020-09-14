@@ -5,6 +5,8 @@
  * @Last Modified time: 2020-09-07 09:00:55
  */
 
+using AutoMapper;
+using devitemapi.Dto.User;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
@@ -18,13 +20,15 @@ namespace devitemapi.Services
     public class UserService : BaseService<DevUser>, IUserService
     {
         private readonly IBaseRepository<DevUser> _repository;
+        private readonly IMapper _mapper;
 
-        public UserService(IBaseRepository<DevUser> repository) : base(repository)
+        public UserService(IBaseRepository<DevUser> repository, IMapper mapper) : base(repository)
         {
             this._repository = repository;
+            this._mapper = mapper;
         }
 
-        public async Task<DevUser> CreateUser(DevUser user)
+        public async Task<UserDto> CreateUser(UserAddOrUpdateDto user)
         {
             //过滤超级管理员账号
             if (user.Account.ToLower().Equals("administrator") ||
@@ -41,13 +45,17 @@ namespace devitemapi.Services
                 throw new ItemException(TipsTxt.USER_ALREADY_EXISTS);
             }
 
-            user.Status = 1;    //默认启用
-            user.CreateDate = DateTime.Now;
-            user.ModifyDate = DateTime.Now;
+            var devUser = _mapper.Map<DevUser>(user);
+            devUser.Id = Guid.NewGuid();
+            devUser.Status = 1;    //默认启用
+            devUser.CreateDate = DateTime.Now;
+            devUser.ModifyDate = DateTime.Now;
 
-            Add(user);
-            return user;
+            Add(devUser);
+
+            return _mapper.Map<UserDto>(devUser);
         }
+
 
         public async Task<DevUser> QueryUserByAccount(string account, string pwd)
         {

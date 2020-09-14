@@ -1,4 +1,5 @@
-﻿using devitemapi.Entity;
+﻿using AutoMapper;
+using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
 using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repositories.Interface;
@@ -10,6 +11,7 @@ namespace devitemapi.Services
 {
     public class MenuService : BaseService<DevMenu>, IMenuService
     {
+
         public MenuService(IBaseRepository<DevMenu> repository) : base(repository)
         {
         }

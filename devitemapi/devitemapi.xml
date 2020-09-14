@@ -109,11 +109,17 @@
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Services.Interface.IRbacService.GetPermissionByRoleId(System.Guid)">
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuActionsByMenuId(System.Guid)">
             <summary>
-            根据角色Id获取角色操作权限
+            根据菜单Id获取菜单的操作方法
             </summary>
-            <param name="roleId"></param>
+            <param name="menuId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuActions">
+            <summary>
+            获取所有菜单和操作方法
+            </summary>
             <returns></returns>
         </member>
         <member name="M:devitemapi.Services.RbacService.CreateTree(System.Collections.Generic.List{devitemapi.Dto.Rbac.RoleMenuDto},System.Collections.Generic.List{devitemapi.Dto.Rbac.TreeMenuDto},System.Guid)">

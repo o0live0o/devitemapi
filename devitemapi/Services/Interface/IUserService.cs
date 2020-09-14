@@ -5,6 +5,7 @@
  * @Last Modified time: 2020-09-09 14:14:50
  */
 
+using devitemapi.Dto.User;
 using devitemapi.Entity;
 using System.Threading.Tasks;
 
@@ -12,7 +13,7 @@ namespace devitemapi.Services.Interface
 {
     public interface IUserService : IBaseService<DevUser>
     {
-        Task<DevUser> CreateUser(DevUser user);
+        Task<UserDto> CreateUser(UserAddOrUpdateDto user);
 
         Task<DevUser> QueryUserByAccount(string account, string pwd);
 

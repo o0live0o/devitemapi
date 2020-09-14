@@ -2,9 +2,10 @@
  * @Author: live0x
  * @Date: 2020-09-07 08:58:00
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-09 16:30:44
+ * @Last Modified time: 2020-09-14 11:31:15
  */
 
+using AutoMapper;
 using devitemapi.Dto.Role;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
@@ -15,17 +16,12 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace devitemapi.Services
+namespace devitemapi.Services      
 {
     public class RoleService : BaseService<DevRole>, IRoleService
     {
-        private readonly IBaseRepository<DevPermission> _permissionRepos;
-
-        public RoleService(
-            IBaseRepository<DevRole> repository,
-            IBaseRepository<DevPermission> permissionRepos) : base(repository)
+        public RoleService(IBaseRepository<DevRole> repository) : base(repository)
         {
-            this._permissionRepos = permissionRepos ?? throw new ArgumentNullException(nameof(permissionRepos));
         }
 
         public override async void Add(DevRole role)
@@ -43,7 +39,6 @@ namespace devitemapi.Services
             role.Id = Guid.NewGuid();
             base.Add(role);
         }
-
 
     }
 }

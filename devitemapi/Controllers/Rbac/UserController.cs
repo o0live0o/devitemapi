@@ -53,11 +53,11 @@ namespace devitemapi.Controllers.Rbac
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]   //声明可能返回的类型
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers(int pageSize = 1, int pageIndex = 1)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers(int pageSize = 20, int pageIndex = 1)
         {
             var users = await _userService.QueryAsync(null, pageSize, pageIndex);
-            var userDto = _mapper.Map<IEnumerable<UserDto>>(users);
-            return Ok(userDto);
+            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
+            return Ok(users);
         }
 
         /// <summary>
@@ -74,10 +74,12 @@ namespace devitemapi.Controllers.Rbac
             {
                 return BadRequest();
             }
-            var userEntity = _mapper.Map<DevUser>(user);
-            _userService.Add(userEntity);
+
+            var userDto = await _userService.CreateUser(user);
+
             await _userService.SaveChangeAsync();
-            return CreatedAtRoute(nameof(GetUser), new { userId = userEntity.Id }, null);
+
+            return CreatedAtRoute(nameof(GetUser), new { userId = userDto.UserId }, null);
         }
 
         /// <summary>
