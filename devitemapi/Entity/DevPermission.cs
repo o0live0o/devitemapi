@@ -21,18 +21,23 @@ namespace devitemapi.Entity
            
         }
 
-        public DevPermission(Guid roldId,Guid menuId,Guid actionId)
+        public DevPermission(Guid id)
         {
-            Id = Guid.NewGuid();
-            RoleId = roldId;
-            MenuId = menuId;
-            ActionId = actionId;
+            this.Id = id;
         }
 
-        public void UpdatePermision(Guid menuId,Guid actionId)
-        {
-            this.MenuId = menuId;
-            this.ActionId = actionId;
-        }
+        // public DevPermission(Guid roldId,Guid menuId,Guid actionId)
+        // {
+        //     Id = Guid.NewGuid();
+        //     RoleId = roldId;
+        //     MenuId = menuId;
+        //     ActionId = actionId;
+        // }
+
+        // public void UpdatePermision(Guid menuId,Guid actionId)
+        // {
+        //     this.MenuId = menuId;
+        //     this.ActionId = actionId;
+        // }
     }
 }

@@ -17,25 +17,29 @@ namespace devitemapi.Entity
             //DevPermissions = new List<DevPermission>();
         }
 
+        public DevRole(Guid id)
+        {
+            this.Id = id;
+        }
         public string RoleName { get; set; }
 
         public string RoleCode { get; set; }
 
         public int Status { get; set; }
 
-        public List<DevPermission> DevPermissions { get; set; }
+        // public List<DevPermission> DevPermissions { get; set; }
 
-        public void AddPermission(Guid menuId, Guid actionId)
-        {
-            var existsPermission = DevPermissions.FirstOrDefault(p => p.MenuId == menuId && p.ActionId == actionId);
-            if (existsPermission == null)
-            {
-                DevPermissions.Add(new DevPermission(this.Id, menuId, actionId));
-            }
-            else
-            {
-                existsPermission.UpdatePermision(menuId, actionId);
-            }
-        }
+        // public void AddPermission(Guid menuId, Guid actionId)
+        // {
+        //     var existsPermission = DevPermissions.FirstOrDefault(p => p.MenuId == menuId && p.ActionId == actionId);
+        //     if (existsPermission == null)
+        //     {
+        //         DevPermissions.Add(new DevPermission(this.Id, menuId, actionId));
+        //     }
+        //     else
+        //     {
+        //         existsPermission.UpdatePermision(menuId, actionId);
+        //     }
+        // }
     }
 }

@@ -118,15 +118,5 @@ namespace devitemapi.Controllers.Rbac
             return CreatedAtRoute(nameof(GetRoleById), new { roleId }, null);
         }
 
-        [HttpGet("test")]
-        public async Task<IActionResult> Test()
-        {
-            var roles = await _roleService.QueryAsync();
-            var role = roles.ToList().FirstOrDefault();
-            role.DevPermissions = new List<DevPermission>();
-            role.AddPermission(Guid.NewGuid(), Guid.NewGuid());
-            await _roleService.SaveChangeAsync();
-            return Ok();
-        }
     }
 }

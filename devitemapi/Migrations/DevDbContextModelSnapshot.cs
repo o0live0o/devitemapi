@@ -248,8 +248,6 @@ namespace devitemapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("DevPermissions");
 
                     b.HasData(
@@ -329,8 +327,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3519),
-                            ModifyDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3542),
+                            CreateDate = new DateTime(2020, 9, 15, 8, 54, 8, 350, DateTimeKind.Local).AddTicks(6816),
+                            ModifyDate = new DateTime(2020, 9, 15, 8, 54, 8, 350, DateTimeKind.Local).AddTicks(7001),
                             RoleCode = "SuperAdmin",
                             RoleName = "超级管理员",
                             Status = 1
@@ -338,8 +336,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3619),
-                            ModifyDate = new DateTime(2020, 9, 14, 17, 52, 57, 18, DateTimeKind.Local).AddTicks(3620),
+                            CreateDate = new DateTime(2020, 9, 15, 8, 54, 8, 350, DateTimeKind.Local).AddTicks(7088),
+                            ModifyDate = new DateTime(2020, 9, 15, 8, 54, 8, 350, DateTimeKind.Local).AddTicks(7089),
                             RoleCode = "Admin",
                             RoleName = "管理员",
                             Status = 1
@@ -390,8 +388,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 9, 14, 17, 52, 57, 17, DateTimeKind.Local).AddTicks(983),
-                            ModifyDate = new DateTime(2020, 9, 14, 17, 52, 57, 17, DateTimeKind.Local).AddTicks(1328),
+                            CreateDate = new DateTime(2020, 9, 15, 8, 54, 8, 348, DateTimeKind.Local).AddTicks(8054),
+                            ModifyDate = new DateTime(2020, 9, 15, 8, 54, 8, 348, DateTimeKind.Local).AddTicks(8376),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"
@@ -479,15 +477,6 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nlogrecs");
-                });
-
-            modelBuilder.Entity("devitemapi.Entity.DevPermission", b =>
-                {
-                    b.HasOne("devitemapi.Entity.DevRole", null)
-                        .WithMany("DevPermissions")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

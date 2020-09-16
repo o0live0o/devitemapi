@@ -29,9 +29,9 @@ namespace devitemapi.Entity
             // modelBuilder.Entity<DevRole>().OwnsOne(p=>p.DevPermissions,pe => {
             //     pe.WithOwner().HasForeignKey("RoleId");
             // });
-            modelBuilder.Entity<DevRole>(m=>{
-                m.HasMany(u => u.DevPermissions).WithOne().HasForeignKey(u => u.RoleId);
-            });
+            // modelBuilder.Entity<DevRole>(m=>{
+                // m.HasMany(u => u.DevPermissions).WithOne().HasForeignKey(u => u.RoleId);
+            // });
 
             modelBuilder.Entity<DevUser>().HasData(
                 new DevUser { Id = Guid.Parse("BC9E5615-17D5-4CA2-ADF9-200F903E0A7D"), UserName = "超级管理员", Account = "Administrator", Pwd = "123456", Status = 1, CreateDate = DateTime.Now, ModifyDate = DateTime.Now }
