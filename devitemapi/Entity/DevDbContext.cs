@@ -30,7 +30,7 @@ namespace devitemapi.Entity
             //     pe.WithOwner().HasForeignKey("RoleId");
             // });
             // modelBuilder.Entity<DevRole>(m=>{
-                // m.HasMany(u => u.DevPermissions).WithOne().HasForeignKey(u => u.RoleId);
+            //     m.HasMany(u => u.DevPermissions).WithOne().HasForeignKey(u => u.RoleId);
             // });
 
             modelBuilder.Entity<DevUser>().HasData(
@@ -44,45 +44,45 @@ namespace devitemapi.Entity
                     new DevUserRole { Id = Guid.Parse("{C9372AE7-EBD4-4C4B-9E64-F55965D35E78}"), RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"), Useid = Guid.Parse("BC9E5615-17D5-4CA2-ADF9-200F903E0A7D") }
                 );
 
-            modelBuilder.Entity<DevPermission>().HasData(
-                    new DevPermission
-                    {
-                        Id = Guid.Parse("{C9372AE7-EBD4-4C4B-9E64-F55965D35E78}"),
-                        MenuId = Guid.Parse("{19B93B25-5230-425B-B5C5-625B708915B5}"),
-                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
-                        ActionId = Guid.Parse("{7B48A7F0-4077-4C1E-ACD5-87EF0A8ACE93}"),
-                    },
-                    new DevPermission
-                    {
-                        Id = Guid.Parse("{028D9D91-2F5F-4503-803C-8296C4BAE426}"),
-                        MenuId = Guid.Parse("{19B93B25-5230-425B-B5C5-625B708915B5}"),
-                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
-                        ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
-                    }
-                    ,
-                    new DevPermission
-                    {
-                        Id = Guid.Parse("{E55C31BA-E4FC-4682-A4AD-B5EEE06D2B3B}"),
-                        MenuId = Guid.Parse("{DAF50AD9-C46B-43DE-AAB2-CA4418785BA3}"),
-                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
-                        ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
-                    }
-                    ,
-                    new DevPermission
-                    {
-                        Id = Guid.Parse("{F93A453E-A93D-4314-803D-FE586C119BCD}"),
-                        MenuId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}"),
-                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A")
-                    }
-                    ,
-                    new DevPermission
-                    {
-                        Id = Guid.Parse("{3E41C160-9781-4818-AFB5-3D33455AB754}"),
-                        MenuId = Guid.Parse("{1CE75274-4033-4081-88D0-6BA7EF00FDDD}"),
-                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
-                        ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
-                    }
-                );
+            // modelBuilder.Entity<DevPermission>().HasData(
+            //         new DevPermission
+            //         {
+            //             Id = Guid.Parse("{C9372AE7-EBD4-4C4B-9E64-F55965D35E78}"),
+            //             MenuId = Guid.Parse("{19B93B25-5230-425B-B5C5-625B708915B5}"),
+            //             RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
+            //             ActionId = Guid.Parse("{7B48A7F0-4077-4C1E-ACD5-87EF0A8ACE93}"),
+            //         },
+            //         new DevPermission
+            //         {
+            //             Id = Guid.Parse("{028D9D91-2F5F-4503-803C-8296C4BAE426}"),
+            //             MenuId = Guid.Parse("{19B93B25-5230-425B-B5C5-625B708915B5}"),
+            //             RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
+            //             ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
+            //         }
+            //         ,
+            //         new DevPermission
+            //         {
+            //             Id = Guid.Parse("{E55C31BA-E4FC-4682-A4AD-B5EEE06D2B3B}"),
+            //             MenuId = Guid.Parse("{DAF50AD9-C46B-43DE-AAB2-CA4418785BA3}"),
+            //             RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
+            //             ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
+            //         }
+            //         ,
+            //         new DevPermission
+            //         {
+            //             Id = Guid.Parse("{F93A453E-A93D-4314-803D-FE586C119BCD}"),
+            //             MenuId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}"),
+            //             RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A")
+            //         }
+            //         ,
+            //         new DevPermission
+            //         {
+            //             Id = Guid.Parse("{3E41C160-9781-4818-AFB5-3D33455AB754}"),
+            //             MenuId = Guid.Parse("{1CE75274-4033-4081-88D0-6BA7EF00FDDD}"),
+            //             RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
+            //             ActionId = Guid.Parse("{532E849C-B3D5-4D55-ABFE-6E645BA2BAE2}"),
+            //         }
+            //     );
 
             modelBuilder.Entity<DevMenu>().HasData(
                     new DevMenu

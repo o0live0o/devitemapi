@@ -248,54 +248,9 @@ namespace devitemapi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DevPermissions");
+                    b.HasIndex("RoleId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c9372ae7-ebd4-4c4b-9e64-f55965d35e78"),
-                            ActionId = new Guid("7b48a7f0-4077-4c1e-acd5-87ef0a8ace93"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("028d9d91-2f5f-4503-803c-8296c4bae426"),
-                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("19b93b25-5230-425b-b5c5-625b708915b5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("e55c31ba-e4fc-4682-a4ad-b5eee06d2b3b"),
-                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("daf50ad9-c46b-43de-aab2-ca4418785ba3"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("f93a453e-a93d-4314-803d-fe586c119bcd"),
-                            ActionId = new Guid("00000000-0000-0000-0000-000000000000"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("a5e189c0-166a-4b37-93ee-45ecf1ff11c5"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        },
-                        new
-                        {
-                            Id = new Guid("3e41c160-9781-4818-afb5-3d33455ab754"),
-                            ActionId = new Guid("532e849c-b3d5-4d55-abfe-6e645ba2bae2"),
-                            CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MenuId = new Guid("1ce75274-4033-4081-88d0-6ba7ef00fddd"),
-                            ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a")
-                        });
+                    b.ToTable("DevPermissions");
                 });
 
             modelBuilder.Entity("devitemapi.Entity.DevRole", b =>
@@ -327,8 +282,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 9, 16, 17, 12, 16, 513, DateTimeKind.Local).AddTicks(5584),
-                            ModifyDate = new DateTime(2020, 9, 16, 17, 12, 16, 513, DateTimeKind.Local).AddTicks(5612),
+                            CreateDate = new DateTime(2020, 9, 19, 11, 59, 11, 693, DateTimeKind.Local).AddTicks(7399),
+                            ModifyDate = new DateTime(2020, 9, 19, 11, 59, 11, 693, DateTimeKind.Local).AddTicks(7423),
                             RoleCode = "SuperAdmin",
                             RoleName = "超级管理员",
                             Status = 1
@@ -336,8 +291,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 9, 16, 17, 12, 16, 513, DateTimeKind.Local).AddTicks(5681),
-                            ModifyDate = new DateTime(2020, 9, 16, 17, 12, 16, 513, DateTimeKind.Local).AddTicks(5683),
+                            CreateDate = new DateTime(2020, 9, 19, 11, 59, 11, 693, DateTimeKind.Local).AddTicks(7489),
+                            ModifyDate = new DateTime(2020, 9, 19, 11, 59, 11, 693, DateTimeKind.Local).AddTicks(7490),
                             RoleCode = "Admin",
                             RoleName = "管理员",
                             Status = 1
@@ -388,8 +343,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 9, 16, 17, 12, 16, 512, DateTimeKind.Local).AddTicks(2813),
-                            ModifyDate = new DateTime(2020, 9, 16, 17, 12, 16, 512, DateTimeKind.Local).AddTicks(3153),
+                            CreateDate = new DateTime(2020, 9, 19, 11, 59, 11, 692, DateTimeKind.Local).AddTicks(4359),
+                            ModifyDate = new DateTime(2020, 9, 19, 11, 59, 11, 692, DateTimeKind.Local).AddTicks(4680),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"
@@ -477,6 +432,15 @@ namespace devitemapi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Nlogrecs");
+                });
+
+            modelBuilder.Entity("devitemapi.Entity.DevPermission", b =>
+                {
+                    b.HasOne("devitemapi.Entity.DevRole", "DevRole")
+                        .WithMany("DevPermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

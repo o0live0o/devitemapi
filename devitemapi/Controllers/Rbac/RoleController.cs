@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-05 11:55:09
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-14 15:21:28
+ * @Last Modified time: 2020-09-19 11:58:59
  */
 
 using AutoMapper;
@@ -30,14 +30,17 @@ namespace devitemapi.Controllers.Rbac
     {
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
+        private readonly DevDbContext _dbContext;
 
         public RoleController(
             IRoleService roleService,
             IPermissionService permissionService,
-            IMapper mapper)
+            IMapper mapper,
+            DevDbContext dbContext)
         {
             this._roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            this._dbContext = dbContext;
         }
 
         [HttpGet("{roleId}", Name = nameof(GetRoleById))]
@@ -116,6 +119,25 @@ namespace devitemapi.Controllers.Rbac
             _mapper.Map(role, roleEntity);
             await _roleService.SaveChangeAsync();
             return CreatedAtRoute(nameof(GetRoleById), new { roleId }, null);
+        }
+
+        [HttpGet]
+        [Route("tet")]
+        public async Task<IActionResult> Test()
+        {
+            try
+            {
+                var roles = _dbContext.DevRoles.FirstOrDefault();
+                roles.AddPermission(Guid.NewGuid(), Guid.NewGuid());
+                roles.ModifyDate = DateTime.Now;
+               // _dbContext.DevPermissions.AddRange(roles.DevPermissions);
+                _dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return Ok();
         }
 
     }

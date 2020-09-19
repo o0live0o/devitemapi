@@ -5,6 +5,7 @@
  * @Last Modified time: 2020-09-14 15:23:04
  */
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace devitemapi.Entity
 {
@@ -15,29 +16,28 @@ namespace devitemapi.Entity
         public Guid MenuId { get; set; }
 
         public Guid ActionId { get; set; }
+        
+        [ForeignKey("RoleId")]
+        public DevRole DevRole { get; set; }
 
         public DevPermission()
         {
-           
+
         }
 
-        public DevPermission(Guid id)
+
+        public DevPermission(Guid roldId, Guid menuId, Guid actionId)
         {
-            this.Id = id;
+            Id = Guid.NewGuid();
+            RoleId = roldId;
+            MenuId = menuId;
+            ActionId = actionId;
         }
 
-        // public DevPermission(Guid roldId,Guid menuId,Guid actionId)
-        // {
-        //     Id = Guid.NewGuid();
-        //     RoleId = roldId;
-        //     MenuId = menuId;
-        //     ActionId = actionId;
-        // }
-
-        // public void UpdatePermision(Guid menuId,Guid actionId)
-        // {
-        //     this.MenuId = menuId;
-        //     this.ActionId = actionId;
-        // }
+        public void UpdatePermision(Guid menuId, Guid actionId)
+        {
+            this.MenuId = menuId;
+            this.ActionId = actionId;
+        }
     }
 }

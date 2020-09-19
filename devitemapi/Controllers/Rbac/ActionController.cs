@@ -29,9 +29,11 @@ namespace devitemapi.Controllers.Rbac
     {
         private readonly IActionService _actionService;
         private readonly IMapper _mapper;
+        private readonly DevDbContext _dbContext;
 
-        public ActionController(IActionService actionService, IMapper mapper)
+        public ActionController(IActionService actionService, IMapper mapper, DevDbContext dbContext)
         {
+            this._dbContext = dbContext;
             this._mapper = mapper;
             this._actionService = actionService;
         }
@@ -129,5 +131,24 @@ namespace devitemapi.Controllers.Rbac
             await _actionService.SaveChangeAsync();
             return CreatedAtRoute(nameof(GetActionById), new { actionId }, null);
         }
+
+        // [HttpGet]
+        // [Route("test")]
+        // public IActionResult Test()
+        // {
+        //     var blog = new Blog();
+        //     blog.Url = "www.baidu.com";
+        //     blog.Posts.Add(
+        //         new Post(){
+        //             Title = "Hello World",
+        //             Content = "I wrote an app using EF Core!"
+        //         }
+        //     );
+        //     _dbContext.Blogs.Add(blog);
+        //     _dbContext.SaveChanges();
+            
+        //     var blogs = _dbContext.Blogs;
+        //     return Ok(blogs);
+        // }
     }
 }
