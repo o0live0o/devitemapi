@@ -22,14 +22,13 @@ namespace devitemapi.Entity
 
         public DevPermission()
         {
-
+        
         }
 
 
-        public DevPermission(Guid roldId, Guid menuId, Guid actionId)
+        public DevPermission(Guid id,Guid menuId, Guid actionId)
         {
-            Id = Guid.NewGuid();
-            RoleId = roldId;
+            Id = id;
             MenuId = menuId;
             ActionId = actionId;
         }

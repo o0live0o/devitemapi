@@ -127,11 +127,42 @@ namespace devitemapi.Controllers.Rbac
         {
             try
             {
-                var roles = _dbContext.DevRoles.FirstOrDefault();
-                roles.AddPermission(Guid.NewGuid(), Guid.NewGuid());
-                roles.ModifyDate = DateTime.Now;
-               // _dbContext.DevPermissions.AddRange(roles.DevPermissions);
+                //var roles = _dbContext.DevRoles.FirstOrDefault();
+                //roles.AddPermission(Guid.NewGuid(), Guid.NewGuid());
+                //roles.ModifyDate = DateTime.Now;
+                // _dbContext.DevPermissions.AddRange(roles.DevPermissions);
+                _dbContext.Add(new DevRole()
+                {
+                    Id = Guid.NewGuid(),
+                    CreateDate = DateTime.Now,
+                    ModifyDate = DateTime.Now
+                });
                 _dbContext.SaveChanges();
+                var role = _dbContext.DevRoles.OrderBy(p => p.CreateDate).First();
+                role.RoleName = "Test";
+                role.AddPermission(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+                _dbContext.SaveChanges();
+
+                // _dbContext.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
+                // _dbContext.SaveChanges();
+
+                // // Read
+                // Console.WriteLine("Querying for a blog");
+                // var blog = _dbContext.Blogs
+                //     .OrderBy(b => b.BlogId)
+                //     .First();
+
+                // // Update
+                // Console.WriteLine("Updating the blog and adding a post");
+                // blog.Url = "https://devblogs.microsoft.com/dotnet";
+                // blog.Posts.Add(
+                //     new Post
+                //     {
+                //         Title = "Hello World",
+                //         Content = "I wrote an app using EF Core!"
+                //     });
+                // _dbContext.SaveChanges();
+
             }
             catch (Exception ex)
             {

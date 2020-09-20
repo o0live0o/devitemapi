@@ -2,34 +2,22 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devitemapi.Entity;
 
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200920100536_20200920")]
+    partial class _20200920
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("devitemapi.Entity.Blog", b =>
-                {
-                    b.Property<int>("BlogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("BlogId");
-
-                    b.ToTable("Blogs");
-                });
 
             modelBuilder.Entity("devitemapi.Entity.DevAction", b =>
                 {
@@ -226,28 +214,6 @@ namespace devitemapi.Migrations
                     b.ToTable("DevUserRoles");
                 });
 
-            modelBuilder.Entity("devitemapi.Entity.Post", b =>
-                {
-                    b.Property<int>("PostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.HasKey("PostId");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("Posts");
-                });
-
             modelBuilder.Entity("devitemapi.Entity.nlogrec", b =>
                 {
                     b.Property<int>("Id")
@@ -303,15 +269,6 @@ namespace devitemapi.Migrations
                     b.HasOne("devitemapi.Entity.DevRole", "DevRole")
                         .WithMany("DevPermissions")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("devitemapi.Entity.Post", b =>
-                {
-                    b.HasOne("devitemapi.Entity.Blog", "Blog")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -30,12 +30,12 @@ namespace devitemapi.Entity
 
         public List<DevPermission> DevPermissions { get; } = new List<DevPermission>();
 
-        public void AddPermission(Guid menuId, Guid actionId)
+        public void AddPermission(Guid id, Guid menuId, Guid actionId)
         {
             var existsPermission = DevPermissions.FirstOrDefault(p => p.MenuId == menuId && p.ActionId == actionId);
             if (existsPermission == null)
             {
-                DevPermissions.Add(new DevPermission(this.Id, menuId, actionId));
+                DevPermissions.Add(new DevPermission(id, menuId,actionId));
             }
             else
             {
