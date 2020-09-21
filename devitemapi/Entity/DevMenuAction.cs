@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace devitemapi.Entity
 {
@@ -7,5 +8,8 @@ namespace devitemapi.Entity
         public Guid MenuId { get; set; }
 
         public Guid ActionId { get; set; }
+
+        [ForeignKey("MenuId")]
+        public DevMenu DevMenu { get;set;}
     }
 }

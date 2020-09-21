@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace devitemapi.Entity
 {
@@ -12,5 +13,7 @@ namespace devitemapi.Entity
         public string Path { get; set; }
 
         public string Icon { get; set; }
+
+        public List<DevMenuAction> DevMenuActions { get; } = new List<DevMenuAction>();
     }
 }

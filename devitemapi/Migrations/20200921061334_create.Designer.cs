@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devitemapi.Entity;
 
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200921061334_create")]
+    partial class create
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,8 +347,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            CreateDate = new DateTime(2020, 9, 21, 16, 45, 30, 0, DateTimeKind.Local).AddTicks(7649),
-                            ModifyDate = new DateTime(2020, 9, 21, 16, 45, 30, 0, DateTimeKind.Local).AddTicks(7674),
+                            CreateDate = new DateTime(2020, 9, 21, 14, 13, 34, 500, DateTimeKind.Local).AddTicks(3452),
+                            ModifyDate = new DateTime(2020, 9, 21, 14, 13, 34, 500, DateTimeKind.Local).AddTicks(3474),
                             RoleCode = "SuperAdmin",
                             RoleName = "超级管理员",
                             Status = 1
@@ -354,8 +356,8 @@ namespace devitemapi.Migrations
                         new
                         {
                             Id = new Guid("78d6d23b-64c1-4d23-b766-a19276be3d1c"),
-                            CreateDate = new DateTime(2020, 9, 21, 16, 45, 30, 0, DateTimeKind.Local).AddTicks(7747),
-                            ModifyDate = new DateTime(2020, 9, 21, 16, 45, 30, 0, DateTimeKind.Local).AddTicks(7749),
+                            CreateDate = new DateTime(2020, 9, 21, 14, 13, 34, 500, DateTimeKind.Local).AddTicks(3536),
+                            ModifyDate = new DateTime(2020, 9, 21, 14, 13, 34, 500, DateTimeKind.Local).AddTicks(3538),
                             RoleCode = "Admin",
                             RoleName = "管理员",
                             Status = 1
@@ -406,8 +408,8 @@ namespace devitemapi.Migrations
                         {
                             Id = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d"),
                             Account = "Administrator",
-                            CreateDate = new DateTime(2020, 9, 21, 16, 45, 29, 999, DateTimeKind.Local).AddTicks(3976),
-                            ModifyDate = new DateTime(2020, 9, 21, 16, 45, 29, 999, DateTimeKind.Local).AddTicks(4486),
+                            CreateDate = new DateTime(2020, 9, 21, 14, 13, 34, 499, DateTimeKind.Local).AddTicks(1090),
+                            ModifyDate = new DateTime(2020, 9, 21, 14, 13, 34, 499, DateTimeKind.Local).AddTicks(1423),
                             Pwd = "123456",
                             Status = 1,
                             UserName = "超级管理员"
@@ -429,15 +431,10 @@ namespace devitemapi.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("UseId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("Useid")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("DevUserRoles");
 
@@ -448,7 +445,7 @@ namespace devitemapi.Migrations
                             CreateDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifyDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             RoleId = new Guid("557b25cc-463d-4116-9d7d-5003d6acbf6a"),
-                            UseId = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d")
+                            Useid = new Guid("bc9e5615-17d5-4ca2-adf9-200f903e0a7d")
                         });
                 });
 
@@ -540,13 +537,6 @@ namespace devitemapi.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("devitemapi.Entity.DevUserRole", b =>
-                {
-                    b.HasOne("devitemapi.Entity.DevUser", "User")
-                        .WithMany("DevUserRoles")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("devitemapi.Entity.Post", b =>

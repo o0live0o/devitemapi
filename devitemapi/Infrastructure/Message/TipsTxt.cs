@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-04 11:44:58
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-08 16:11:11
+ * @Last Modified time: 2020-09-21 15:14:08
  */
 
 namespace devitemapi.Infrastructure.Message
@@ -31,13 +31,14 @@ namespace devitemapi.Infrastructure.Message
         public const string ROLE_NAMEORCODE_EMPTY = "角色名称不能为空";
         public const string ROLE_ALREADY_EXISTS = "角色已存在";
         public const string ROLE_ID_EMPTY = "角色ID不能为空";
-
+        public const string ROLE_NOT_EXISTS = "角色不存在";
         #endregion ROLE
 
         #region Menu
         public const string MENU_MENUNAME_EMPTY = "菜单名字不能为空";
         public const string MENU_ALREADY_EXISTS = "菜单已存在";
         public const string MENU_ID_EMPTY = "菜单ID不能为空";
+        public const string MENU_NOT_EXISTS = "菜单不存在";
         #endregion
 
         #region Action

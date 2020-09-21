@@ -34,23 +34,43 @@
             <param name="actionId">Action Id</param>
             <returns></returns>
         </member>
-        <member name="T:devitemapi.Controllers.Rbac.LoginController">
-            <summary>
-            登录授权
-            </summary>
-        </member>
-        <member name="M:devitemapi.Controllers.Rbac.LoginController.SignIn(System.String,System.String)">
-            <summary>
-            用户登录
-            </summary>
-            <param name="userAccount">用户账号</param>
-            <param name="pwd">密码</param>
-            <returns></returns>
-        </member>
         <member name="T:devitemapi.Controllers.Rbac.MenuController">
             <summary>
             菜单管理
             </summary>
+        </member>
+        <member name="T:devitemapi.Controllers.Rbac.RbacController">
+            <summary>
+            登录授权
+            </summary>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.CreateActionForMenuAsync(System.Guid,System.Collections.Generic.IEnumerable{devitemapi.Dto.Action.ActionDto})">
+            <summary>
+            添加菜单操作
+            </summary>
+            <param name="menuId"></param>
+            <param name="actions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetActionsByMenuAsync(System.Guid)">
+            <summary>
+            获取菜单对应的操作
+            </summary>
+            <param name="menuId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetAllMenuActions">
+            <summary>
+            获取所有的菜单
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetMenusByUserId(System.Guid)">
+            <summary>
+            获取用户拥有的操作权限的菜单树
+            </summary>
+            <param name="userId">用户Id</param>
+            <returns></returns>
         </member>
         <member name="T:devitemapi.Controllers.Rbac.RoleController">
             <summary>
@@ -62,14 +82,14 @@
             用户管理
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUser(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUserAsync(System.Guid)">
             <summary>
             获取指定Id的用户信息
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUsers(System.Int32,System.Int32)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUsersAsync(System.Int32,System.Int32)">
             <summary>
             获取所有用户信息
             </summary>
@@ -89,7 +109,7 @@
             <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUser(System.Guid,devitemapi.Dto.User.UserAddOrUpdateDto)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUserAsync(System.Guid,devitemapi.Dto.User.UserAddOrUpdateDto)">
             <summary>
             修改用户
             </summary>
@@ -97,26 +117,34 @@
             <param name="user"></param>
             <returns></returns>
         </member>
+        <member name="M:devitemapi.Controllers.Rbac.UserController.SignInAsync(System.String,System.String)">
+            <summary>
+            用户登录
+            </summary>
+            <param name="userAccount">用户账号</param>
+            <param name="pwd">密码</param>
+            <returns></returns>
+        </member>
         <member name="T:devitemapi.Services.Interface.IMenuService">
             <summary>
             菜单
             </summary>
         </member>
-        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuTreeByUser(System.Guid)">
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuTreeByUserAsync(System.Guid)">
             <summary>
             跟用用户Id获取菜单和权限
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuActionsByMenuId(System.Guid)">
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetActionsByMenuAsync(System.Guid)">
             <summary>
             根据菜单Id获取菜单的操作方法
             </summary>
             <param name="menuId"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuActions">
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuActionsAsync">
             <summary>
             获取所有菜单和操作方法
             </summary>

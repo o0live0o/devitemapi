@@ -35,7 +35,11 @@ namespace devitemapi.Entity
             var existsPermission = DevPermissions.FirstOrDefault(p => p.MenuId == menuId && p.ActionId == actionId);
             if (existsPermission == null)
             {
-                DevPermissions.Add(new DevPermission(id, menuId,actionId));
+                DevPermissions.Add(new DevPermission(){
+                    //Id = id,
+                    MenuId = menuId,
+                    ActionId = actionId
+                });
             }
             else
             {

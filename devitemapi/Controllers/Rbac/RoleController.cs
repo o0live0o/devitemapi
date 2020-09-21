@@ -122,7 +122,7 @@ namespace devitemapi.Controllers.Rbac
         }
 
         [HttpGet]
-        [Route("tet")]
+        [Route("test")]
         public async Task<IActionResult> Test()
         {
             try
@@ -133,12 +133,12 @@ namespace devitemapi.Controllers.Rbac
                 // _dbContext.DevPermissions.AddRange(roles.DevPermissions);
                 _dbContext.Add(new DevRole()
                 {
-                    Id = Guid.NewGuid(),
+                    //Id = Guid.NewGuid(),
                     CreateDate = DateTime.Now,
                     ModifyDate = DateTime.Now
                 });
-                _dbContext.SaveChanges();
-                var role = _dbContext.DevRoles.OrderBy(p => p.CreateDate).First();
+                await _dbContext.SaveChangesAsync();
+                var role =  _dbContext.DevRoles.OrderBy(p => p.CreateDate).First();
                 role.RoleName = "Test";
                 role.AddPermission(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
                 _dbContext.SaveChanges();

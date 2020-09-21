@@ -28,7 +28,7 @@ namespace devitemapi.Entity
 
         public DevPermission(Guid id,Guid menuId, Guid actionId)
         {
-            Id = id;
+            //Id = id;
             MenuId = menuId;
             ActionId = actionId;
         }

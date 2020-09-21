@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-07 09:33:20
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-09 16:21:51
+ * @Last Modified time: 2020-09-21 14:53:43
  */
 
 using System.Collections.Generic;
@@ -16,6 +16,5 @@ namespace devitemapi.Dto.Role
 
         public string ActionCode { get; set; }
 
-        public ICollection<PermissionDto> Permissions {get;set;}
     }
 }

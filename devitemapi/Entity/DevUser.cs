@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace devitemapi.Entity
 {
@@ -23,5 +24,7 @@ namespace devitemapi.Entity
         public string Phone { get; set; }
 
         public int Status { get; set; }
+
+        public List<DevUserRole> DevUserRoles {get;} = new List<DevUserRole>();
     }
 }

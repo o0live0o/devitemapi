@@ -9,5 +9,7 @@ namespace devitemapi.Dto.Permission
         public Guid MemuId { get; set; }
 
         public Guid ActionId { get; set; }
+
+        
     }
 }

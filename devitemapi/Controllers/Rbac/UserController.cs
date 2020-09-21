@@ -1,7 +1,18 @@
-﻿using AutoMapper;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-21 16:05:09 
+ * @Last Modified by:   live0x 
+ * @Last Modified time: 2020-09-21 16:05:09 
+ */
+using AutoMapper;
+using devitemapi.Common;
+using devitemapi.Dto.Rbac;
 using devitemapi.Dto.User;
 using devitemapi.Entity;
+using devitemapi.Infrastructure.Exceptions;
+using devitemapi.Infrastructure.Message;
 using devitemapi.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -33,10 +44,10 @@ namespace devitemapi.Controllers.Rbac
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpGet("{userId:Guid}", Name = nameof(GetUser))]
+        [HttpGet("{userId:Guid}", Name = nameof(GetUserAsync))]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<UserDto>> GetUser(Guid userId)
+        public async Task<ActionResult<UserDto>> GetUserAsync(Guid userId)
         {
             var user = await _userService.QueryByIdAsync(userId);
             if (user == null)
@@ -53,7 +64,7 @@ namespace devitemapi.Controllers.Rbac
         /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), (int)HttpStatusCode.OK)]   //声明可能返回的类型
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers(int pageSize = 20, int pageIndex = 1)
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsersAsync(int pageSize = 20, int pageIndex = 1)
         {
             var users = await _userService.QueryAsync(null, pageSize, pageIndex);
             var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
@@ -79,7 +90,7 @@ namespace devitemapi.Controllers.Rbac
 
             await _userService.SaveChangeAsync();
 
-            return CreatedAtRoute(nameof(GetUser), new { userId = userDto.UserId }, null);
+            return CreatedAtRoute(nameof(GetUserAsync), new { userId = userDto.UserId }, null);
         }
 
         /// <summary>
@@ -131,7 +142,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UserAddOrUpdateDto user)
+        public async Task<ActionResult> UpdateUserAsync([FromRoute] Guid userId, [FromBody] UserAddOrUpdateDto user)
         {
 
             if (userId == null || userId == Guid.Empty || user is null)
@@ -149,7 +160,42 @@ namespace devitemapi.Controllers.Rbac
 
             await _userService.SaveChangeAsync();
 
-            return CreatedAtRoute(nameof(GetUser), new { userId }, null);
+            return CreatedAtRoute(nameof(GetUserAsync), new { userId }, null);
+        }
+
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="userAccount">用户账号</param>
+        /// <param name="pwd">密码</param>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("~/login")]
+        [ProducesResponseType(typeof(LoginDto), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<LoginDto>> SignInAsync(string userAccount, string pwd)
+        {
+            if (string.IsNullOrEmpty(userAccount))
+            {
+                throw new ItemException(TipsTxt.USER_ACCOUNT_EMPTY);
+            }
+            else if (string.IsNullOrEmpty(pwd))
+            {
+                throw new ItemException(TipsTxt.USER_PASSWORD_EMPTY);
+            }
+
+            var user = await _userService.QueryUserByAccount(userAccount, pwd);
+            if (user == null)
+            {
+                throw new ItemException(TipsTxt.USER_ACCOUNTORPASSWORD_FAIL);
+            }
+
+            var token = JWTService.GetJWTToken(userAccount, AppConfig.Config.JwtSecurityKey);
+            var loginDto = new LoginDto()
+            {
+                Token = token
+            };
+            return Ok(loginDto);
         }
     }
 }
