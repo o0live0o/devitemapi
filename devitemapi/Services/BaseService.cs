@@ -16,11 +16,11 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    public class BaseService<T> : IBaseService<T> where T : IEntity
+    public class BaseService<T,TKey> : IBaseService<T,TKey> where T : IEntity<TKey>
     {
-        private readonly IBaseRepository<T> _repository;
+        private readonly IBaseRepository<T,TKey> _repository;
 
-        public BaseService(IBaseRepository<T> repository)
+        public BaseService(IBaseRepository<T,TKey> repository)
         {
             this._repository = repository;
         }
@@ -45,7 +45,7 @@ namespace devitemapi.Services
             return await _repository.QueryAsync();
         }
 
-        public async Task<T> QueryByIdAsync(Guid id)
+        public async Task<T> QueryByIdAsync(TKey id)
         {
             return await _repository.QueryFirstAsync(id);
         }

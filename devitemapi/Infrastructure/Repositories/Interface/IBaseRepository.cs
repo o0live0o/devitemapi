@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.Repositories.Interface
 {
-    public interface IBaseRepository<TEntity> where TEntity : IEntity
+    public interface IBaseRepository<TEntity,TKey> where TEntity : IEntity<TKey>
     {
         Task<IEnumerable<TEntity>> QueryAsync();
 
@@ -24,7 +24,7 @@ namespace devitemapi.Infrastructure.Repositories.Interface
 
         Task<TEntity> QueryFirstAsync();
 
-        Task<TEntity> QueryFirstAsync(Guid id);
+        Task<TEntity> QueryFirstAsync(TKey id);
 
         Task<TEntity> QueryFirstAsync(Expression<Func<TEntity, bool>> @where);
 
@@ -36,6 +36,6 @@ namespace devitemapi.Infrastructure.Repositories.Interface
 
         void Add(TEntity entity);
 
-        void Add(IEnumerable<IEntity> entities);
+        void Add(IEnumerable<IEntity<TKey>> entities);
     }
 }

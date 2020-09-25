@@ -1,6 +1,8 @@
-﻿namespace devitemapi.Entity
+﻿using System;
+
+namespace devitemapi.Entity
 {
-    public class DevAction : BaseEntity
+    public class DevAction : BaseEntity<Guid>
     {
         public string ActionName { get; set; }
 

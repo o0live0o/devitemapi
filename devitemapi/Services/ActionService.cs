@@ -14,9 +14,9 @@ using System;
 
 namespace devitemapi.Services
 {
-    public class ActionService : BaseService<DevAction>, IActionService
+    public class ActionService : BaseService<DevAction,Guid>, IActionService
     {
-        public ActionService(IBaseRepository<DevAction> repository) : base(repository)
+        public ActionService(IBaseRepository<DevAction,Guid> repository) : base(repository)
         {
         }
 

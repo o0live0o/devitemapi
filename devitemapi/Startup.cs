@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-03 11:26:35 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-04 16:22:21
+ * @Last Modified time: 2020-09-25 08:55:59
  */
 using AutoMapper;
 using devitemapi.Common;
@@ -86,8 +86,8 @@ namespace devitemapi
             services.AddCusService();
 
             //泛型注入
-            services.Add(new ServiceDescriptor(typeof(IBaseService<>), typeof(BaseService<>), ServiceLifetime.Scoped));
-            services.Add(new ServiceDescriptor(typeof(IBaseRepository<>), typeof(BaseRepository<>), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBaseService<,>), typeof(BaseService<,>), ServiceLifetime.Scoped));
+            services.Add(new ServiceDescriptor(typeof(IBaseRepository<,>), typeof(BaseRepository<,>), ServiceLifetime.Scoped));
 
             services.AddCusRepository();
 

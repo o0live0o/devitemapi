@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-07 08:58:00
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-14 11:31:15
+ * @Last Modified time: 2020-09-25 08:52:28
  */
 
 using AutoMapper;
@@ -18,9 +18,9 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services      
 {
-    public class RoleService : BaseService<DevRole>, IRoleService
+    public class RoleService : BaseService<DevRole,Guid>, IRoleService
     {
-        public RoleService(IBaseRepository<DevRole> repository) : base(repository)
+        public RoleService(IBaseRepository<DevRole,Guid> repository) : base(repository)
         {
         }
 

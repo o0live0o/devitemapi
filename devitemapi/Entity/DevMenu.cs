@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace devitemapi.Entity
 {
-    public class DevMenu : BaseEntity
+    public class DevMenu : BaseEntity<Guid>
     {
         public string MenuCode { get; set; }
         public string MenuName { get; set; }

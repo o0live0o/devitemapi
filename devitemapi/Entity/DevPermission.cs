@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace devitemapi.Entity
 {
-    public class DevPermission : BaseEntity
+    public class DevPermission : BaseEntity<Guid>
     {
         public Guid RoleId { get; set; }
 

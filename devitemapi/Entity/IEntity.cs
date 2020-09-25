@@ -2,8 +2,8 @@ using System;
 
 namespace devitemapi.Entity
 {
-    public class IEntity
+    public class IEntity<T>
     {
-        public Guid Id { get; set; }
+        public T Id { get; set; }
     }
 }

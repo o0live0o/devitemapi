@@ -9,10 +9,10 @@ using System.Linq;
 
 namespace devitemapi.Services
 {
-    public class MenuService : BaseService<DevMenu>, IMenuService
+    public class MenuService : BaseService<DevMenu,Guid>, IMenuService
     {
 
-        public MenuService(IBaseRepository<DevMenu> repository) : base(repository)
+        public MenuService(IBaseRepository<DevMenu,Guid> repository) : base(repository)
         {
         }
 

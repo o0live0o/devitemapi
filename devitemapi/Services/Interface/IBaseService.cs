@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IBaseService<T> where T : IEntity
+    public interface IBaseService<T,TKey> where T : IEntity<TKey>
     {
         void Remove(T t);
 
-        Task<T> QueryByIdAsync(Guid id);
+        Task<T> QueryByIdAsync(TKey id);
 
         Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func, int pageSize = 20, int pageIndex = 0);
 

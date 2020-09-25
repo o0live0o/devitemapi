@@ -2,7 +2,7 @@
 
 namespace devitemapi.Entity
 {
-    public class BaseEntity : IEntity
+    public class BaseEntity<T> : IEntity<T>
     {
         public DateTime CreateDate { get; set; }
 

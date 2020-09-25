@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace devitemapi.Entity
 {
-    public class DevMenuAction : BaseEntity
+    public class DevMenuAction : BaseEntity<Guid>
     {
         public Guid MenuId { get; set; }
 

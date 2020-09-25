@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-04 10:17:21
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-14 11:53:45
+ * @Last Modified time: 2020-09-25 08:52:51
  */
 
 using AutoMapper;
@@ -17,12 +17,12 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    public class UserService : BaseService<DevUser>, IUserService
+    public class UserService : BaseService<DevUser,Guid>, IUserService
     {
-        private readonly IBaseRepository<DevUser> _repository;
+        private readonly IBaseRepository<DevUser,Guid> _repository;
         private readonly IMapper _mapper;
 
-        public UserService(IBaseRepository<DevUser> repository, IMapper mapper) : base(repository)
+        public UserService(IBaseRepository<DevUser,Guid> repository, IMapper mapper) : base(repository)
         {
             this._repository = repository;
             this._mapper = mapper;

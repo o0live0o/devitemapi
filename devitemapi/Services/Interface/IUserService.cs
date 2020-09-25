@@ -7,11 +7,12 @@
 
 using devitemapi.Dto.User;
 using devitemapi.Entity;
+using System;
 using System.Threading.Tasks;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IUserService : IBaseService<DevUser>
+    public interface IUserService : IBaseService<DevUser,Guid>
     {
         Task<UserDto> CreateUser(UserAddOrUpdateDto user);
 

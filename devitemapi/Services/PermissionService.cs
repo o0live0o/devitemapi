@@ -8,10 +8,10 @@ using devitemapi.Services.Interface;
 
 namespace devitemapi.Services
 {
-    public class PermissionService : BaseService<DevPermission>, IPermissionService
+    public class PermissionService : BaseService<DevPermission,Guid>, IPermissionService
     {
 
-        public PermissionService(IBaseRepository<DevPermission> repository) : base(repository)
+        public PermissionService(IBaseRepository<DevPermission,Guid> repository) : base(repository)
         {
         }
 

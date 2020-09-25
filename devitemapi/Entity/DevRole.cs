@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace devitemapi.Entity
 {
-    public class DevRole : BaseEntity
+    public class DevRole : BaseEntity<Guid>
     {
         public DevRole()
         {

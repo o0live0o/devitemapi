@@ -2,7 +2,7 @@
  * @Author: live0x
  * @Date: 2020-09-04 10:44:19
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-09 16:30:08
+ * @Last Modified time: 2020-09-25 08:55:01
  */
 
 using devitemapi.Entity;
@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : IEntity
+    public class BaseRepository<TEntity,TKey> : IBaseRepository<TEntity,TKey> where TEntity : IEntity<TKey>
     {
         private readonly DevDbContext _dbContext;
 
@@ -31,9 +31,9 @@ namespace devitemapi.Infrastructure.Repositories
             _dbContext.Set<TEntity>().Add(entity);
         }
 
-        public void Add(IEnumerable<IEntity> entities)
+        public void Add(IEnumerable<IEntity<TKey>> entities)
         {
-            _dbContext.Set<IEntity>().AddRange(entities);
+            _dbContext.Set<IEntity<TKey>>().AddRange(entities);
         }
 
         public virtual async Task<IEnumerable<TEntity>> QueryAsync()
@@ -86,9 +86,9 @@ namespace devitemapi.Infrastructure.Repositories
             return await _dbContext.Set<TEntity>().Where(where).FirstOrDefaultAsync();
         }
 
-        public virtual async Task<TEntity> QueryFirstAsync(Guid id)
+        public virtual async Task<TEntity> QueryFirstAsync(TKey id)
         {
-            return await _dbContext.Set<TEntity>().Where(t => t.Id == id).FirstOrDefaultAsync();
+            return await _dbContext.Set<TEntity>().Where(t => t.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         public virtual EntityEntry<TEntity> Remove(TEntity entity)

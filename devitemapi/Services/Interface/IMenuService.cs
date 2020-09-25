@@ -1,4 +1,5 @@
-﻿using devitemapi.Dto.Menu;
+﻿using System;
+using devitemapi.Dto.Menu;
 using devitemapi.Entity;
 
 namespace devitemapi.Services.Interface
@@ -6,7 +7,7 @@ namespace devitemapi.Services.Interface
     /// <summary>
     /// 菜单
     /// </summary>
-    public interface IMenuService : IBaseService<DevMenu>
+    public interface IMenuService : IBaseService<DevMenu,Guid>
     {
     }
 }
