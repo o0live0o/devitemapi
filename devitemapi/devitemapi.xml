@@ -125,6 +125,280 @@
             <param name="pwd">密码</param>
             <returns></returns>
         </member>
+        <member name="M:devitemapi.Controllers.v1.StorageInController.GetStorageInsAsync(System.Int32,System.Int32)">
+            <summary>
+            获取出库单数据
+            </summary>
+            <param name="pageIndex">页码</param>
+            <param name="pageSize">页面大小</param>
+            <returns>出库单数据</returns>
+        </member>
+        <member name="M:devitemapi.Controllers.v1.StorageInController.GetStorageInByOrderNoAsync(System.String)">
+            <summary>
+            根据订单号获取出库单数据    
+            </summary>
+            <param name="orderNo">订单号</param>
+            <returns>出库单数据</returns>
+        </member>
+        <member name="M:devitemapi.Controllers.v1.StorageInController.CreateStorageInAsync(devitemapi.Dto.Storage.StorageInAddDto)">
+            <summary>
+            创建入库单
+            </summary>
+            <param name="storageIn">入库单实体</param>
+            <returns></returns>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.SerialNo">
+            <summary>
+            流水号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.Batch">
+            <summary>
+            商品批次
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.Price">
+            <summary>
+            商品价格
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.Amount">
+            <summary>
+            商品数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.Weight">
+            <summary>
+            商品重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.State">
+            <summary>
+            库存状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.Stock.StorageDate">
+            <summary>
+            入库日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.SerialNo">
+            <summary>
+            流水号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.Batch">
+            <summary>
+            商品批次
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.Price">
+            <summary>
+            商品价格
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.Amount">
+            <summary>
+            商品数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.Weight">
+            <summary>
+            商品重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.State">
+            <summary>
+            库存状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StockHistory.StorageDate">
+            <summary>
+            入库日期
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.OrderNo">
+            <summary>
+            入库单订单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.State">
+            <summary>
+            入库单状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.StorageInType">
+            <summary>
+            入库类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.Amount">
+            <summary>
+            商品入库数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.Weight">
+            <summary>
+            数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageIn.Batch">
+            <summary>
+            批次
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.OrderNo">
+            <summary>
+            出库单订单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.State">
+            <summary>
+            入库单状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.StorageOutype">
+            <summary>
+            出库类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.Amount">
+            <summary>
+            商品入库数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.Weight">
+            <summary>
+            数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Entity.StorageOut.Batch">
+            <summary>
+            批次
+            </summary>
+            <value></value>
+        </member>
         <member name="T:devitemapi.Services.Interface.IMenuService">
             <summary>
             菜单

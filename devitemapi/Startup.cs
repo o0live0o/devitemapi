@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-03 11:26:35 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-25 08:55:59
+ * @Last Modified time: 2020-09-25 08:58:18
  */
 using AutoMapper;
 using devitemapi.Common;
@@ -43,9 +43,6 @@ namespace devitemapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-
             services.AddCors(o =>
              o.AddPolicy("CorsPolicy",
               builder => builder
@@ -70,7 +67,6 @@ namespace devitemapi
             {
                 //fv.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
                 //fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
-
             });
 
             //services.AddHsts(options=> { 
@@ -92,9 +88,6 @@ namespace devitemapi
             services.AddCusRepository();
 
             services.AddSingleton<IApiLogger, ApiLogger>();
-
-
-
 
             AppConfig.Config = Configuration.GetSection("AppConfig").Get<ConfigEntity>();
 

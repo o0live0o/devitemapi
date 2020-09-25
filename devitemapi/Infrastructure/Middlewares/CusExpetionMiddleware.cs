@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*
+ * @Author: live0x 
+ * @Date: 2020-09-25 16:55:17 
+ * @Last Modified by:   live0x 
+ * @Last Modified time: 2020-09-25 16:55:17 
+ */
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace devitemapi.Infrastructure.CusMiddlewares
