@@ -21,30 +21,47 @@ namespace devitemapi.Infrastructure.Filters
         public void OnException(ExceptionContext context)
         {
             var json = new JsonErrorResponse();
-            json.Message = new[] { "An error occur. Try it agagin." };
 
-            if (context.Exception is ItemException)
+            json.Message =  "An error occur. Try it agagin.";
+            json.TraceId = context.HttpContext.TraceIdentifier;
+
+            if (context.Exception is ItemException itemException)
             {
+                json.Message = itemException.Message;
+                json.Status = (int)itemException.ItemCode;
+                json.Title = itemException.ItemCode.ToString();
+                context.Result = new ItemObjectResult(json,(int)itemException.ItemCode);
             }
-
-            if (_env.IsDevelopment())
+            else if (_env.IsDevelopment())
             {
                 json.DeveloperMessage = context.Exception;
+                context.Result = new InternalServerErrorObjectResult(json);
             }
-            json.TraceId = context.HttpContext.TraceIdentifier;
-            context.Result = new InternalServerErrorObjectResult(json);
+            else
+            {
+                json.Message += "\r\nunhandled exception";
+            }
             context.ExceptionHandled = true;
         }
 
         public class JsonErrorResponse
         {
-            public string[] Message { get; set; }
+            public JsonErrorResponse()
+            {
+                
+            }
+            public JsonErrorResponse(int status)
+            {
+                
+            }
+
+            public string Message { get; set; }
 
             public object DeveloperMessage { get; set; }
 
-            public int Status { get; set; } = 404;
+            public int Status { get; set; } = 500;
 
-            public string Title { get; set; } = "Not Found";
+            public string Title { get; set; } = "Internal Server Error";
             
             public string TraceId {get;set;}
         }

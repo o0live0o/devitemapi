@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-25 10:21:55 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-25 16:56:06
+ * @Last Modified time: 2020-09-26 09:16:30
  */
 using System.Collections.Generic;
 using System.Net;
@@ -17,9 +17,9 @@ namespace devitemapi.Controllers.v1
     [Route("storagein")]
     public class StorageInController : BaseController
     {
-        private readonly IStorageService _storageService;
+        private readonly IStorageInService _storageService;
 
-        public StorageInController(IStorageService storageService)
+        public StorageInController(IStorageInService storageService)
         {
             this._storageService = storageService;
         }

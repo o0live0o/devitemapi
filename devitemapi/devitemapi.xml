@@ -147,6 +147,234 @@
             <param name="storageIn">入库单实体</param>
             <returns></returns>
         </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.State">
+            <summary>
+            入库单状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.StorageInType">
+            <summary>
+            入库类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.Amount">
+            <summary>
+            商品入库数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.Weight">
+            <summary>
+            数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInAddDto.Batch">
+            <summary>
+            批次
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.OrderNo">
+            <summary>
+            入库单订单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.State">
+            <summary>
+            入库单状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.StorageInType">
+            <summary>
+            入库类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.Amount">
+            <summary>
+            商品入库数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.Weight">
+            <summary>
+            数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageInDto.Batch">
+            <summary>
+            批次
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.State">
+            <summary>
+            入库单状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.StorageOutype">
+            <summary>
+            出库类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.Amount">
+            <summary>
+            商品入库数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.Weight">
+            <summary>
+            数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutAddDto.Batch">
+            <summary>
+            批次
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.OrderNo">
+            <summary>
+            出库单订单号
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.State">
+            <summary>
+            入库单状态
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.StorageOutype">
+            <summary>
+            出库类型
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.StoreHouseCode">
+            <summary>
+            仓库代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.GoodsCode">
+            <summary>
+            商品代码
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.Amount">
+            <summary>
+            商品入库数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.Unit">
+            <summary>
+            单位
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.Weight">
+            <summary>
+            数量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.UnitWeight">
+            <summary>
+            每单位重量
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:devitemapi.Dto.Storage.StorageOutDto.Batch">
+            <summary>
+            批次
+            </summary>
+            <value></value>
+        </member>
         <member name="P:devitemapi.Entity.Stock.SerialNo">
             <summary>
             流水号
