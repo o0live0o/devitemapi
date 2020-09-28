@@ -43,7 +43,12 @@ namespace devitemapi.Infrastructure.Message
 
         #region Action
         public const string ACTION_CODE_EMPTY = "操作代码不能为空";
-        #endregion
 
+        #endregion
+        #region StorageIn
+        public const string StorageIn_Order_NOT_EXISTS = "入库单不存在";
+
+        public const string StorageOut_Order_NOT_EXISTS = "出库单不存在";
+        #endregion
     }
 }

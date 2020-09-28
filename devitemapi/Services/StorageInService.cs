@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using devitemapi.Common;
 using devitemapi.Dto.Storage;
 using devitemapi.Entity;
 using devitemapi.Enum;
+using devitemapi.Infrastructure.Exceptions;
+using devitemapi.Infrastructure.Message;
 using devitemapi.Infrastructure.Repositories.Interface;
 using devitemapi.Services.Interface;
 
@@ -30,29 +33,46 @@ namespace devitemapi.Services
             var orderNo = CommonTools.CreateOrderNo(SerialNoEnum.StorageIn);
             storageIn.OrderNo = orderNo;
             _repository.Add(storageIn);
-            await SaveChangeAsync(); 
+            await SaveChangeAsync();
             return _mapper.Map<StorageInDto>(storageIn);
         }
 
-        public Task DeleteStorageInByOrderNoAsync(string orderNo)
+        public async Task DeleteStorageInByOrderNoAsync(string orderNo)
         {
-            
-            throw new NotImplementedException();
+            var order = await QueryFirstAsync(p => p.OrderNo == orderNo);
+            if (order == null)
+            {
+                throw new ItemException(TipsTxt.StorageIn_Order_NOT_EXISTS, HttpStatusCode.NotFound);
+            }
+            Remove(order);
+            await SaveChangeAsync();
         }
 
-        public Task<StorageInDto> GetStorageInByOrderNoAsync(string orderNo)
+        public async Task<StorageInDto> GetStorageInByOrderNoAsync(string orderNo)
         {
-            throw new NotImplementedException();
+            var order = await QueryFirstAsync(p => p.OrderNo == orderNo);
+            if (order == null)
+            {
+                throw new ItemException(TipsTxt.StorageIn_Order_NOT_EXISTS, HttpStatusCode.NotFound);
+            }
+            return _mapper.Map<StorageInDto>(order);
         }
 
-        public Task<IEnumerable<StorageInDto>> GetStorageInsAsync(int pageIndex, int pageSize)
+        public async Task<IEnumerable<StorageInDto>> GetStorageInsAsync(int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            var storageIns = await QueryAsync(offest: pageIndex, limit: pageSize);
+            return _mapper.Map<IEnumerable<StorageInDto>>(storageIns);
         }
 
-        public Task UpdateStorageInAsync(string orderNo, StorageInDto storageIn)
+        public async Task UpdateStorageInAsync(string orderNo, StorageInDto storageIn)
         {
-            throw new NotImplementedException();
+            var order = await QueryFirstAsync(p => p.OrderNo == orderNo);
+            if(order == null)
+            {
+                throw new ItemException(TipsTxt.StorageIn_Order_NOT_EXISTS,HttpStatusCode.NotFound);
+            }
+            _mapper.Map(order,storageIn);
+            await SaveChangeAsync();
         }
     }
 }

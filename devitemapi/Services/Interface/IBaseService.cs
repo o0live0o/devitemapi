@@ -23,6 +23,8 @@ namespace devitemapi.Services.Interface
 
         Task<IEnumerable<T>> QueryAsync(Expression<Func<T, bool>> func);
 
+        Task<T> QueryFirstAsync(Expression<Func<T,bool>> func);
+
         Task<IEnumerable<T>> QueryAsync(int limit = 20, int offest = 0);
 
         void Add(T t);

@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-08 17:47:17 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-21 16:22:03
+ * @Last Modified time: 2020-09-28 08:53:09
  */
 using System;
 using System.Collections.Generic;
@@ -64,16 +64,11 @@ namespace devitemapi.Services.Interface
         Task CreatePermissionForRoleAsync(Guid roleId, IEnumerable<PermissionAddDto> permissions);
         
         Task<IEnumerable<MenuActionsDto>> GetPermissionByRoleAsync(Guid roleId);
-
         #endregion
 
         #region User
         Task<IEnumerable<RoleDto>> GetUserRoleByUserAsync(Guid userId);
         Task CreateUserRoleForUser(Guid userId, IEnumerable<RoleDto> roles);
         #endregion
-
-
-
-
     }
 }

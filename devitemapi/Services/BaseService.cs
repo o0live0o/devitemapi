@@ -50,6 +50,11 @@ namespace devitemapi.Services
             return await _repository.QueryFirstAsync(id);
         }
 
+        public async Task<T> QueryFirstAsync(Expression<Func<T, bool>> func)
+        {
+            return await _repository.QueryFirstAsync(func);
+        }
+
         public virtual void Remove(T t)
         {
             _repository.Remove(t);
