@@ -72,6 +72,12 @@
             <param name="userId">用户Id</param>
             <returns></returns>
         </member>
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetMenuTreesAsync">
+            <summary>
+            获取菜单树
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:devitemapi.Controllers.Rbac.RoleController">
             <summary>
             角色管理

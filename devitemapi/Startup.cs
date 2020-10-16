@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-03 11:26:35 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-25 08:58:18
+ * @Last Modified time: 2020-10-14 09:43:43
  */
 using AutoMapper;
 using devitemapi.Common;
@@ -51,6 +51,11 @@ namespace devitemapi
              .SetIsOriginAllowed(_ => true)
              //.AllowCredentials()
              ));
+
+             services.Configure<ForwardedHeadersOptions>(options => {
+                 options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor|
+                  Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedProto;
+             });
 
             // Console.WriteLine(Guid.NewGuid().ToString("N"));
 
@@ -143,9 +148,11 @@ namespace devitemapi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseForwardedHeaders();
             }
             else
             {
+                app.UseForwardedHeaders();  //必须在Hsts前面
                 //app.UseHsts();
             }
             //app.UseHttpsRedirection();

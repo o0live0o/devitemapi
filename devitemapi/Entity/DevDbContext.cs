@@ -76,7 +76,8 @@ namespace devitemapi.Entity
                     {
                         Id = Guid.Parse("{F93A453E-A93D-4314-803D-FE586C119BCD}"),
                         MenuId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}"),
-                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A")
+                        RoleId = Guid.Parse("557B25CC-463D-4116-9D7D-5003D6ACBF6A"),
+                        ActionId = Guid.Parse("{255F3693-099D-432A-9A80-E377976F9C22}"),
                     }
                     ,
                     new DevPermission
@@ -95,7 +96,7 @@ namespace devitemapi.Entity
                         MenuName = "首页",
                         MenuCode = "Index",
                         Icon = "/item.ico",
-                        Path = "localhost:8080",
+                        Path = "index",
                         ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}")
                     },
                     new DevMenu
@@ -104,7 +105,7 @@ namespace devitemapi.Entity
                         MenuName = "关于",
                         MenuCode = "About",
                         Icon = "/item.ico",
-                        Path = "localhost/about:8080",
+                        Path = "about",
                         ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}") 
                     },
                     new DevMenu
@@ -113,7 +114,7 @@ namespace devitemapi.Entity
                         MenuName = "系统设置",
                         MenuCode = "System",
                         Icon = "/item.ico",
-                        Path = "localhost/system:8080",
+                        Path = "system",
                         ParentId = Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}")
                     },
                     new DevMenu
@@ -122,7 +123,7 @@ namespace devitemapi.Entity
                         MenuName = "人员管理",
                         MenuCode = "People",
                         Icon = "/item.ico",
-                        Path = "localhost/people:8080",
+                        Path = "people",
                         ParentId = Guid.Parse("{A5E189C0-166A-4B37-93EE-45ECF1FF11C5}")
                     }
                 );

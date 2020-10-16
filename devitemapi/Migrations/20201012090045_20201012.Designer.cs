@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using devitemapi.Entity;
 
 namespace devitemapi.Migrations
 {
     [DbContext(typeof(DevDbContext))]
-    partial class DevDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201012090045_20201012")]
+    partial class _20201012
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

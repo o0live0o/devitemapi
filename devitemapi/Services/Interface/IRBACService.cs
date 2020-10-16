@@ -69,6 +69,7 @@ namespace devitemapi.Services.Interface
         #region User
         Task<IEnumerable<RoleDto>> GetUserRoleByUserAsync(Guid userId);
         Task CreateUserRoleForUser(Guid userId, IEnumerable<RoleDto> roles);
+        Task<TreeDto> GetMenuTreesAsync();
         #endregion
     }
 }

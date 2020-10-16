@@ -98,6 +98,18 @@ namespace devitemapi.Controllers.Rbac
             var menus = await _rbacService.GetMenuTreeByUserAsync(userId);
             return Ok(menus);
         }
+
+        /// <summary>
+        /// 获取菜单树
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("menu-trees")]
+        [ProducesResponseType(typeof(TreeDto),(int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetMenuTreesAsync()
+        {
+            var menus = await _rbacService.GetMenuTreesAsync();
+            return Ok(menus);
+        }
         #endregion
 
         #region Role

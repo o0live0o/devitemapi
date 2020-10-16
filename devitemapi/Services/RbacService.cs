@@ -135,7 +135,7 @@ namespace devitemapi.Services
                         ActionCode = p.ActionCode,
                         ActionName = p.ActionName
                     }).ToList();
-                    if (!treeMenu.Actions.Select(p => p.ActionCode).ToList().Contains("View")) continue;
+                    //if (!treeMenu.Actions.Select(p => p.ActionCode).ToList().Contains("View")) continue;
                     treeMenus.Add(treeMenu);
                     CreateTree(list, treeMenu.Children, item.MenuId);
                 }
@@ -342,6 +342,39 @@ namespace devitemapi.Services
             }
 
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async  Task<TreeDto> GetMenuTreesAsync()
+        {
+          
+            List<RoleMenuDto> permissionCollection;
+
+                permissionCollection = await(from super_menuAction in _dbContext.DevMenuActions
+                                             from super_menus in _dbContext.DevMenus.Where(m => m.Id == super_menuAction.MenuId)
+                                             from super_action in _dbContext.DevActions.Where(a => a.Id == super_menuAction.ActionId)
+                                             select new RoleMenuDto
+                                             {
+                                                 RoleName = "超级管理员",
+                                                 RoleCode = "SuperAdmin",
+                                                 MenuName = super_menus.MenuName,
+                                                 MenuCode = super_menus.MenuCode,
+                                                 Path = super_menus.Path,
+                                                 Icon = super_menus.Icon,
+                                                 MenuParentId = super_menus.ParentId,
+                                                 ActionName = super_action.ActionName,
+                                                 ActionCode = super_action.ActionCode,
+                                                 MenuId = super_menus.Id
+                                             }
+                 ).ToListAsync();
+            
+           
+            TreeDto trees = new TreeDto();
+            trees.Roles = await(from roles_userRole in _dbContext.DevUserRoles
+                                from roles_role in _dbContext.DevRoles.Where(r => r.Id == roles_userRole.RoleId)
+                                where roles_userRole.UseId == Guid.Parse("bc9e5615-17d5-4ca2-adf9-200f903e0a7d")
+                                select roles_role.RoleCode).ToListAsync();
+            CreateTree(permissionCollection, trees.Trees, Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}"));
+            return trees;
         }
         #endregion
 
