@@ -13,6 +13,9 @@ namespace UnitTestProject1
         [TestMethod]
         public void TestMethod1()
         {
+            DateTime ow1 = DateTime.Now;
+            DateTime weekStartDay = ow1.AddDays(-(int)ow1.DayOfWeek + 1);
+
             string patern = @"^[a-zA-Z]{1}[a-zA-Z0-9]{5,19}$";
             patern = @"^[0-9]+$|^[a-z]+$|^[A-Z]+$";
             patern = @"^[^\s].*[^\s].*$";

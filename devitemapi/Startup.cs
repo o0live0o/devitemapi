@@ -28,6 +28,8 @@ using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.IO;
 using System.Text;
+using Hangfire;
+using Hangfire.MySql.Core;
 
 namespace devitemapi
 {
@@ -51,6 +53,14 @@ namespace devitemapi
              .SetIsOriginAllowed(_ => true)
              //.AllowCredentials()
              ));
+
+             services.AddHangfire(configuration => 
+                    configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseStorage(new MySqlStorage(Configuration.GetConnectionString("HangfireConnection"))));
+
+            services.AddHangfireServer();
 
              services.Configure<ForwardedHeadersOptions>(options => {
                  options.ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.XForwardedFor|
@@ -140,7 +150,7 @@ namespace devitemapi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IBackgroundJobClient backgroundJobs)
         {
             NLog.LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
             NLog.LogManager.Configuration.Variables["connectionString"] = "server=localhost;database=devitem;user=root;password=123456";
@@ -194,7 +204,8 @@ namespace devitemapi
                        options.SwaggerEndpoint($"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json", "v1");
                    }
                });
-
+            app.UseHangfireDashboard();
+            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
             app.UseAuthentication();
 
             app.UseAuthorization();
@@ -202,6 +213,7 @@ namespace devitemapi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHangfireDashboard();
             });
         }
     }
