@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-03 11:26:35 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-10-29 10:28:21
+ * @Last Modified time: 2020-10-29 10:39:14
  */
 using AutoMapper;
 using devitemapi.Common;
@@ -212,7 +212,7 @@ namespace devitemapi
                    }
                });
             app.UseHangfireDashboard();
-            backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
+            //backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
             app.UseAuthentication();
 
             app.UseAuthorization();
