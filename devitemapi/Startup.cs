@@ -2,7 +2,7 @@
  * @Author: live0x 
  * @Date: 2020-09-03 11:26:35 
  * @Last Modified by: live0x
- * @Last Modified time: 2020-10-14 09:43:43
+ * @Last Modified time: 2020-10-29 10:28:21
  */
 using AutoMapper;
 using devitemapi.Common;
@@ -30,6 +30,8 @@ using System.IO;
 using System.Text;
 using Hangfire;
 using Hangfire.MySql.Core;
+using devitemapi.Core.Utils;
+using devitemapi.Core.Wbl;
 
 namespace devitemapi
 {
@@ -93,6 +95,11 @@ namespace devitemapi
             //});
             //RedisClient.GetRedisClient.Init(Configuration);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddHttpClient();
+
+            services.AddSingleton<HttpHelper>();
+            services.AddSingleton<WblSpider>();
 
             services.AddCusService();
 

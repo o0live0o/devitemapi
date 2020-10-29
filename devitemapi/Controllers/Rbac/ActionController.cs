@@ -2,10 +2,12 @@
  * @Author: live0x
  * @Date: 2020-08-18 14:39:05
  * @Last Modified by: live0x
- * @Last Modified time: 2020-09-07 09:36:08
+ * @Last Modified time: 2020-10-29 10:29:30
  */
 
 using AutoMapper;
+using devitemapi.Core.Utils;
+using devitemapi.Core.Wbl;
 using devitemapi.Dto.Action;
 using devitemapi.Entity;
 using devitemapi.Infrastructure.Exceptions;
@@ -30,10 +32,12 @@ namespace devitemapi.Controllers.Rbac
         private readonly IActionService _actionService;
         private readonly IMapper _mapper;
         private readonly DevDbContext _dbContext;
+        private readonly WblSpider _wblSpider;
 
-        public ActionController(IActionService actionService, IMapper mapper, DevDbContext dbContext)
+        public ActionController(IActionService actionService, IMapper mapper, DevDbContext dbContext,WblSpider wblSpider)
         {
             this._dbContext = dbContext;
+            this._wblSpider = wblSpider;
             this._mapper = mapper;
             this._actionService = actionService;
         }
@@ -65,6 +69,8 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType(typeof(IEnumerable<ActionDto>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<ActionDto>>> GetActions(int pageSize = 20, int pageIndex = 1)
         {
+            var gateWays = _wblSpider.GetGateWays();
+            _wblSpider.GetGoldPrice(gateWays);
             var @actions = await _actionService.QueryAsync(null, pageSize, pageIndex);
             return Ok(@actions);
         }
