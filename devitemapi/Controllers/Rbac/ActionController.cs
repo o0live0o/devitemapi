@@ -69,8 +69,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType(typeof(IEnumerable<ActionDto>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<IEnumerable<ActionDto>>> GetActions(int pageSize = 20, int pageIndex = 1)
         {
-            var gateWays = _wblSpider.GetGateWays();
-            _wblSpider.GetGoldPrice(gateWays);
+            _wblSpider.Enqueue();
             var @actions = await _actionService.QueryAsync(null, pageSize, pageIndex);
             return Ok(@actions);
         }

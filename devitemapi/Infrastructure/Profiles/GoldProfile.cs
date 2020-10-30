@@ -14,7 +14,7 @@ namespace devitemapi.Infrastructure.Profiles
     {
         public GoldProfile()
         {
-            CreateMap<WblGoldDto,Gold>()
+            CreateMap<WblGoldDto,GoldDailyPrice>()
                 .ForMember(des => des.ConsignmentId,opt => opt.MapFrom(src => src.consignment_id))
                 .ForMember(des => des.ZoneId,opt => opt.MapFrom(src => src.zone_id))
                 .ForMember(des => des.ServerId,opt => opt.MapFrom(src => src.server_id))

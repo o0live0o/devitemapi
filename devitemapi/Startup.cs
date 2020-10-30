@@ -55,12 +55,13 @@ namespace devitemapi
              .SetIsOriginAllowed(_ => true)
              //.AllowCredentials()
              ));
-
+           
              services.AddHangfire(configuration => 
                     configuration.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
-                .UseRecommendedSerializerSettings()
-                .UseStorage(new MySqlStorage(Configuration.GetConnectionString("HangfireConnection"))));
+                .UseRecommendedSerializerSettings());
+            GlobalConfiguration.Configuration.UseStorage(new MySqlStorage(Configuration.GetConnectionString("HangfireConnection")));
+                // .UseStorage(new MySqlStorage(Configuration.GetConnectionString("HangfireConnection"))));
 
             services.AddHangfireServer();
 
@@ -99,7 +100,7 @@ namespace devitemapi
             services.AddHttpClient();
 
             services.AddSingleton<HttpHelper>();
-            services.AddSingleton<WblSpider>();
+
 
             services.AddCusService();
 
@@ -110,6 +111,8 @@ namespace devitemapi
             services.AddCusRepository();
 
             services.AddSingleton<IApiLogger, ApiLogger>();
+
+            services.AddScoped<WblSpider>();
 
             AppConfig.Config = Configuration.GetSection("AppConfig").Get<ConfigEntity>();
 
@@ -154,6 +157,8 @@ namespace devitemapi
                     //Scheme = "basic",
                 });
             });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -173,6 +178,8 @@ namespace devitemapi
                 //app.UseHsts();
             }
             //app.UseHttpsRedirection();
+
+            
 
             app.UseRouting();
 

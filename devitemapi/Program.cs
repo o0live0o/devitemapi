@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using devitemapi.Core.Wbl;
 using devitemapi.Entity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,13 +29,15 @@ namespace devitemapi
             {
                 try
                 {
-                    var context = scope.ServiceProvider.GetService<DevDbContext>();
-                    context.Database.EnsureDeleted();
-                    context.Database.Migrate();
+                    // var context = scope.ServiceProvider.GetService<DevDbContext>();
+                    // context.Database.EnsureDeleted();
+                    // context.Database.Migrate();
+
+                    var spider = scope.ServiceProvider.GetService<WblSpider>();
+                    spider.Enqueue();
                 }
                 catch (Exception)
                 {
-
                     throw;
                 }
             }

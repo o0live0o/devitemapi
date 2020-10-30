@@ -25,6 +25,7 @@ namespace devitemapi.Entity
         public virtual DbSet<DevUserRole> DevUserRoles { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Blog> Blogs { get; set; }
+        public virtual DbSet<GoldDailyPrice> GoldDailyPrice { get; set; }
 
 
 

@@ -32,15 +32,15 @@ namespace devitemapi.Infrastructure.Filters
                 json.Title = itemException.ItemCode.ToString();
                 context.Result = new ItemObjectResult(json,(int)itemException.ItemCode);
             }
-            else if (_env.IsDevelopment())
+            else //if (_env.IsDevelopment())
             {
                 json.DeveloperMessage = context.Exception;
                 context.Result = new InternalServerErrorObjectResult(json);
             }
-            else
-            {
-                json.Message += "\r\nunhandled exception";
-            }
+            // else
+            // {
+            //     json.Message += "\r\nunhandled exception";
+            // }
             context.ExceptionHandled = true;
         }
 
