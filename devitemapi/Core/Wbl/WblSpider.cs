@@ -16,6 +16,8 @@ using AutoMapper;
 using devitemapi.Core.Utils;
 using devitemapi.Dto.Wbl;
 using devitemapi.Entity;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -27,12 +29,14 @@ namespace devitemapi.Core.Wbl
         private readonly HttpHelper _httpHelper;
         private readonly IMapper _mapper;
         private readonly DevDbContext _dbContext;
+        private readonly IWebHostEnvironment _env;
 
-        public WblSpider(HttpHelper httpHelper,IMapper mapper,DevDbContext dbContext)
+        public WblSpider(HttpHelper httpHelper,IMapper mapper,DevDbContext dbContext,IWebHostEnvironment env)
         {
             this._httpHelper = httpHelper;
             this._mapper = mapper;
             this._dbContext = dbContext;
+            this._env = env;
         }
         public List<WblGateWayDto> GetGateWays()
         {
@@ -77,7 +81,7 @@ namespace devitemapi.Core.Wbl
 
         public async Task<List<WblGoldDto>> GetGoldPrice(string zoneId,string serverId,int pageIndex = 1)
         {
-            Console.WriteLine($"获取大区:{zoneId} 服务器{serverId} 第 {pageIndex} 页数据 ");
+            // Console.WriteLine($"获取大区:{zoneId} 服务器{serverId} 第 {pageIndex} 页数据 ");
             List<WblGoldDto> list = new List<WblGoldDto>();
             var path = $"buyer/goods/list?zone_id={zoneId}&server_id={serverId}&game=jx3&page={pageIndex}&size=10&goods_type=1";
             var url = Path.Combine(BASE_URL, path);
@@ -116,7 +120,10 @@ namespace devitemapi.Core.Wbl
 
         public void Enqueue()
         {
-            //Hangfire.RecurringJob.AddOrUpdate(()=>Execute(),"0 0 8-23 * * ? ",TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai"));
+            if(!_env.IsDevelopment())
+            {
+                Hangfire.RecurringJob.AddOrUpdate(()=>Execute(),"0 0 8-23 * * ? ",TimeZoneInfo.FindSystemTimeZoneById("Asia/Shanghai"));
+            }
         }
 
     }

@@ -32,6 +32,7 @@ using Hangfire;
 using Hangfire.MySql.Core;
 using devitemapi.Core.Utils;
 using devitemapi.Core.Wbl;
+using Hangfire.Dashboard;
 
 namespace devitemapi
 {
@@ -183,7 +184,7 @@ namespace devitemapi
 
             app.UseRouting();
 
-            app.UseMiddleware<CusExpetionMiddleware>();
+            //app.UseMiddleware<CusExpetionMiddleware>();
 
             app.UseCors("CorsPolicy");
 
@@ -218,7 +219,10 @@ namespace devitemapi
                        options.SwaggerEndpoint($"{(!string.IsNullOrEmpty(pathBase) ? pathBase : string.Empty)}/swagger/v1/swagger.json", "v1");
                    }
                });
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire",new DashboardOptions{
+                Authorization = new [] { new DevDashboardAuthorizationFilter() }
+            });
+            // app.UseHangfireDashboard();
             //backgroundJobs.Enqueue(() => Console.WriteLine("Hello world from Hangfire!"));
             app.UseAuthentication();
 

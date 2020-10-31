@@ -32,7 +32,7 @@ namespace devitemapi
                     // var context = scope.ServiceProvider.GetService<DevDbContext>();
                     // context.Database.EnsureDeleted();
                     // context.Database.Migrate();
-
+                    
                     var spider = scope.ServiceProvider.GetService<WblSpider>();
                     spider.Enqueue();
                 }
