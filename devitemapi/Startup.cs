@@ -166,7 +166,7 @@ namespace devitemapi
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IBackgroundJobClient backgroundJobs)
         {
             NLog.LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
-            NLog.LogManager.Configuration.Variables["connectionString"] = "server=localhost;database=devitem;user=root;password=123456";
+            NLog.LogManager.Configuration.Variables["connectionString"] = Configuration.GetConnectionString("NLogConnection");
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (env.IsDevelopment())
             {
