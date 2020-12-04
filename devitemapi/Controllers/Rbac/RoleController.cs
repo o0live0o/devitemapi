@@ -25,18 +25,18 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
-    [Route("roles")]
+    [Route("role")]
     public class RoleController : BaseController
     {
         private readonly IRoleService _roleService;
         private readonly IMapper _mapper;
-        private readonly DevDbContext _dbContext;
+        private readonly WxDbContext _dbContext;
 
         public RoleController(
             IRoleService roleService,
             IPermissionService permissionService,
             IMapper mapper,
-            DevDbContext dbContext)
+            WxDbContext dbContext)
         {
             this._roleService = roleService ?? throw new ArgumentNullException(nameof(roleService));
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -46,9 +46,9 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet("{roleId}", Name = nameof(GetRoleById))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(RoleDto), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<RoleDto>> GetRoleById(Guid roleId)
+        public async Task<ActionResult<RoleDto>> GetRoleById(int roleId)
         {
-            if (roleId == Guid.Empty)
+            if (roleId == 0)
             {
                 throw new ItemException(TipsTxt.ROLE_ID_EMPTY);
             }
@@ -72,7 +72,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<ActionResult> CreateRole(RoleAddOrUpdateDto role)
         {
-            var roleEntity = _mapper.Map<DevRole>(role);
+            var roleEntity = _mapper.Map<WxRole>(role);
             _roleService.Add(roleEntity);
             await _roleService.SaveChangeAsync();
             return CreatedAtRoute(nameof(GetRoleById), new { roleId = roleEntity.Id }, null);
@@ -82,9 +82,9 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<ActionResult> DeleteRole(Guid roleId)
+        public async Task<ActionResult> DeleteRole(int roleId)
         {
-            if (roleId == Guid.Empty)
+            if (roleId == 0)
             {
                 throw new ItemException(TipsTxt.ROLE_ID_EMPTY);
             }
@@ -102,9 +102,9 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> UpdateRole(Guid roleId, RoleAddOrUpdateDto role)
+        public async Task<IActionResult> UpdateRole(int roleId, RoleAddOrUpdateDto role)
         {
-            if (roleId == Guid.Empty)
+            if (roleId == 0)
             {
                 throw new ItemException(TipsTxt.ROLE_ID_EMPTY);
             }
@@ -131,16 +131,16 @@ namespace devitemapi.Controllers.Rbac
                 //roles.AddPermission(Guid.NewGuid(), Guid.NewGuid());
                 //roles.ModifyDate = DateTime.Now;
                 // _dbContext.DevPermissions.AddRange(roles.DevPermissions);
-                _dbContext.Add(new DevRole()
+                _dbContext.Add(new WxRole()
                 {
                     //Id = Guid.NewGuid(),
                     CreateDate = DateTime.Now,
                     ModifyDate = DateTime.Now
                 });
                 await _dbContext.SaveChangesAsync();
-                var role =  _dbContext.DevRoles.OrderBy(p => p.CreateDate).First();
+                var role =  _dbContext.WxRoles.OrderBy(p => p.CreateDate).First();
                 role.RoleName = "Test";
-                role.AddPermission(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid());
+                role.AddPermission(0, 0, 0);
                 _dbContext.SaveChanges();
 
                 // _dbContext.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });

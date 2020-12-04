@@ -9,31 +9,31 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace devitemapi.Entity
 {
-    public class DevPermission : BaseEntity<Guid>
+    public class WxPermission : BaseEntity<int>
     {
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
 
-        public Guid MenuId { get; set; }
+        public int MenuId { get; set; }
 
-        public Guid ActionId { get; set; }
+        public int ActionId { get; set; }
         
         [ForeignKey("RoleId")]
-        public DevRole DevRole { get; set; }
+        public WxRole WxRole { get; set; }
 
-        public DevPermission()
+        public WxPermission()
         {
         
         }
 
 
-        public DevPermission(Guid id,Guid menuId, Guid actionId)
+        public WxPermission(int id,int menuId, int actionId)
         {
             //Id = id;
             MenuId = menuId;
             ActionId = actionId;
         }
 
-        public void UpdatePermision(Guid menuId, Guid actionId)
+        public void UpdatePermision(int menuId, int actionId)
         {
             this.MenuId = menuId;
             this.ActionId = actionId;

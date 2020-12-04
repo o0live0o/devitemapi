@@ -16,7 +16,7 @@ namespace devitemapi.Dto
 
     public class OperatorDto : BaseDto
     {
-        public Guid OperatorId { get; set; }
+        public int OperatorId { get; set; }
         public string Operator { get; set; }
         public DateTime OperateDate { get; set; }
     }

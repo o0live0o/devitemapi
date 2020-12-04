@@ -1,48 +1,56 @@
 /*
  * @Author: live0x 
- * @Date: 2020-09-25 10:18:38 
- * @Last Modified by:   live0x 
- * @Last Modified time: 2020-09-25 10:18:38 
+ * @Date: 2020-09-25 10:18:25 
+ * @Last Modified by: live0x
+ * @Last Modified time: 2020-09-25 10:18:48
  */
+using System;
+
 namespace devitemapi.Entity
 {
-    public class StorageIn : BaseEntity<int>
+    public class WxStockHistory : IEntity<int>
     {
         /// <summary>
-        /// 入库单订单号
+        /// 流水号
         /// </summary>
         /// <value></value>
-        public string OrderNo { get; set; }
-
-        /// <summary>
-        /// 入库单状态
-        /// </summary>
-        /// <value></value>
-        public string State { get; set; }
-
-        /// <summary>
-        /// 入库类型
-        /// </summary>
-        /// <value></value>
-        public string StorageInType { get; set; }
+        public string SerialNo { get; set; }
 
         /// <summary>
         /// 仓库代码
         /// </summary>
         /// <value></value>
         public string StoreHouseCode { get; set; }
-        
+
         /// <summary>
         /// 商品代码
         /// </summary>
         /// <value></value>
-        public string GoodsCode {get;set;}
+        public string GoodsCode { get; set; }
 
         /// <summary>
-        /// 商品入库数量
+        /// 商品批次
+        /// </summary>
+        /// <value></value>
+        public string Batch { get; set; }
+
+        /// <summary>
+        /// 商品价格
+        /// </summary>
+        /// <value></value>
+        public decimal Price { get; set; }
+
+        /// <summary>
+        /// 商品数量
         /// </summary>
         /// <value></value>
         public decimal Amount { get; set; }
+
+        /// <summary>
+        /// 商品重量
+        /// </summary>
+        /// <value></value>
+        public decimal Weight { get; set; }
 
         /// <summary>
         /// 单位
@@ -51,22 +59,22 @@ namespace devitemapi.Entity
         public string Unit { get; set; }
 
         /// <summary>
-        /// 数量
-        /// </summary>
-        /// <value></value>
-        public decimal Weight { get; set; }
-
-        /// <summary>
         /// 每单位重量
         /// </summary>
         /// <value></value>
-        public decimal UnitWeight { get; set; }
+        public string UnitWeight { get; set; }
 
         /// <summary>
-        /// 批次
+        /// 库存状态
         /// </summary>
         /// <value></value>
-        public string Batch{get;set;}
-        
+        public int State { get; set; }
+
+        /// <summary>
+        /// 入库日期
+        /// </summary>
+        /// <value></value>
+        public DateTime StorageDate { get; set; }  
+
     }
 }

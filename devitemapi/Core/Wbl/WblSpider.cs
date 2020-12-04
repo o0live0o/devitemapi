@@ -28,10 +28,10 @@ namespace devitemapi.Core.Wbl
         private const string BASE_URL = "https://api-wanbaolou.xoyo.com/api/";
         private readonly HttpHelper _httpHelper;
         private readonly IMapper _mapper;
-        private readonly DevDbContext _dbContext;
+        private readonly WxDbContext _dbContext;
         private readonly IWebHostEnvironment _env;
 
-        public WblSpider(HttpHelper httpHelper,IMapper mapper,DevDbContext dbContext,IWebHostEnvironment env)
+        public WblSpider(HttpHelper httpHelper,IMapper mapper,WxDbContext dbContext,IWebHostEnvironment env)
         {
             this._httpHelper = httpHelper;
             this._mapper = mapper;
@@ -101,10 +101,10 @@ namespace devitemapi.Core.Wbl
         {
             var gateWays = GetGateWays();
             var dicGolds = GetGoldPrice(gateWays);
-            List<GoldDailyPrice> golds = new List<GoldDailyPrice>();
+            List<WxGoldDailyPrice> golds = new List<WxGoldDailyPrice>();
             foreach(var item in dicGolds)
             {
-                var gold = _mapper.Map<IEnumerable<GoldDailyPrice>>(item.Value);
+                var gold = _mapper.Map<IEnumerable<WxGoldDailyPrice>>(item.Value);
                 foreach(var g in gold)
                 {
                     g.GainTime = DateTime.Now;
@@ -113,7 +113,7 @@ namespace devitemapi.Core.Wbl
                 }
                 golds.AddRange(gold);
             }
-            _dbContext.GoldDailyPrice.AddRange(golds);
+            _dbContext.WxGoldDailyPrice.AddRange(golds);
             _dbContext.SaveChanges();
             
         }

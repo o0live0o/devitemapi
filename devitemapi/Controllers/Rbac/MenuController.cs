@@ -24,7 +24,7 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("api/[controller]/[action]")]
     //[ApiController]
-    [Route("menus")]
+    [Route("menu")]
     public class MenuController : BaseController
     {
         private readonly IMenuService _menuService;
@@ -37,9 +37,9 @@ namespace devitemapi.Controllers.Rbac
         }
 
         [HttpGet("{menuId}", Name = nameof(GetMenuById))]
-        public async Task<ActionResult> GetMenuById(Guid menuId)
+        public async Task<ActionResult> GetMenuById(int menuId)
         {
-            if (menuId == Guid.Empty)
+            if (menuId == 0)
             {
                 throw new ItemException(TipsTxt.MENU_ID_EMPTY);
             }
@@ -63,7 +63,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.Created)]
         public async Task<ActionResult> CreateMenu(MenuAddOrUpdateDto menu)
         {
-            var menuEntity = _mapper.Map<DevMenu>(menu);
+            var menuEntity = _mapper.Map<WxMenu>(menu);
             _menuService.Add(menuEntity);
             await _menuService.SaveChangeAsync();
             return CreatedAtRoute(nameof(GetMenuById), new { menuId = menuEntity.Id }, null);
@@ -73,9 +73,9 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<ActionResult> DeleteMenu(Guid menuId)
+        public async Task<ActionResult> DeleteMenu(int menuId)
         {
-            if (menuId == Guid.Empty)
+            if (menuId == 0)
             {
                 throw new ItemException(TipsTxt.MENU_ID_EMPTY);
             }
@@ -93,9 +93,9 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<IActionResult> UpdateMenu(Guid menuId, MenuAddOrUpdateDto menu)
+        public async Task<IActionResult> UpdateMenu(int menuId, MenuAddOrUpdateDto menu)
         {
-            if (menuId == Guid.Empty)
+            if (menuId == 0)
             {
                 throw new ItemException(TipsTxt.MENU_ID_EMPTY);
             }

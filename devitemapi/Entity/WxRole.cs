@@ -11,31 +11,27 @@ using System.Linq;
 
 namespace devitemapi.Entity
 {
-    public class DevRole : BaseEntity<Guid>
+    public class WxRole : BaseEntity<int>
     {
-        public DevRole()
+        public WxRole()
         {
             //DevPermissions = new List<DevPermission>();
         }
 
-        public DevRole(Guid id)
-        {
-            this.Id = id;
-        }
         public string RoleName { get; set; }
 
         public string RoleCode { get; set; }
 
         public int Status { get; set; }
 
-        public List<DevPermission> DevPermissions { get; } = new List<DevPermission>();
+        public List<WxPermission> DevPermissions { get; } = new List<WxPermission>();
 
-        public void AddPermission(Guid id, Guid menuId, Guid actionId)
+        public void AddPermission(int id, int menuId, int actionId)
         {
             var existsPermission = DevPermissions.FirstOrDefault(p => p.MenuId == menuId && p.ActionId == actionId);
             if (existsPermission == null)
             {
-                DevPermissions.Add(new DevPermission(){
+                DevPermissions.Add(new WxPermission(){
                     //Id = id,
                     MenuId = menuId,
                     ActionId = actionId

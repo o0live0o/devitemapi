@@ -52,7 +52,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateActionForMenuAsync([FromRoute] Guid menuId, [FromBody] IEnumerable<ActionDto> actions)
+        public async Task<IActionResult> CreateActionForMenuAsync([FromRoute] int menuId, [FromBody] IEnumerable<ActionDto> actions)
         {
             await _rbacService.CreateActionsForMenuAsync(menuId, actions);
             return CreatedAtRoute(nameof(GetActionsByMenuAsync), new { menuId }, null);
@@ -67,7 +67,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ActionDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult<IEnumerable<ActionDto>>> GetActionsByMenuAsync([FromRoute] Guid menuId)
+        public async Task<ActionResult<IEnumerable<ActionDto>>> GetActionsByMenuAsync([FromRoute] int menuId)
         {
             var actions = await _rbacService.GetActionsByMenuAsync(menuId);
             return Ok(actions);
@@ -93,7 +93,7 @@ namespace devitemapi.Controllers.Rbac
         /// <returns></returns>
         [HttpGet("menu-actions/{userId}")]
         [ProducesResponseType(typeof(TreeDto), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<TreeDto>> GetMenusByUserId(Guid userId)
+        public async Task<ActionResult<TreeDto>> GetMenusByUserId(int userId)
         {
             var menus = await _rbacService.GetMenuTreeByUserAsync(userId);
             return Ok(menus);
@@ -116,7 +116,7 @@ namespace devitemapi.Controllers.Rbac
         [Route("role/{roleId}/permissions")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> CreatePermissionForRoleAsync([FromRoute] Guid roleId, [FromBody] IEnumerable<PermissionAddDto> permissions)
+        public async Task<ActionResult> CreatePermissionForRoleAsync([FromRoute] int roleId, [FromBody] IEnumerable<PermissionAddDto> permissions)
         {
             await _rbacService.CreatePermissionForRoleAsync(roleId, permissions);
             return CreatedAtRoute(nameof(GetPermissionByRoleAsync), new { roleId }, null);
@@ -125,7 +125,7 @@ namespace devitemapi.Controllers.Rbac
         [Route("role/{roleId}/permissions", Name = nameof(GetPermissionByRoleAsync))]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<PermissionDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<PermissionDto>>> GetPermissionByRoleAsync([FromRoute] Guid roleId)
+        public async Task<ActionResult<IEnumerable<PermissionDto>>> GetPermissionByRoleAsync([FromRoute] int roleId)
         {
             var permissions = await _rbacService.GetPermissionByRoleAsync(roleId);
             return Ok(permissions);
@@ -136,7 +136,7 @@ namespace devitemapi.Controllers.Rbac
         [Route("user/{userId}/user-role")]
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> CreateUserRoleForUserAsync([FromRoute] Guid userId, [FromBody] IEnumerable<RoleDto> roles)
+        public async Task<ActionResult> CreateUserRoleForUserAsync([FromRoute] int userId, [FromBody] IEnumerable<RoleDto> roles)
         {
             await _rbacService.CreateUserRoleForUser(userId, roles);
             return CreatedAtRoute(nameof(GetUserRoleByUserAsync), new { userId }, null);
@@ -145,7 +145,7 @@ namespace devitemapi.Controllers.Rbac
         [Route("user/{userId}/user-role", Name = nameof(GetUserRoleByUserAsync))]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<RoleDto>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<RoleDto>>> GetUserRoleByUserAsync([FromRoute] Guid userId)
+        public async Task<ActionResult<IEnumerable<RoleDto>>> GetUserRoleByUserAsync([FromRoute] int userId)
         {
             var roles = await _rbacService.GetUserRoleByUserAsync(userId);
             return Ok(roles);

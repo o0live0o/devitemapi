@@ -3,9 +3,9 @@ using devitemapi.Entity;
 
 namespace devitemapi.Infrastructure.Repositories
 {
-    public class ActionRepository : BaseRepository<DevAction,Guid>
+    public class ActionRepository : BaseRepository<WxAction,int>
     {
-        public ActionRepository(DevDbContext devDbContext) : base(devDbContext)
+        public ActionRepository(WxDbContext devDbContext) : base(devDbContext)
         {
         }
     }

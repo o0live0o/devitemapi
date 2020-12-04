@@ -5,7 +5,7 @@ using devitemapi.Entity;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IStorageOutService:IBaseService<StorageOut,int>
+    public interface IStorageOutService:IBaseService<WxStorageOut,int>
     {
         Task<IEnumerable<StorageOutDto>> GetStorageOutsAsync(int pageIndex, int pageSize);
         Task<StorageOutDto> GetStorageOutByOrderNoAsync(string orderNo);

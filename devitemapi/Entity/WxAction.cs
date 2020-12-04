@@ -2,7 +2,7 @@
 
 namespace devitemapi.Entity
 {
-    public class DevAction : BaseEntity<Guid>
+    public class WxAction : BaseEntity<int>
     {
         public string ActionName { get; set; }
 

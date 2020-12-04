@@ -14,22 +14,21 @@ using System;
 
 namespace devitemapi.Services
 {
-    public class ActionService : BaseService<DevAction,Guid>, IActionService
+    public class ActionService : BaseService<WxAction,int>, IActionService
     {
-        public ActionService(IBaseRepository<DevAction,Guid> repository) : base(repository)
+        public ActionService(IBaseRepository<WxAction,int> repository) : base(repository)
         {
         }
 
-        public override void Add(DevAction devAction)
+        public override void Add(WxAction wxAction)
         {
-            if (string.IsNullOrEmpty(devAction.ActionName) ||
-                    string.IsNullOrEmpty(devAction.ActionCode))
+            if (string.IsNullOrEmpty(wxAction.ActionName) ||
+                    string.IsNullOrEmpty(wxAction.ActionCode))
             {
                 throw new ItemException(TipsTxt.ACTION_CODE_EMPTY);
             }
 
-            devAction.Id = Guid.NewGuid();
-            base.Add(devAction);
+            base.Add(wxAction);
         }
     }
 }

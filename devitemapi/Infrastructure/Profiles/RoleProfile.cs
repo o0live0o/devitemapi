@@ -8,7 +8,7 @@ namespace devitemapi.Infrastructure.Profiles
     {
         public RoleProfile()
         {
-            CreateMap<DevRole,RoleDto>().ForMember(p=>p.RoleId,opt =>opt.MapFrom(src => src.Id));
+            CreateMap<WxRole,RoleDto>().ForMember(p=>p.RoleId,opt =>opt.MapFrom(src => src.Id));
         }
     }
 }

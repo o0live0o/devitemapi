@@ -13,13 +13,15 @@ namespace devitemapi.Dto.User
 
         public string Account { get; set; }
 
-        public string Pwd { get; set; }
-
         public string Address { get; set; }
 
         public string EMail { get; set; }
 
         public string Phone { get; set; }
+
+        public int Age { get; set; }
+
+        public int Sex { get; set; }
 
         public int Status { get; set; }
     }

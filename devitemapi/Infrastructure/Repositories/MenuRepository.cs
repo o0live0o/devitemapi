@@ -3,9 +3,9 @@ using devitemapi.Entity;
 
 namespace devitemapi.Infrastructure.Repositories
 {
-    public class MenuRepository : BaseRepository<DevMenu,Guid>
+    public class MenuRepository : BaseRepository<WxMenu,int>
     {
-        public MenuRepository(DevDbContext devDbContext) : base(devDbContext)
+        public MenuRepository(WxDbContext devDbContext) : base(devDbContext)
         {
         }
     }

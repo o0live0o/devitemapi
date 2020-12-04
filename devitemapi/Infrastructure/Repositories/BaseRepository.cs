@@ -19,9 +19,9 @@ namespace devitemapi.Infrastructure.Repositories
 {
     public class BaseRepository<TEntity,TKey> : IBaseRepository<TEntity,TKey> where TEntity : IEntity<TKey>
     {
-        private readonly DevDbContext _dbContext;
+        private readonly WxDbContext _dbContext;
 
-        public BaseRepository(DevDbContext devDbContext)
+        public BaseRepository(WxDbContext devDbContext)
         {
             _dbContext = devDbContext;
         }

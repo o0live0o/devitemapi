@@ -27,11 +27,11 @@ namespace devitemapi.Services
 {
     public class RbacService : IRbacService
     {
-        private readonly DevDbContext _dbContext;
+        private readonly WxDbContext _dbContext;
 
         private readonly IMapper _autoMapper;
 
-        public RbacService(DevDbContext dbContext,
+        public RbacService(WxDbContext dbContext,
                            IMapper autoMapper)
         {
             this._dbContext = dbContext ?? throw new System.ArgumentNullException(nameof(dbContext));
@@ -40,9 +40,9 @@ namespace devitemapi.Services
         public bool IsAdministrtor = true;
 
         #region 树型菜单
-        public async Task<TreeDto> GetMenuTreeByUserAsync(Guid userId)
+        public async Task<TreeDto> GetMenuTreeByUserAsync(int userId)
         {
-            var user = await _dbContext.DevUsers.FirstOrDefaultAsync();
+            var user = await _dbContext.WxUsers.FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -51,9 +51,9 @@ namespace devitemapi.Services
             List<RoleMenuDto> permissionCollection;
             if (IsAdministrtor)
             {
-                permissionCollection = await (from super_menuAction in _dbContext.DevMenuActions
-                                              from super_menus in _dbContext.DevMenus.Where(m => m.Id == super_menuAction.MenuId)
-                                              from super_action in _dbContext.DevActions.Where(a => a.Id == super_menuAction.ActionId)
+                permissionCollection = await (from super_menuAction in _dbContext.WxMenuActions
+                                              from super_menus in _dbContext.WxMenus.Where(m => m.Id == super_menuAction.MenuId)
+                                              from super_action in _dbContext.WxActions.Where(a => a.Id == super_menuAction.ActionId)
                                               select new RoleMenuDto
                                               {
                                                   RoleName = "超级管理员",
@@ -71,12 +71,12 @@ namespace devitemapi.Services
             }
             else
             {
-                permissionCollection = await (from userRole in _dbContext.DevUserRoles
-                                              from roles in _dbContext.DevRoles.Where(r => r.Id == userRole.RoleId).DefaultIfEmpty()
-                                              from permissons in _dbContext.DevPermissions.Where(r => r.RoleId == userRole.RoleId).DefaultIfEmpty()
-                                              from menus in _dbContext.DevMenus.Where(m => m.Id == permissons.MenuId).DefaultIfEmpty()
-                                              from actions in _dbContext.DevActions.Where(a => a.Id == permissons.ActionId).DefaultIfEmpty()
-                                              where userRole.UseId == userId
+                permissionCollection = await (from userRole in _dbContext.WxUserRoles
+                                              from roles in _dbContext.WxRoles.Where(r => r.Id == userRole.RoleId).DefaultIfEmpty()
+                                              from permissons in _dbContext.WxPermissions.Where(r => r.RoleId == userRole.RoleId).DefaultIfEmpty()
+                                              from menus in _dbContext.WxMenus.Where(m => m.Id == permissons.MenuId).DefaultIfEmpty()
+                                              from actions in _dbContext.WxActions.Where(a => a.Id == permissons.ActionId).DefaultIfEmpty()
+                                              where userRole.UserId == userId
                                               select new RoleMenuDto
                                               {
                                                   RoleName = roles.RoleName,
@@ -93,11 +93,11 @@ namespace devitemapi.Services
             }
 
             TreeDto trees = new TreeDto();
-            trees.Roles = await (from roles_userRole in _dbContext.DevUserRoles
-                                 from roles_role in _dbContext.DevRoles.Where(r => r.Id == roles_userRole.RoleId)
-                                 where roles_userRole.UseId == userId
+            trees.Roles = await (from roles_userRole in _dbContext.WxUserRoles
+                                 from roles_role in _dbContext.WxRoles.Where(r => r.Id == roles_userRole.RoleId)
+                                 where roles_userRole.UserId == userId
                                  select roles_role.RoleCode).ToListAsync();
-            CreateTree(permissionCollection, trees.Trees, Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}"));
+            CreateTree(permissionCollection, trees.Trees, 0);
             return trees;
         }
 
@@ -108,7 +108,7 @@ namespace devitemapi.Services
         /// <param name="list"></param>
         /// <param name="treeMenus"></param>
         /// <param name="parentId"></param>
-        private void CreateTree(List<RoleMenuDto> list, List<TreeMenuDto> treeMenus, Guid parentId)
+        private void CreateTree(List<RoleMenuDto> list, List<TreeMenuDto> treeMenus, int parentId)
         {
             if (list == null || treeMenus == null)
             {
@@ -146,28 +146,28 @@ namespace devitemapi.Services
 
         #region 权限管理
 
-        public async Task<IEnumerable<DevPermission>> GetPermissionByRoleId(Guid roleId)
+        public async Task<IEnumerable<WxPermission>> GetPermissionByRoleId(int roleId)
         {
-            return await _dbContext.Set<DevPermission>().Where(p => p.RoleId == roleId).ToListAsync();
+            return await _dbContext.Set<WxPermission>().Where(p => p.RoleId == roleId).ToListAsync();
         }
 
         #region Menu
-        public async Task CreateActionsForMenuAsync(Guid menuId, IEnumerable<ActionDto> actions)
+        public async Task CreateActionsForMenuAsync(int menuId, IEnumerable<ActionDto> actions)
         {
-            var menu = await _dbContext.DevMenus.Where(p => p.Id == menuId).FirstOrDefaultAsync();
+            var menu = await _dbContext.WxMenus.Where(p => p.Id == menuId).FirstOrDefaultAsync();
 
             if (menu == null)
             {
                 throw new ItemException(TipsTxt.MENU_NOT_EXISTS);
             }
 
-            var menuActions = _dbContext.DevMenuActions.Where(p => p.MenuId == menuId);
+            var menuActions = _dbContext.WxMenuActions.Where(p => p.MenuId == menuId);
 
             _dbContext.RemoveRange(menuActions);
 
             foreach (var item in actions)
             {
-                menu.DevMenuActions.Add(new DevMenuAction()
+                menu.DevMenuActions.Add(new WxMenuAction()
                 {
                     ActionId = item.ActionId
                 });
@@ -176,17 +176,17 @@ namespace devitemapi.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ActionDto>> GetActionsByMenuAsync(Guid menuId)
+        public async Task<IEnumerable<ActionDto>> GetActionsByMenuAsync(int menuId)
         {
-            var menu = await _dbContext.DevMenus.Where(p => p.Id == menuId).FirstOrDefaultAsync();
+            var menu = await _dbContext.WxMenus.Where(p => p.Id == menuId).FirstOrDefaultAsync();
 
             if (menu == null)
             {
                 throw new ItemException(TipsTxt.MENU_NOT_EXISTS);
             }
 
-            var actionDtos = (from menuActions in _dbContext.DevMenuActions
-                              from @action in _dbContext.DevActions
+            var actionDtos = (from menuActions in _dbContext.WxMenuActions
+                              from @action in _dbContext.WxActions
                               where @action.Id == menuActions.ActionId
                               where menuActions.MenuId == menuId
                               select new ActionDto
@@ -200,10 +200,10 @@ namespace devitemapi.Services
 
         public async Task<IEnumerable<MenuActionsDto>> GetMenuActionsAsync()
         {
-            var menus = await _dbContext.DevMenus.ToListAsync();
+            var menus = await _dbContext.WxMenus.ToListAsync();
 
-            var menuActions = from menuAction in _dbContext.DevMenuActions
-                              from @actions in _dbContext.DevActions
+            var menuActions = from menuAction in _dbContext.WxMenuActions
+                              from @actions in _dbContext.WxActions
                               where @actions.Id == menuAction.ActionId
                               select new
                               {
@@ -238,9 +238,9 @@ namespace devitemapi.Services
 
         }
 
-        public async Task CreatePermissionForRoleAsync(Guid roleId, IEnumerable<PermissionAddDto> permissions)
+        public async Task CreatePermissionForRoleAsync(int roleId, IEnumerable<PermissionAddDto> permissions)
         {
-            var role = await _dbContext.DevRoles.Where(p => p.Id == roleId).FirstOrDefaultAsync();
+            var role = await _dbContext.WxRoles.Where(p => p.Id == roleId).FirstOrDefaultAsync();
 
             if(role == null)
             {
@@ -249,9 +249,9 @@ namespace devitemapi.Services
 
         }
 
-        public async Task<IEnumerable<MenuActionsDto>> GetPermissionByRoleAsync(Guid roleId)
+        public async Task<IEnumerable<MenuActionsDto>> GetPermissionByRoleAsync(int roleId)
         {
-            var role = await _dbContext.DevRoles.Where(p => p.Id == roleId).FirstOrDefaultAsync();
+            var role = await _dbContext.WxRoles.Where(p => p.Id == roleId).FirstOrDefaultAsync();
 
             if (role == null)
             {
@@ -262,10 +262,10 @@ namespace devitemapi.Services
             
         }
 
-        private IEnumerable<MenuActionsDto> GetMenuActionByRoleId(Guid roleId)
+        private IEnumerable<MenuActionsDto> GetMenuActionByRoleId(int roleId)
         {
-            var menuActions = (from menuAction in _dbContext.DevPermissions
-                              from action in _dbContext.DevActions where action.Id == menuAction.ActionId
+            var menuActions = (from menuAction in _dbContext.WxPermissions
+                              from action in _dbContext.WxActions where action.Id == menuAction.ActionId
                               where menuAction.RoleId == roleId
                               select new {
                                   MenuId = menuAction.MenuId,
@@ -273,8 +273,8 @@ namespace devitemapi.Services
                                   ActionName = action.ActionName,
                                   ActionCode = action.ActionCode
                               }).ToList();
-            var menus = (from menuAction in _dbContext.DevPermissions
-                        from menu in _dbContext.DevMenus
+            var menus = (from menuAction in _dbContext.WxPermissions
+                        from menu in _dbContext.WxMenus
                         where menu.Id == menuAction.MenuId
                         where menuAction.RoleId == roleId
                         select new MenuDto
@@ -306,37 +306,37 @@ namespace devitemapi.Services
             }
         }
 
-        public async Task<IEnumerable<RoleDto>> GetUserRoleByUserAsync(Guid userId)
+        public async Task<IEnumerable<RoleDto>> GetUserRoleByUserAsync(int userId)
         {
-            var user = await _dbContext.DevUsers.Where(p => p.Id == userId).FirstOrDefaultAsync();
+            var user = await _dbContext.WxUsers.Where(p => p.Id == userId).FirstOrDefaultAsync();
             if(user == null)
             {
                 throw new ItemException(TipsTxt.USER_NOT_EXISTS);
             }
 
-            var roles = (from userRole in _dbContext.DevUserRoles
-                        from role in _dbContext.DevRoles
+            var roles = (from userRole in _dbContext.WxUserRoles
+                        from role in _dbContext.WxRoles
                         where role.Id == userRole.RoleId
-                        where userRole.UseId == userId
+                        where userRole.UserId == user.Id
                         select role).AsEnumerable();
             var roleDtos = _autoMapper.Map<IEnumerable<RoleDto>>(roles);
             return roleDtos;
         }
 
-        public async Task CreateUserRoleForUser(Guid userId, IEnumerable<RoleDto> roles)
+        public async Task CreateUserRoleForUser(int userId, IEnumerable<RoleDto> roles)
         {
-            var user = await _dbContext.DevUsers.Where(p => p.Id == userId).FirstOrDefaultAsync();
+            var user = await _dbContext.WxUsers.Where(p => p.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
                 throw new ItemException(TipsTxt.USER_NOT_EXISTS);
             }
-            var userRole = await _dbContext.DevUserRoles.Where(p => p.UseId == userId).ToListAsync();
+            var userRole = await _dbContext.WxUserRoles.Where(p => p.UserId == userId).ToListAsync();
 
-            _dbContext.DevUserRoles.RemoveRange(userRole);
+            _dbContext.WxUserRoles.RemoveRange(userRole);
 
             foreach(var item in roles)
             {
-                user.DevUserRoles.Add(new DevUserRole(){
+                user.DevUserRoles.Add(new WxUserRole(){
                     RoleId = item.RoleId
                 });
             }
@@ -349,9 +349,9 @@ namespace devitemapi.Services
           
             List<RoleMenuDto> permissionCollection;
 
-                permissionCollection = await(from super_menuAction in _dbContext.DevMenuActions
-                                             from super_menus in _dbContext.DevMenus.Where(m => m.Id == super_menuAction.MenuId)
-                                             from super_action in _dbContext.DevActions.Where(a => a.Id == super_menuAction.ActionId)
+                permissionCollection = await(from super_menuAction in _dbContext.WxMenuActions
+                                             from super_menus in _dbContext.WxMenus.Where(m => m.Id == super_menuAction.MenuId)
+                                             from super_action in _dbContext.WxActions.Where(a => a.Id == super_menuAction.ActionId)
                                              select new RoleMenuDto
                                              {
                                                  RoleName = "超级管理员",
@@ -369,11 +369,11 @@ namespace devitemapi.Services
             
            
             TreeDto trees = new TreeDto();
-            trees.Roles = await(from roles_userRole in _dbContext.DevUserRoles
-                                from roles_role in _dbContext.DevRoles.Where(r => r.Id == roles_userRole.RoleId)
-                                where roles_userRole.UseId == Guid.Parse("bc9e5615-17d5-4ca2-adf9-200f903e0a7d")
+            trees.Roles = await(from roles_userRole in _dbContext.WxUserRoles
+                                from roles_role in _dbContext.WxRoles.Where(r => r.Id == roles_userRole.RoleId)
+                                where roles_userRole.UserId == 0
                                 select roles_role.RoleCode).ToListAsync();
-            CreateTree(permissionCollection, trees.Trees, Guid.Parse("{EDC8F6C4-D734-49CF-9250-759D966E8641}"));
+            CreateTree(permissionCollection, trees.Trees,0);
             return trees;
         }
         #endregion

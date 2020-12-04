@@ -26,7 +26,7 @@ namespace devitemapi.Controllers.Rbac
     /// </summary>
     //[Route("[controller]/[action]")]
     //[ApiController]
-    [Route("users")]
+    [Route("user")]
     public class UserController : BaseController
     {
         private readonly IMapper _mapper;
@@ -44,10 +44,10 @@ namespace devitemapi.Controllers.Rbac
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpGet("{userId:Guid}", Name = nameof(GetUserAsync))]
+        [HttpGet("{userId}", Name = nameof(GetUserAsync))]
         [ProducesResponseType(typeof(UserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        public async Task<ActionResult<UserDto>> GetUserAsync(Guid userId)
+        public async Task<ActionResult<UserDto>> GetUserAsync(int userId)
         {
             var user = await _userService.QueryByIdAsync(userId);
             if (user == null)
@@ -88,8 +88,6 @@ namespace devitemapi.Controllers.Rbac
 
             var userDto = await _userService.CreateUser(user);
 
-            await _userService.SaveChangeAsync();
-
             return CreatedAtRoute(nameof(GetUserAsync), new { userId = userDto.UserId }, null);
         }
 
@@ -102,9 +100,9 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<ActionResult> DeleteUser(Guid userId)
+        public async Task<ActionResult> DeleteUser(int userId)
         {
-            if (userId == null || userId == Guid.Empty)
+            if ( userId < 1)
             {
                 return BadRequest();
             }
@@ -142,10 +140,10 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateUserAsync([FromRoute] Guid userId, [FromBody] UserAddOrUpdateDto user)
+        public async Task<ActionResult> UpdateUserAsync([FromRoute] int userId, [FromBody] UserAddOrUpdateDto user)
         {
 
-            if (userId == null || userId == Guid.Empty || user is null)
+            if (userId < 1 || user is null)
             {
                 return BadRequest();
             }

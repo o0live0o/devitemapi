@@ -8,7 +8,7 @@ namespace devitemapi.Infrastructure.Profiles
     {
         public MenuProfile()
         {
-            CreateMap<DevMenu,MenuDto>().ForMember(dest => dest.MenuId,opt => opt.MapFrom(src => src.Id));
+            CreateMap<WxMenu,MenuDto>().ForMember(dest => dest.MenuId,opt => opt.MapFrom(src => src.Id));
         }
     }
 }

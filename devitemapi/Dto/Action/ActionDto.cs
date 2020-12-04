@@ -12,7 +12,7 @@ namespace devitemapi.Dto.Action
     
     public class ActionDto : BaseDto
     {
-        public Guid ActionId { get; set; }
+        public int ActionId { get; set; }
         
         public string ActionName { get; set; }
 

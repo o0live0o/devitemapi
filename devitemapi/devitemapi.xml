@@ -14,7 +14,7 @@
             菜单功能
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetActionById(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.GetActionById(System.Int32)">
             <summary>
             Get action
             </summary>
@@ -27,7 +27,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.ActionController.DeleteAction(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.ActionController.DeleteAction(System.Int32)">
             <summary>
             Delete Action
             </summary>
@@ -44,7 +44,7 @@
             登录授权
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.RbacController.CreateActionForMenuAsync(System.Guid,System.Collections.Generic.IEnumerable{devitemapi.Dto.Action.ActionDto})">
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.CreateActionForMenuAsync(System.Int32,System.Collections.Generic.IEnumerable{devitemapi.Dto.Action.ActionDto})">
             <summary>
             添加菜单操作
             </summary>
@@ -52,7 +52,7 @@
             <param name="actions"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetActionsByMenuAsync(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetActionsByMenuAsync(System.Int32)">
             <summary>
             获取菜单对应的操作
             </summary>
@@ -65,7 +65,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetMenusByUserId(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.RbacController.GetMenusByUserId(System.Int32)">
             <summary>
             获取用户拥有的操作权限的菜单树
             </summary>
@@ -88,7 +88,7 @@
             用户管理
             </summary>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUserAsync(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.GetUserAsync(System.Int32)">
             <summary>
             获取指定Id的用户信息
             </summary>
@@ -108,14 +108,14 @@
              <param name="user"></param>
              <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.DeleteUser(System.Guid)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.DeleteUser(System.Int32)">
             <summary>
             删除指定用户信息
             </summary>
             <param name="userId">用户GUID</param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUserAsync(System.Guid,devitemapi.Dto.User.UserAddOrUpdateDto)">
+        <member name="M:devitemapi.Controllers.Rbac.UserController.UpdateUserAsync(System.Int32,devitemapi.Dto.User.UserAddOrUpdateDto)">
             <summary>
             修改用户
             </summary>
@@ -381,253 +381,253 @@
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.SerialNo">
+        <member name="P:devitemapi.Entity.WxStock.SerialNo">
             <summary>
             流水号
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.StoreHouseCode">
+        <member name="P:devitemapi.Entity.WxStock.StoreHouseCode">
             <summary>
             仓库代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.GoodsCode">
+        <member name="P:devitemapi.Entity.WxStock.GoodsCode">
             <summary>
             商品代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.Batch">
+        <member name="P:devitemapi.Entity.WxStock.Batch">
             <summary>
             商品批次
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.Price">
+        <member name="P:devitemapi.Entity.WxStock.Price">
             <summary>
             商品价格
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.Amount">
+        <member name="P:devitemapi.Entity.WxStock.Amount">
             <summary>
             商品数量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.Weight">
+        <member name="P:devitemapi.Entity.WxStock.Weight">
             <summary>
             商品重量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.Unit">
+        <member name="P:devitemapi.Entity.WxStock.Unit">
             <summary>
             单位
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.UnitWeight">
+        <member name="P:devitemapi.Entity.WxStock.UnitWeight">
             <summary>
             每单位重量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.State">
+        <member name="P:devitemapi.Entity.WxStock.State">
             <summary>
             库存状态
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.Stock.StorageDate">
+        <member name="P:devitemapi.Entity.WxStock.StorageDate">
             <summary>
             入库日期
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.SerialNo">
+        <member name="P:devitemapi.Entity.WxStockHistory.SerialNo">
             <summary>
             流水号
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.StoreHouseCode">
+        <member name="P:devitemapi.Entity.WxStockHistory.StoreHouseCode">
             <summary>
             仓库代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.GoodsCode">
+        <member name="P:devitemapi.Entity.WxStockHistory.GoodsCode">
             <summary>
             商品代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.Batch">
+        <member name="P:devitemapi.Entity.WxStockHistory.Batch">
             <summary>
             商品批次
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.Price">
+        <member name="P:devitemapi.Entity.WxStockHistory.Price">
             <summary>
             商品价格
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.Amount">
+        <member name="P:devitemapi.Entity.WxStockHistory.Amount">
             <summary>
             商品数量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.Weight">
+        <member name="P:devitemapi.Entity.WxStockHistory.Weight">
             <summary>
             商品重量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.Unit">
+        <member name="P:devitemapi.Entity.WxStockHistory.Unit">
             <summary>
             单位
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.UnitWeight">
+        <member name="P:devitemapi.Entity.WxStockHistory.UnitWeight">
             <summary>
             每单位重量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.State">
+        <member name="P:devitemapi.Entity.WxStockHistory.State">
             <summary>
             库存状态
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StockHistory.StorageDate">
+        <member name="P:devitemapi.Entity.WxStockHistory.StorageDate">
             <summary>
             入库日期
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.OrderNo">
+        <member name="P:devitemapi.Entity.WxStorageIn.OrderNo">
             <summary>
             入库单订单号
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.State">
+        <member name="P:devitemapi.Entity.WxStorageIn.State">
             <summary>
             入库单状态
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.StorageInType">
+        <member name="P:devitemapi.Entity.WxStorageIn.StorageInType">
             <summary>
             入库类型
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.StoreHouseCode">
+        <member name="P:devitemapi.Entity.WxStorageIn.StoreHouseCode">
             <summary>
             仓库代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.GoodsCode">
+        <member name="P:devitemapi.Entity.WxStorageIn.GoodsCode">
             <summary>
             商品代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.Amount">
+        <member name="P:devitemapi.Entity.WxStorageIn.Amount">
             <summary>
             商品入库数量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.Unit">
+        <member name="P:devitemapi.Entity.WxStorageIn.Unit">
             <summary>
             单位
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.Weight">
+        <member name="P:devitemapi.Entity.WxStorageIn.Weight">
             <summary>
             数量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.UnitWeight">
+        <member name="P:devitemapi.Entity.WxStorageIn.UnitWeight">
             <summary>
             每单位重量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageIn.Batch">
+        <member name="P:devitemapi.Entity.WxStorageIn.Batch">
             <summary>
             批次
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.OrderNo">
+        <member name="P:devitemapi.Entity.WxStorageOut.OrderNo">
             <summary>
             出库单订单号
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.State">
+        <member name="P:devitemapi.Entity.WxStorageOut.State">
             <summary>
             入库单状态
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.StorageOutype">
+        <member name="P:devitemapi.Entity.WxStorageOut.StorageOutype">
             <summary>
             出库类型
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.StoreHouseCode">
+        <member name="P:devitemapi.Entity.WxStorageOut.StoreHouseCode">
             <summary>
             仓库代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.GoodsCode">
+        <member name="P:devitemapi.Entity.WxStorageOut.GoodsCode">
             <summary>
             商品代码
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.Amount">
+        <member name="P:devitemapi.Entity.WxStorageOut.Amount">
             <summary>
             商品入库数量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.Unit">
+        <member name="P:devitemapi.Entity.WxStorageOut.Unit">
             <summary>
             单位
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.Weight">
+        <member name="P:devitemapi.Entity.WxStorageOut.Weight">
             <summary>
             数量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.UnitWeight">
+        <member name="P:devitemapi.Entity.WxStorageOut.UnitWeight">
             <summary>
             每单位重量
             </summary>
             <value></value>
         </member>
-        <member name="P:devitemapi.Entity.StorageOut.Batch">
+        <member name="P:devitemapi.Entity.WxStorageOut.Batch">
             <summary>
             批次
             </summary>
@@ -638,14 +638,14 @@
             菜单
             </summary>
         </member>
-        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuTreeByUserAsync(System.Guid)">
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetMenuTreeByUserAsync(System.Int32)">
             <summary>
             跟用用户Id获取菜单和权限
             </summary>
             <param name="userId"></param>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Services.Interface.IRbacService.GetActionsByMenuAsync(System.Guid)">
+        <member name="M:devitemapi.Services.Interface.IRbacService.GetActionsByMenuAsync(System.Int32)">
             <summary>
             根据菜单Id获取菜单的操作方法
             </summary>
@@ -658,7 +658,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:devitemapi.Services.RbacService.CreateTree(System.Collections.Generic.List{devitemapi.Dto.Rbac.RoleMenuDto},System.Collections.Generic.List{devitemapi.Dto.Rbac.TreeMenuDto},System.Guid)">
+        <member name="M:devitemapi.Services.RbacService.CreateTree(System.Collections.Generic.List{devitemapi.Dto.Rbac.RoleMenuDto},System.Collections.Generic.List{devitemapi.Dto.Rbac.TreeMenuDto},System.Int32)">
             <summary>
             创建树形结构
             </summary>

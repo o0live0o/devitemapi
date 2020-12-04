@@ -6,7 +6,7 @@
  */
 namespace devitemapi.Entity
 {
-    public class StorageOut:BaseEntity<int>
+    public class WxStorageOut:BaseEntity<int>
     {
         /// <summary>
         /// 出库单订单号

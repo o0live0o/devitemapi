@@ -8,14 +8,14 @@ using devitemapi.Services.Interface;
 
 namespace devitemapi.Services
 {
-    public class PermissionService : BaseService<DevPermission,Guid>, IPermissionService
+    public class PermissionService : BaseService<WxPermission,int>, IPermissionService
     {
 
-        public PermissionService(IBaseRepository<DevPermission,Guid> repository) : base(repository)
+        public PermissionService(IBaseRepository<WxPermission,int> repository) : base(repository)
         {
         }
 
-        public async Task<IEnumerable<DevPermission>> GetPermissionByRoleId(Guid roleId)
+        public async Task<IEnumerable<WxPermission>> GetPermissionByRoleId(int roleId)
         {
              return await QueryAsync(p => p.RoleId == roleId);
         }

@@ -8,17 +8,17 @@ namespace devitemapi.Infrastructure.Profiles
     {
         public UserProfile()
         {
-            CreateMap<DevUser, UserDto>()
+            CreateMap<WxUser, UserDto>()
                 .ForMember(p => p.Name, opt => opt.MapFrom(src => src.UserName))
                 .ForMember(p => p.UserId, opt => opt.MapFrom(src => src.Id));
 
-            CreateMap<UserDto, DevUser>()
+            CreateMap<UserDto, WxUser>()
                 .ForMember(p => p.UserName, opt => opt.MapFrom(src => src.Name));
 
-            CreateMap<UserAddOrUpdateDto, DevUser>()
+            CreateMap<UserAddOrUpdateDto, WxUser>()
                 .ForMember(p => p.UserName, opt => opt.MapFrom(src => src.Name));
 
-            CreateMap<UserAddOrUpdateDto, DevUser>()
+            CreateMap<UserAddOrUpdateDto, WxUser>()
                 .ForMember(p => p.UserName, opt => opt.MapFrom(src => src.Name));
         }
     }

@@ -11,7 +11,7 @@ using devitemapi.Entity;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IStorageInService:IBaseService<StorageIn,int>
+    public interface IStorageInService:IBaseService<WxStorageIn,int>
     {
         Task<IEnumerable<StorageInDto>> GetStorageInsAsync(int pageIndex, int pageSize);
         Task<StorageInDto> GetStorageInByOrderNoAsync(string orderNo);

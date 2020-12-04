@@ -4,8 +4,8 @@ namespace devitemapi.Dto.Permission
 {
     public class PermissionAddDto
     {
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
 
-        public Guid MemuId { get; set; }
+        public int MemuId { get; set; }
     }
 }

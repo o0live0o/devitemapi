@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IUserService : IBaseService<DevUser,Guid>
+    public interface IUserService : IBaseService<WxUser,int>
     {
         Task<UserDto> CreateUser(UserAddOrUpdateDto user);
 
-        Task<DevUser> QueryUserByAccount(string account, string pwd);
-
+        Task<WxUser> QueryUserByAccount(string account, string pwd);
+        Task<WxUser> QueryUserByUserCode(string userCode);
     }
 }

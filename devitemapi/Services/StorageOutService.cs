@@ -14,12 +14,12 @@ using devitemapi.Services.Interface;
 
 namespace devitemapi.Services
 {
-    public class StorageOutService : BaseService<StorageOut, int>, IStorageOutService
+    public class StorageOutService : BaseService<WxStorageOut, int>, IStorageOutService
     {
-        private readonly IBaseRepository<StorageOut, int> _repository;
+        private readonly IBaseRepository<WxStorageOut, int> _repository;
         private readonly IMapper _mapper;
 
-        public StorageOutService(IBaseRepository<StorageOut, int> repository,IMapper mapper) : base(repository)
+        public StorageOutService(IBaseRepository<WxStorageOut, int> repository,IMapper mapper) : base(repository)
         {
             this._repository = repository ?? throw new System.ArgumentNullException(nameof(repository));
             this._mapper = mapper ?? throw new System.ArgumentNullException(nameof(mapper));
@@ -27,7 +27,7 @@ namespace devitemapi.Services
 
         public async Task<StorageOutDto> CreateStorageOutAsync(StorageOutAddDto storage)
         {
-            var storageOut = _mapper.Map<StorageOut>(storage);
+            var storageOut = _mapper.Map<WxStorageOut>(storage);
             storageOut.OrderNo = CommonTools.CreateOrderNo(SerialNoEnum.StorageOut);
             Add(storageOut);
             await SaveChangeAsync();

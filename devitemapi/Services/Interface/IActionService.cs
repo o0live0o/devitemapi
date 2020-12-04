@@ -10,7 +10,7 @@ using devitemapi.Entity;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IActionService : IBaseService<DevAction,Guid>
+    public interface IActionService : IBaseService<WxAction,int>
     {
     }
 }

@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace devitemapi.Services
 {
-    public class MenuService : BaseService<DevMenu,Guid>, IMenuService
+    public class MenuService : BaseService<WxMenu,int>, IMenuService
     {
 
-        public MenuService(IBaseRepository<DevMenu,Guid> repository) : base(repository)
+        public MenuService(IBaseRepository<WxMenu,int> repository) : base(repository)
         {
         }
 
-        public override async void Add(DevMenu menu)
+        public override async void Add(WxMenu menu)
         {
             if (string.IsNullOrEmpty(menu.MenuName))
             {
@@ -27,7 +27,6 @@ namespace devitemapi.Services
             {
                 throw new ItemException(TipsTxt.MENU_ALREADY_EXISTS);
             }
-            menu.Id = Guid.NewGuid();
             base.Add(menu);
         }
     }

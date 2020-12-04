@@ -8,7 +8,7 @@ using System;
 
 namespace devitemapi.Entity
 {
-    public class Stock : IEntity<int>
+    public class WxStock : IEntity<int>
     {
         /// <summary>
         /// 流水号

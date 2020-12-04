@@ -17,12 +17,12 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services
 {
-    public class UserService : BaseService<DevUser,Guid>, IUserService
+    public class UserService : BaseService<WxUser,int>, IUserService
     {
-        private readonly IBaseRepository<DevUser,Guid> _repository;
+        private readonly IBaseRepository<WxUser,int> _repository;
         private readonly IMapper _mapper;
 
-        public UserService(IBaseRepository<DevUser,Guid> repository, IMapper mapper) : base(repository)
+        public UserService(IBaseRepository<WxUser,int> repository, IMapper mapper) : base(repository)
         {
             this._repository = repository;
             this._mapper = mapper;
@@ -45,19 +45,23 @@ namespace devitemapi.Services
                 throw new ItemException(TipsTxt.USER_ALREADY_EXISTS);
             }
 
-            var devUser = _mapper.Map<DevUser>(user);
-            devUser.Id = Guid.NewGuid();
-            devUser.Status = 1;    //默认启用
-            devUser.CreateDate = DateTime.Now;
-            devUser.ModifyDate = DateTime.Now;
+            var wxUser = _mapper.Map<WxUser>(user);
+            wxUser.Status = 1;    //默认启用
+            wxUser.CreateDate = DateTime.Now;
+            wxUser.ModifyDate = DateTime.Now;
+            wxUser.Pwd = "123456";
+            Add(wxUser);
+            await SaveChangeAsync();
+            return _mapper.Map<UserDto>(wxUser);
+        }
 
-            Add(devUser);
-
-            return _mapper.Map<UserDto>(devUser);
+        public async Task<WxUser> QueryUserByUserCode(string userCode)
+        {
+            return await _repository.QueryFirstAsync( u => u.UserCode == userCode);
         }
 
 
-        public async Task<DevUser> QueryUserByAccount(string account, string pwd)
+        public async Task<WxUser> QueryUserByAccount(string account, string pwd)
         {
             return await _repository.QueryFirstAsync(u => u.Account == account && u.Pwd == pwd);
         }

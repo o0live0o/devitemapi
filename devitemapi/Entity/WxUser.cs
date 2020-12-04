@@ -4,8 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace devitemapi.Entity
 {
-    public class DevUser : BaseEntity<Guid>
+    public class WxUser : BaseEntity<int>
     {
+        public string UserCode { get; set; }
         //[RegularExpression(@"^[u4e00-u9fa5]{0,10}|^[A-Z]{1}[a-zA-Z.\s]{0,30}$")]
         [Required]
         public string UserName { get; set; }
@@ -17,15 +18,19 @@ namespace devitemapi.Entity
         [Required]
         public string Pwd { get; set; }
 
-        [RegularExpression(@"^[^\s].*[^\s].*$")]
+        // [RegularExpression(@"^[^\s].*[^\s].*$")]
         public string Address { get; set; }
 
         public string EMail { get; set; }
 
         public string Phone { get; set; }
 
+        public int Sex { get; set; }
+
+        public int Age { get; set; }
+
         public int Status { get; set; }
 
-        public List<DevUserRole> DevUserRoles {get;} = new List<DevUserRole>();
+        public List<WxUserRole> DevUserRoles { get; } = new List<WxUserRole>();
     }
 }

@@ -11,7 +11,7 @@ namespace devitemapi.Dto.User
 {
     public class UserDto : BaseDto
     {
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
 
         public string Account { get; set; }

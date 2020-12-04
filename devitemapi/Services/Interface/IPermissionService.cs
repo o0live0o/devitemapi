@@ -5,8 +5,8 @@ using devitemapi.Entity;
 
 namespace devitemapi.Services.Interface
 {
-    public interface IPermissionService:IBaseService<DevPermission,Guid>
+    public interface IPermissionService:IBaseService<WxPermission,int>
     {
-        Task<IEnumerable<DevPermission>> GetPermissionByRoleId(Guid roleId);
+        Task<IEnumerable<WxPermission>> GetPermissionByRoleId(int roleId);
     }
 }

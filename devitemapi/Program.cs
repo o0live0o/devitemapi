@@ -24,17 +24,19 @@ namespace devitemapi
     {
         public static void Main(string[] args)
         {
-            var host =  CreateHostBuilder(args).Build();
+            var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
                 try
                 {
-                    // var context = scope.ServiceProvider.GetService<DevDbContext>();
+                    // var context = scope.ServiceProvider.GetService<WxDbContext>();
                     // context.Database.EnsureDeleted();
                     // context.Database.Migrate();
-                    
-                    var spider = scope.ServiceProvider.GetService<WblSpider>();
-                    spider.Enqueue();
+                    if (!host.Services.GetService<IWebHostEnvironment>().IsDevelopment())
+                    {
+                        var spider = scope.ServiceProvider.GetService<WblSpider>();
+                        spider.Enqueue();
+                    }
                 }
                 catch (Exception)
                 {

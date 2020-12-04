@@ -8,7 +8,7 @@ using System;
 
 namespace devitemapi.Entity
 {
-    public class GoldDailyPrice :IEntity<int>
+    public class WxGoldDailyPrice :IEntity<int>
     {
         public string ConsignmentId { get; set; }
         public string ZoneId { get; set; }

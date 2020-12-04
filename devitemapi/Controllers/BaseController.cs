@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace devitemapi.Controllers
 {
-    [Authorize]
-    // [AllowAnonymous]
+    // [Authorize]
+    [AllowAnonymous]
     //[Route("api/[controller]/[action]")]
     [Route("api")]
     [ApiController]

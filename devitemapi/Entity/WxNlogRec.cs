@@ -1,6 +1,6 @@
 ﻿namespace devitemapi.Entity
 {
-    public class nlogrec
+    public class WxNlogRec
     {
         public int Id { get; set; }
         public string Application { get; set; }

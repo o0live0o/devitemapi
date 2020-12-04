@@ -11,11 +11,11 @@ namespace devitemapi.Dto.Menu
 {
     public class MenuDto 
     {
-        public Guid MenuId { get; set; }
+        public int MenuId { get; set; }
         
         public string MenuName { get; set; }
 
-        public Guid ParentId { get; set; }
+        public int ParentId { get; set; }
 
         public string Path { get; set; }
 

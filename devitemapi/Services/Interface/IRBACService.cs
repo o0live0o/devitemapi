@@ -39,18 +39,18 @@ namespace devitemapi.Services.Interface
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        Task<TreeDto> GetMenuTreeByUserAsync(Guid userId);
+        Task<TreeDto> GetMenuTreeByUserAsync(int userId);
         #endregion
 
         #region Menu
-        Task CreateActionsForMenuAsync(Guid menuId,IEnumerable<ActionDto> actions);
+        Task CreateActionsForMenuAsync(int menuId,IEnumerable<ActionDto> actions);
 
         /// <summary>
         /// 根据菜单Id获取菜单的操作方法
         /// </summary>
         /// <param name="menuId"></param>
         /// <returns></returns>
-        Task<IEnumerable<ActionDto>> GetActionsByMenuAsync(Guid menuId);
+        Task<IEnumerable<ActionDto>> GetActionsByMenuAsync(int menuId);
 
         /// <summary>
         /// 获取所有菜单和操作方法
@@ -61,14 +61,14 @@ namespace devitemapi.Services.Interface
         #endregion
 
         #region Role
-        Task CreatePermissionForRoleAsync(Guid roleId, IEnumerable<PermissionAddDto> permissions);
+        Task CreatePermissionForRoleAsync(int roleId, IEnumerable<PermissionAddDto> permissions);
         
-        Task<IEnumerable<MenuActionsDto>> GetPermissionByRoleAsync(Guid roleId);
+        Task<IEnumerable<MenuActionsDto>> GetPermissionByRoleAsync(int roleId);
         #endregion
 
         #region User
-        Task<IEnumerable<RoleDto>> GetUserRoleByUserAsync(Guid userId);
-        Task CreateUserRoleForUser(Guid userId, IEnumerable<RoleDto> roles);
+        Task<IEnumerable<RoleDto>> GetUserRoleByUserAsync(int userId);
+        Task CreateUserRoleForUser(int userId, IEnumerable<RoleDto> roles);
         Task<TreeDto> GetMenuTreesAsync();
         #endregion
     }

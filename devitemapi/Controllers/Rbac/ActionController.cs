@@ -31,10 +31,10 @@ namespace devitemapi.Controllers.Rbac
     {
         private readonly IActionService _actionService;
         private readonly IMapper _mapper;
-        private readonly DevDbContext _dbContext;
+        private readonly WxDbContext _dbContext;
         private readonly WblSpider _wblSpider;
 
-        public ActionController(IActionService actionService, IMapper mapper, DevDbContext dbContext,WblSpider wblSpider)
+        public ActionController(IActionService actionService, IMapper mapper, WxDbContext dbContext,WblSpider wblSpider)
         {
             this._dbContext = dbContext;
             this._wblSpider = wblSpider;
@@ -50,7 +50,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpGet("{actionId}", Name = nameof(GetActionById))]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ActionDto), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetActionById([FromRoute] Guid actionId)
+        public async Task<ActionResult> GetActionById([FromRoute] int actionId)
         {
             var @action = await _actionService.QueryByIdAsync(actionId);
             if (@action == null)
@@ -76,7 +76,7 @@ namespace devitemapi.Controllers.Rbac
         [HttpPost]
         public async Task<ActionResult<ActionDto>> AddAction(ActionAddOrUpdateDto action)
         {
-            var actionEntity = _mapper.Map<DevAction>(action);
+            var actionEntity = _mapper.Map<WxAction>(action);
             _actionService.Add(actionEntity);
             await _actionService.SaveChangeAsync();
             return CreatedAtRoute(nameof(GetActionById), new { actionId = actionEntity.Id }, null);
@@ -90,9 +90,9 @@ namespace devitemapi.Controllers.Rbac
         [HttpDelete("{actionId}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
-        public async Task<ActionResult> DeleteAction(Guid actionId)
+        public async Task<ActionResult> DeleteAction(int actionId)
         {
-            if (actionId == Guid.Empty)
+            if (actionId == 0)
             {
                 throw new ItemException(TipsTxt.ACTION_EMPTY_ID);
             }
@@ -117,9 +117,9 @@ namespace devitemapi.Controllers.Rbac
         [HttpPut("{actionId}")]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.Created)]
-        public async Task<ActionResult> UpdateAction(Guid actionId, ActionAddOrUpdateDto action)
+        public async Task<ActionResult> UpdateAction(int actionId, ActionAddOrUpdateDto action)
         {
-            if (actionId == Guid.Empty)
+            if (actionId == 0)
             {
                 throw new ItemException(TipsTxt.ACTION_EMPTY_ID);
             }

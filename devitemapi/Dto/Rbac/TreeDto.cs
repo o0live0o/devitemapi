@@ -42,8 +42,8 @@ namespace devitemapi.Dto.Rbac
         public string Icon { get; set; }
         public string ActionName { get; set; }
         public string ActionCode { get; set; }
-        public Guid MenuParentId { get; set; }
-        public Guid MenuId {get;set;}
+        public int MenuParentId { get; set; }
+        public int MenuId {get;set;}
 
     }
 }

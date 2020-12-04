@@ -9,13 +9,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace devitemapi.Entity
 {
-    public class DevUserRole : BaseEntity<Guid>
+    public class WxUserRole : BaseEntity<int>
     {
-        public Guid UseId { get; set; }
+        public int UserId { get; set; }
 
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
 
         [ForeignKey("UserId")]
-        public DevUser User {get;set;}
+        public WxUser User {get;set;}
     }
 }

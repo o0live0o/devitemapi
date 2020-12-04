@@ -15,12 +15,12 @@ using devitemapi.Services.Interface;
 
 namespace devitemapi.Services
 {
-    public class StorageInService : BaseService<StorageIn, int>, IStorageInService
+    public class StorageInService : BaseService<WxStorageIn, int>, IStorageInService
     {
-        private readonly IBaseRepository<StorageIn, int> _repository;
+        private readonly IBaseRepository<WxStorageIn, int> _repository;
         private readonly IMapper _mapper;
 
-        public StorageInService(IBaseRepository<StorageIn, int> repository,
+        public StorageInService(IBaseRepository<WxStorageIn, int> repository,
                                 IMapper mapper) : base(repository)
         {
             this._repository = repository;
@@ -29,7 +29,7 @@ namespace devitemapi.Services
 
         public async Task<StorageInDto> CreateStorageInAsync(StorageInAddDto storageInAddDto)
         {
-            var storageIn = _mapper.Map<StorageIn>(storageInAddDto);
+            var storageIn = _mapper.Map<WxStorageIn>(storageInAddDto);
             var orderNo = CommonTools.CreateOrderNo(SerialNoEnum.StorageIn);
             storageIn.OrderNo = orderNo;
             _repository.Add(storageIn);

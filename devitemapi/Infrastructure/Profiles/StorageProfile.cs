@@ -8,10 +8,10 @@ namespace devitemapi.Infrastructure.Profiles
     {
         public StorageProfile()
         {
-            CreateMap<StorageIn, StorageInDto>();
-            CreateMap<StorageInAddDto,StorageIn>();
-            CreateMap<StorageOut,StorageOutDto>();
-            CreateMap<StorageOutAddDto,StorageOut>();
+            CreateMap<WxStorageIn, StorageInDto>();
+            CreateMap<StorageInAddDto,WxStorageIn>();
+            CreateMap<WxStorageOut,StorageOutDto>();
+            CreateMap<StorageOutAddDto,WxStorageOut>();
         }
     }
 }

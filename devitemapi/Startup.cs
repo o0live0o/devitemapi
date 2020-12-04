@@ -73,7 +73,7 @@ namespace devitemapi
 
             // Console.WriteLine(Guid.NewGuid().ToString("N"));
 
-            services.AddDbContext<DevDbContext>(options =>
+            services.AddDbContext<WxDbContext>(options =>
                       {
                           options.UseMySql(Configuration.GetConnectionString("MySqlStr"));
                       });

@@ -18,13 +18,13 @@ using System.Threading.Tasks;
 
 namespace devitemapi.Services      
 {
-    public class RoleService : BaseService<DevRole,Guid>, IRoleService
+    public class RoleService : BaseService<WxRole,int>, IRoleService
     {
-        public RoleService(IBaseRepository<DevRole,Guid> repository) : base(repository)
+        public RoleService(IBaseRepository<WxRole,int> repository) : base(repository)
         {
         }
 
-        public override async void Add(DevRole role)
+        public override async void Add(WxRole role)
         {
             if (string.IsNullOrEmpty(role.RoleCode) ||
                 string.IsNullOrEmpty(role.RoleName))
@@ -36,7 +36,6 @@ namespace devitemapi.Services
             {
                 throw new ItemException(TipsTxt.ROLE_ALREADY_EXISTS);
             }
-            role.Id = Guid.NewGuid();
             base.Add(role);
         }
 

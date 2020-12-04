@@ -7,7 +7,7 @@ namespace devitemapi.Services.Interface
     /// <summary>
     /// 菜单
     /// </summary>
-    public interface IMenuService : IBaseService<DevMenu,Guid>
+    public interface IMenuService : IBaseService<WxMenu,int>
     {
     }
 }
