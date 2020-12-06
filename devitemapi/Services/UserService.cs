@@ -34,7 +34,7 @@ namespace devitemapi.Services
             if (user.Account.ToLower().Equals("administrator") ||
                 user.Account.ToLower().Equals("admin"))
             {
-                throw new ItemException(TipsTxt.USER_ILLEGAL_ACCOUNT);
+                throw new WxException(TipsTxt.USER_ILLEGAL_ACCOUNT);
             }
 
             //账号重复判断，不区分大小写
@@ -42,7 +42,7 @@ namespace devitemapi.Services
 
             if (existsUser != null)
             {
-                throw new ItemException(TipsTxt.USER_ALREADY_EXISTS);
+                throw new WxException(TipsTxt.USER_ALREADY_EXISTS);
             }
 
             var wxUser = _mapper.Map<WxUser>(user);

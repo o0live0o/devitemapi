@@ -46,7 +46,7 @@ namespace devitemapi.Services
 
             if (user == null)
             {
-                throw new ItemException(TipsTxt.USER_NOT_EXISTS);
+                throw new WxException(TipsTxt.USER_NOT_EXISTS);
             }
             List<RoleMenuDto> permissionCollection;
             if (IsAdministrtor)
@@ -158,7 +158,7 @@ namespace devitemapi.Services
 
             if (menu == null)
             {
-                throw new ItemException(TipsTxt.MENU_NOT_EXISTS);
+                throw new WxException(TipsTxt.MENU_NOT_EXISTS);
             }
 
             var menuActions = _dbContext.WxMenuActions.Where(p => p.MenuId == menuId);
@@ -182,7 +182,7 @@ namespace devitemapi.Services
 
             if (menu == null)
             {
-                throw new ItemException(TipsTxt.MENU_NOT_EXISTS);
+                throw new WxException(TipsTxt.MENU_NOT_EXISTS);
             }
 
             var actionDtos = (from menuActions in _dbContext.WxMenuActions
@@ -244,7 +244,7 @@ namespace devitemapi.Services
 
             if(role == null)
             {
-                throw new ItemException(TipsTxt.ROLE_NOT_EXISTS);
+                throw new WxException(TipsTxt.ROLE_NOT_EXISTS);
             }
 
         }
@@ -255,7 +255,7 @@ namespace devitemapi.Services
 
             if (role == null)
             {
-                throw new ItemException(TipsTxt.ROLE_NOT_EXISTS);
+                throw new WxException(TipsTxt.ROLE_NOT_EXISTS);
             }
 
             return  GetMenuActionByRoleId(roleId);
@@ -311,7 +311,7 @@ namespace devitemapi.Services
             var user = await _dbContext.WxUsers.Where(p => p.Id == userId).FirstOrDefaultAsync();
             if(user == null)
             {
-                throw new ItemException(TipsTxt.USER_NOT_EXISTS);
+                throw new WxException(TipsTxt.USER_NOT_EXISTS);
             }
 
             var roles = (from userRole in _dbContext.WxUserRoles
@@ -328,7 +328,7 @@ namespace devitemapi.Services
             var user = await _dbContext.WxUsers.Where(p => p.Id == userId).FirstOrDefaultAsync();
             if (user == null)
             {
-                throw new ItemException(TipsTxt.USER_NOT_EXISTS);
+                throw new WxException(TipsTxt.USER_NOT_EXISTS);
             }
             var userRole = await _dbContext.WxUserRoles.Where(p => p.UserId == userId).ToListAsync();
 
@@ -348,30 +348,47 @@ namespace devitemapi.Services
         {
           
             List<RoleMenuDto> permissionCollection;
-
-                permissionCollection = await(from super_menuAction in _dbContext.WxMenuActions
-                                             from super_menus in _dbContext.WxMenus.Where(m => m.Id == super_menuAction.MenuId)
-                                             from super_action in _dbContext.WxActions.Where(a => a.Id == super_menuAction.ActionId)
-                                             select new RoleMenuDto
-                                             {
+                permissionCollection = await(from superRoleMenu in _dbContext.WxPermissions.Where(p => p.RoleId == 1)
+                                               from  superMenus in _dbContext.WxMenus.Where(m => m.Id == superRoleMenu.MenuId)
+                                              // from superMenuAction in _dbContext.WxMenuActions.Where(ma => ma.MenuId == superRoleMenu.MenuId)
+                                             //from superAction in _dbContext.WxActions.Where(a => a.Id == superMenuAction.ActionId) 
+                                             select new  RoleMenuDto  {
                                                  RoleName = "超级管理员",
                                                  RoleCode = "SuperAdmin",
-                                                 MenuName = super_menus.MenuName,
-                                                 MenuCode = super_menus.MenuCode,
-                                                 Path = super_menus.Path,
-                                                 Icon = super_menus.Icon,
-                                                 MenuParentId = super_menus.ParentId,
-                                                 ActionName = super_action.ActionName,
-                                                 ActionCode = super_action.ActionCode,
-                                                 MenuId = super_menus.Id
+                                                 MenuName = superMenus.MenuName,
+                                                 MenuCode = superMenus.MenuCode,
+                                                 Path = superMenus.Path,
+                                                 Icon = superMenus.Icon,
+                                                 MenuParentId = superMenus.ParentId,
+                                                 ActionName ="",
+                                                 ActionCode = "",
+                                                 MenuId = superMenus.Id
                                              }
-                 ).ToListAsync();
+                                                ).ToListAsync();
+
+                // permissionCollection = await(from super_menuAction in _dbContext.WxMenuActions
+                //                              from super_menus in _dbContext.WxMenus.Where(m => m.Id == super_menuAction.MenuId)
+                //                              from super_action in _dbContext.WxActions.Where(a => a.Id == super_menuAction.ActionId)
+                //                              select new RoleMenuDto
+                //                              {
+                //                                  RoleName = "超级管理员",
+                //                                  RoleCode = "SuperAdmin",
+                //                                  MenuName = super_menus.MenuName,
+                //                                  MenuCode = super_menus.MenuCode,
+                //                                  Path = super_menus.Path,
+                //                                  Icon = super_menus.Icon,
+                //                                  MenuParentId = super_menus.ParentId,
+                //                                  ActionName = super_action.ActionName,
+                //                                  ActionCode = super_action.ActionCode,
+                //                                  MenuId = super_menus.Id
+                //                              }
+                //  ).ToListAsync();
             
            
             TreeDto trees = new TreeDto();
             trees.Roles = await(from roles_userRole in _dbContext.WxUserRoles
                                 from roles_role in _dbContext.WxRoles.Where(r => r.Id == roles_userRole.RoleId)
-                                where roles_userRole.UserId == 0
+                                where roles_userRole.UserId == 1
                                 select roles_role.RoleCode).ToListAsync();
             CreateTree(permissionCollection, trees.Trees,0);
             return trees;

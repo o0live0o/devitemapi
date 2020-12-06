@@ -25,7 +25,7 @@ namespace devitemapi.Services
             if (string.IsNullOrEmpty(wxAction.ActionName) ||
                     string.IsNullOrEmpty(wxAction.ActionCode))
             {
-                throw new ItemException(TipsTxt.ACTION_CODE_EMPTY);
+                throw new WxException(TipsTxt.ACTION_CODE_EMPTY);
             }
 
             base.Add(wxAction);

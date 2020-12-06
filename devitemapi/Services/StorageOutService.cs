@@ -39,7 +39,7 @@ namespace devitemapi.Services
             var storageOut = await QueryFirstAsync(p => p.OrderNo == orderNo);
             if(storageOut == null)
             {
-                throw new ItemException(TipsTxt.StorageOut_Order_NOT_EXISTS,HttpStatusCode.NotFound);
+                throw new WxException(TipsTxt.StorageOut_Order_NOT_EXISTS,HttpStatusCode.NotFound);
             }
             Remove(storageOut);
             await SaveChangeAsync();
@@ -50,7 +50,7 @@ namespace devitemapi.Services
             var storageOut = await QueryFirstAsync(p => p.OrderNo == orderNo);
             if (storageOut == null)
             {
-                throw new ItemException(TipsTxt.StorageOut_Order_NOT_EXISTS, HttpStatusCode.NotFound);
+                throw new WxException(TipsTxt.StorageOut_Order_NOT_EXISTS, HttpStatusCode.NotFound);
             }
             return _mapper.Map<StorageOutDto>(storageOut);
         }
@@ -66,7 +66,7 @@ namespace devitemapi.Services
             var storageOut = await QueryFirstAsync(p => p.OrderNo == orderNo);
             if (storageOut == null)
             {
-                throw new ItemException(TipsTxt.StorageOut_Order_NOT_EXISTS, HttpStatusCode.NotFound);
+                throw new WxException(TipsTxt.StorageOut_Order_NOT_EXISTS, HttpStatusCode.NotFound);
             }
             _mapper.Map(storage,storageOut);
             await SaveChangeAsync();

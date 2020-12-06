@@ -20,12 +20,12 @@ namespace devitemapi.Services
         {
             if (string.IsNullOrEmpty(menu.MenuName))
             {
-                throw new ItemException(TipsTxt.MENU_MENUNAME_EMPTY);
+                throw new WxException(TipsTxt.MENU_MENUNAME_EMPTY);
             }
             var menus = await QueryAsync(r => r.MenuName == menu.MenuName);
             if (menus != null || menus.Count() > 0)
             {
-                throw new ItemException(TipsTxt.MENU_ALREADY_EXISTS);
+                throw new WxException(TipsTxt.MENU_ALREADY_EXISTS);
             }
             base.Add(menu);
         }

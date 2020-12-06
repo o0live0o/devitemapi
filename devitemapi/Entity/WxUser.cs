@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace devitemapi.Entity
@@ -11,11 +12,11 @@ namespace devitemapi.Entity
         [Required]
         public string UserName { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z]{1}[a-zA-Z0-9]{5,19}$", ErrorMessage = "用户账号长度至少5，最大20")]
+        //[RegularExpression(@"^[a-zA-Z]{1}[a-zA-Z0-9]{5,19}$", ErrorMessage = "用户账号长度至少5，最大20")]
         public string Account { get; set; }
 
         //[RegularExpression(@"^([a-zA-Z0-9]{8,16}|[@_!#]{1})$")]
-        [Required]
+        [DefaultValue("123456")]
         public string Pwd { get; set; }
 
         // [RegularExpression(@"^[^\s].*[^\s].*$")]

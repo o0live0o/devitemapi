@@ -102,7 +102,7 @@ namespace devitemapi.Controllers.Rbac
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         public async Task<ActionResult> DeleteUser(int userId)
         {
-            if ( userId < 1)
+            if (userId < 1)
             {
                 return BadRequest();
             }
@@ -113,7 +113,7 @@ namespace devitemapi.Controllers.Rbac
             {
                 return NotFound();
             }
-
+            CheckOperator(user.Id);
             _userService.Remove(user);
             await _userService.SaveChangeAsync();
             return NoContent();
@@ -153,7 +153,7 @@ namespace devitemapi.Controllers.Rbac
             {
                 return NotFound();
             }
-
+            CheckOperator(userEntity.Id);
             _mapper.Map(user, userEntity);
 
             await _userService.SaveChangeAsync();
@@ -175,17 +175,17 @@ namespace devitemapi.Controllers.Rbac
         {
             if (string.IsNullOrEmpty(userAccount))
             {
-                throw new ItemException(TipsTxt.USER_ACCOUNT_EMPTY);
+                throw new WxException(TipsTxt.USER_ACCOUNT_EMPTY);
             }
             else if (string.IsNullOrEmpty(pwd))
             {
-                throw new ItemException(TipsTxt.USER_PASSWORD_EMPTY);
+                throw new WxException(TipsTxt.USER_PASSWORD_EMPTY);
             }
 
             var user = await _userService.QueryUserByAccount(userAccount, pwd);
             if (user == null)
             {
-                throw new ItemException(TipsTxt.USER_ACCOUNTORPASSWORD_FAIL);
+                throw new WxException(TipsTxt.USER_ACCOUNTORPASSWORD_FAIL);
             }
 
             var token = JWTService.GetJWTToken(userAccount, AppConfig.Config.JwtSecurityKey);
@@ -194,6 +194,12 @@ namespace devitemapi.Controllers.Rbac
                 Token = token
             };
             return Ok(loginDto);
+        }
+
+        private void CheckOperator(int userId)
+        {
+            if (userId == 1)
+                throw new WxException(TipsTxt.NO_POWER);
         }
     }
 }

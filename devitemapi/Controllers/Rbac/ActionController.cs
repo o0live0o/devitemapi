@@ -94,7 +94,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (actionId == 0)
             {
-                throw new ItemException(TipsTxt.ACTION_EMPTY_ID);
+                throw new WxException(TipsTxt.ACTION_EMPTY_ID);
             }
 
             var actionEtity = await _actionService.QueryByIdAsync(actionId);
@@ -121,7 +121,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (actionId == 0)
             {
-                throw new ItemException(TipsTxt.ACTION_EMPTY_ID);
+                throw new WxException(TipsTxt.ACTION_EMPTY_ID);
             }
 
             var actionEntity = await _actionService.QueryByIdAsync(actionId);

@@ -25,12 +25,12 @@ namespace devitemapi.Infrastructure.Filters
             json.Message =  "An error occur. Try it agagin.";
             json.TraceId = context.HttpContext.TraceIdentifier;
 
-            if (context.Exception is ItemException itemException)
+            if (context.Exception is WxException itemException)
             {
                 json.Message = itemException.Message;
-                json.Status = (int)itemException.ItemCode;
-                json.Title = itemException.ItemCode.ToString();
-                context.Result = new ItemObjectResult(json,(int)itemException.ItemCode);
+                json.Status = (int)itemException.WxCode;
+                json.Title = itemException.WxCode.ToString();
+                context.Result = new WxObjectResult(json,(int)itemException.WxCode);
             }
             else //if (_env.IsDevelopment())
             {

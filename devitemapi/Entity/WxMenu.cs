@@ -14,6 +14,8 @@ namespace devitemapi.Entity
 
         public string Icon { get; set; }
 
+        public string OrderNo { get; set; }
+
         public List<WxMenuAction> DevMenuActions { get; } = new List<WxMenuAction>();
     }
 }

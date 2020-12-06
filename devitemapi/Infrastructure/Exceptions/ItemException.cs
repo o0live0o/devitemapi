@@ -3,18 +3,18 @@ using System.Net;
 
 namespace devitemapi.Infrastructure.Exceptions
 {
-    public class ItemException : Exception
+    public class WxException : Exception
     {
-        public HttpStatusCode ItemCode = HttpStatusCode.BadRequest;
+        public HttpStatusCode WxCode = HttpStatusCode.BadRequest;
         
-        public ItemException(string message,HttpStatusCode code = HttpStatusCode.BadRequest) : base(message)
+        public WxException(string message,HttpStatusCode code = HttpStatusCode.BadRequest) : base(message)
         {
-            ItemCode = code;
+            WxCode = code;
         }
 
-        public ItemException(string message, Exception innerException,HttpStatusCode code = HttpStatusCode.BadRequest) : base(message, innerException)
+        public WxException(string message, Exception innerException,HttpStatusCode code = HttpStatusCode.BadRequest) : base(message, innerException)
         {
-            ItemCode = code;
+            WxCode = code;
         }
     }
 }

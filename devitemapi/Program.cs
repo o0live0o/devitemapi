@@ -29,9 +29,9 @@ namespace devitemapi
             {
                 try
                 {
-                    // var context = scope.ServiceProvider.GetService<WxDbContext>();
-                    // context.Database.EnsureDeleted();
-                    // context.Database.Migrate();
+                    var context = scope.ServiceProvider.GetService<WxDbContext>();
+                    context.Database.EnsureDeleted();
+                    context.Database.Migrate();
                     if (!host.Services.GetService<IWebHostEnvironment>().IsDevelopment())
                     {
                         var spider = scope.ServiceProvider.GetService<WblSpider>();

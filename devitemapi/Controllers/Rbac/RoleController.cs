@@ -50,7 +50,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (roleId == 0)
             {
-                throw new ItemException(TipsTxt.ROLE_ID_EMPTY);
+                throw new WxException(TipsTxt.ROLE_ID_EMPTY);
             }
             var role = await _roleService.QueryByIdAsync(roleId);
             if (role == null)
@@ -86,7 +86,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (roleId == 0)
             {
-                throw new ItemException(TipsTxt.ROLE_ID_EMPTY);
+                throw new WxException(TipsTxt.ROLE_ID_EMPTY);
             }
             var role = await _roleService.QueryByIdAsync(roleId);
             if (role == null)
@@ -106,7 +106,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (roleId == 0)
             {
-                throw new ItemException(TipsTxt.ROLE_ID_EMPTY);
+                throw new WxException(TipsTxt.ROLE_ID_EMPTY);
             }
 
             var roleEntity = await _roleService.QueryByIdAsync(roleId);

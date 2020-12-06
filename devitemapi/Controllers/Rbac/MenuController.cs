@@ -41,7 +41,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (menuId == 0)
             {
-                throw new ItemException(TipsTxt.MENU_ID_EMPTY);
+                throw new WxException(TipsTxt.MENU_ID_EMPTY);
             }
             var menu = await _menuService.QueryByIdAsync(menuId);
             if (menu == null)
@@ -77,7 +77,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (menuId == 0)
             {
-                throw new ItemException(TipsTxt.MENU_ID_EMPTY);
+                throw new WxException(TipsTxt.MENU_ID_EMPTY);
             }
             var menu = await _menuService.QueryByIdAsync(menuId);
             if (menu == null)
@@ -97,7 +97,7 @@ namespace devitemapi.Controllers.Rbac
         {
             if (menuId == 0)
             {
-                throw new ItemException(TipsTxt.MENU_ID_EMPTY);
+                throw new WxException(TipsTxt.MENU_ID_EMPTY);
             }
 
             var menuEntity = await _menuService.QueryByIdAsync(menuId);

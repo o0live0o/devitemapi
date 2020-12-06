@@ -29,12 +29,12 @@ namespace devitemapi.Services
             if (string.IsNullOrEmpty(role.RoleCode) ||
                 string.IsNullOrEmpty(role.RoleName))
             {
-                throw new ItemException(TipsTxt.ROLE_NAMEORCODE_EMPTY);
+                throw new WxException(TipsTxt.ROLE_NAMEORCODE_EMPTY);
             }
             var roleEntity = await QueryAsync(r => r.RoleCode == role.RoleCode || r.RoleName == role.RoleName);
             if (roleEntity != null && roleEntity.Count() > 0)
             {
-                throw new ItemException(TipsTxt.ROLE_ALREADY_EXISTS);
+                throw new WxException(TipsTxt.ROLE_ALREADY_EXISTS);
             }
             base.Add(role);
         }

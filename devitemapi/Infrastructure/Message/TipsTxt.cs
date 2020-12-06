@@ -49,6 +49,8 @@ namespace devitemapi.Infrastructure.Message
         public const string StorageIn_Order_NOT_EXISTS = "入库单不存在";
 
         public const string StorageOut_Order_NOT_EXISTS = "出库单不存在";
+
+        public const string NO_POWER = "无权限操作此项!";
         #endregion
     }
 }

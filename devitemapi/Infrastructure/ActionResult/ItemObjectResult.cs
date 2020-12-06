@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace devitemapi.Infrastructure.ActionResult
 {
-    public class ItemObjectResult : ObjectResult
+    public class WxObjectResult : ObjectResult
     {
-        public ItemObjectResult(object value,int statusCode) : base(value)
+        public WxObjectResult(object value,int statusCode) : base(value)
         {
             StatusCode = statusCode;
         }
