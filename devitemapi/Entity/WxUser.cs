@@ -28,9 +28,15 @@ namespace devitemapi.Entity
 
         public int Sex { get; set; }
 
+        public string BirthDate { get; set; }
+
         public int Age { get; set; }
 
         public int Status { get; set; }
+
+        public string Remark { get; set; }
+
+        public string Degree { get; set; }
 
         public List<WxUserRole> DevUserRoles { get; } = new List<WxUserRole>();
     }
